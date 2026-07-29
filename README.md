@@ -53,6 +53,23 @@ Latest release assets:
 
 All releases: [github.com/gabojkz/meme-factory/releases](https://github.com/gabojkz/meme-factory/releases)
 
+### macOS note
+
+The macOS builds are not Apple notarized yet, so Gatekeeper may block the first open.
+
+1. Open the `.dmg` and drag **MemeFactory** to Applications.
+2. If macOS says it can’t be opened:
+   - Right-click the app → **Open** → click **Open** again  
+   - Or go to **System Settings → Privacy & Security** and click **Open Anyway**
+
+Or clear the quarantine flag in Terminal:
+
+```bash
+xattr -cr /Applications/MemeFactory.app
+```
+
+Then open the app again.
+
 ## Develop
 
 ### Prerequisites
