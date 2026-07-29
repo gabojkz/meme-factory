@@ -28,7 +28,37 @@ Import memes, OCR the text, and search instantly — everything stays on your ma
     <img src="https://img.shields.io/github/downloads/gabojkz/meme-factory/latest/total?style=for-the-badge&label=downloads&color=ff3b3b" alt="Latest downloads" />
   </a>
   <img src="https://img.shields.io/badge/license-MIT-yellow.svg?style=for-the-badge" alt="MIT license" />
+  <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-2ec4ff?style=for-the-badge" alt="Windows, macOS, Linux" />
 </p>
+
+## What is this for?
+
+MemeFactory is for people who keep memes on their computer and hate digging through folders to find the right one.
+
+It’s a **desktop app** that turns a local folder into a searchable meme library:
+
+- Import your meme dump (PNG, JPG, GIF, WebP, BMP)
+- OCR reads the text *inside* the images on import
+- Search by that text instantly (no filenames required)
+- Copy a meme to the clipboard when you need it in chat
+- Keep everything **fully local** — no account, no cloud, no tracking
+
+Built for everyday meme use: Discord, Slack, group chats, or just your own chaotic archive.
+
+## Multi-platform
+
+One app, three operating systems — grab the installer for your machine:
+
+| Platform | Who it’s for | Installer |
+| --- | --- | --- |
+| **Windows** | Windows 10/11 (x64) | `.msi` |
+| **macOS Apple Silicon** | M1 / M2 / M3 / M4 Macs | `.dmg` (arm64) |
+| **macOS Intel** | Intel Macs | `.dmg` (x64) |
+| **Linux** | Most x86_64 distros | `.AppImage` or `.deb` |
+
+**macOS tip:** Apple menu → About This Mac — if the chip says Apple M… use **arm64**; if it says Intel, use **x64**.
+
+**macOS requirement:** roughly macOS 10.15+ (Catalina or newer). Older versions like OS X 10.11 are not supported.
 
 ## Features
 
@@ -38,6 +68,7 @@ Import memes, OCR the text, and search instantly — everything stays on your ma
 - Copy meme images to the clipboard
 - Configurable local meme folder
 - Fully local storage (no cloud, no account)
+- Native installers for Windows, macOS, and Linux
 
 ## Download
 
