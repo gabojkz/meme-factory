@@ -265,6 +265,59 @@ body {
   font-size: 2rem;
 }
 
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.download-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  border: var(--line) solid var(--ink);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  padding: 12px 14px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform 80ms ease, box-shadow 80ms ease;
+  text-align: left;
+}
+
+.download-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--ink);
+  background: var(--cyan);
+}
+
+.download-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.download-label {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.download-detail {
+  font-size: 0.85rem;
+  font-weight: 700;
+  opacity: 0.65;
+}
+
+@media (max-width: 520px) {
+  .download-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .oss strong {
   font-family: var(--font-display);
   font-size: 1.25rem;

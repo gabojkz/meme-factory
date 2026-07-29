@@ -6,10 +6,32 @@ import { openUrl } from "@tauri-apps/plugin-opener";
 import Tesseract from "tesseract.js";
 import "./App.css";
 
-const REPO_URL = "https://github.com/tusk/MemeFactory";
-const ISSUES_URL = "https://github.com/gabojkz/meme-factory/issues";
+const REPO_URL = "https://github.com/gabojkz/meme-factory";
+const ISSUES_URL = `${REPO_URL}/issues`;
 const COFFEE_URL = "https://www.buymeacoffee.com/gaboz";
 const SHARE_TEXT = `MemeFactory — free local meme library with OCR search. ${REPO_URL}`;
+const DOWNLOADS = [
+  {
+    label: "macOS",
+    detail: "Apple Silicon",
+    url: `${REPO_URL}/releases/latest/download/MemeFactory-macos-arm64.dmg`,
+  },
+  {
+    label: "macOS",
+    detail: "Intel",
+    url: `${REPO_URL}/releases/latest/download/MemeFactory-macos-x64.dmg`,
+  },
+  {
+    label: "Windows",
+    detail: "x64",
+    url: `${REPO_URL}/releases/latest/download/MemeFactory-windows-x64.msi`,
+  },
+  {
+    label: "Linux",
+    detail: "AppImage",
+    url: `${REPO_URL}/releases/latest/download/MemeFactory-linux-x86_64.AppImage`,
+  },
+] as const;
 
 type Meme = {
   id: string;
@@ -254,6 +276,14 @@ function App() {
     }
   }
 
+  async function onDownload(url: string) {
+    try {
+      await openUrl(url);
+    } catch (e) {
+      setStatus(String(e));
+    }
+  }
+
   if (!ready) return null;
 
   if (!inTauri) {
@@ -399,6 +429,27 @@ function App() {
               search instantly, and keep everything local. Comic vibes, minimal
               UI, no cloud, no tracking, MIT licensed.
             </p>
+          </section>
+
+          <section className="settings-card">
+            <h2>Download</h2>
+            <p className="settings-copy">
+              Grab the latest build for a friend — or reinstall on another
+              machine. Always points at the newest release.
+            </p>
+            <div className="download-grid">
+              {DOWNLOADS.map((item) => (
+                <button
+                  key={item.url}
+                  type="button"
+                  className="download-btn"
+                  onClick={() => onDownload(item.url)}
+                >
+                  <span className="download-label">{item.label}</span>
+                  <span className="download-detail">{item.detail}</span>
+                </button>
+              ))}
+            </div>
           </section>
 
           <section className="settings-card about">

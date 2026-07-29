@@ -5,27 +5,27 @@ Local comic-style meme library for **Windows**, **macOS**, and **Linux**.
 Import memes, OCR the text, and search instantly — everything stays on your machine.
 
 <p align="center">
-  <a href="https://github.com/tusk/MemeFactory/releases/latest/download/MemeFactory-macos-arm64.dmg">
-    <img src="https://img.shields.io/badge/Download-macOS%20(Apple%20Silicon)-000000?style=for-the-badge&logo=apple&logoColor=white" alt="Download macOS Apple Silicon" />
+  <a href="https://github.com/gabojkz/meme-factory/releases/latest/download/MemeFactory-macos-arm64.dmg">
+    <img src="https://img.shields.io/badge/macOS-Apple%20Silicon-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS Apple Silicon" />
   </a>
-  <a href="https://github.com/tusk/MemeFactory/releases/latest/download/MemeFactory-macos-x64.dmg">
-    <img src="https://img.shields.io/badge/Download-macOS%20(Intel)-555555?style=for-the-badge&logo=apple&logoColor=white" alt="Download macOS Intel" />
+  <a href="https://github.com/gabojkz/meme-factory/releases/latest/download/MemeFactory-macos-x64.dmg">
+    <img src="https://img.shields.io/badge/macOS-Intel-555555?style=for-the-badge&logo=apple&logoColor=white" alt="macOS Intel" />
   </a>
   <br />
-  <a href="https://github.com/tusk/MemeFactory/releases/latest/download/MemeFactory-windows-x64.msi">
-    <img src="https://img.shields.io/badge/Download-Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows" />
+  <a href="https://github.com/gabojkz/meme-factory/releases/latest/download/MemeFactory-windows-x64.msi">
+    <img src="https://img.shields.io/badge/Windows-x64-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="Windows" />
   </a>
-  <a href="https://github.com/tusk/MemeFactory/releases/latest/download/MemeFactory-linux-x86_64.AppImage">
-    <img src="https://img.shields.io/badge/Download-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Download Linux" />
+  <a href="https://github.com/gabojkz/meme-factory/releases/latest/download/MemeFactory-linux-x86_64.AppImage">
+    <img src="https://img.shields.io/badge/Linux-AppImage-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/tusk/MemeFactory/releases/latest">
-    <img src="https://img.shields.io/github/v/release/tusk/MemeFactory?style=for-the-badge&label=latest&color=2ec4ff" alt="Latest release" />
+  <a href="https://github.com/gabojkz/meme-factory/releases/latest">
+    <img src="https://img.shields.io/github/v/release/gabojkz/meme-factory?style=for-the-badge&label=latest&color=2ec4ff" alt="Latest release" />
   </a>
-  <a href="https://github.com/tusk/MemeFactory/releases/latest">
-    <img src="https://img.shields.io/github/downloads/tusk/MemeFactory/latest/total?style=for-the-badge&label=downloads&color=ff3b3b" alt="Latest downloads" />
+  <a href="https://github.com/gabojkz/meme-factory/releases/latest">
+    <img src="https://img.shields.io/github/downloads/gabojkz/meme-factory/latest/total?style=for-the-badge&label=downloads&color=ff3b3b" alt="Latest downloads" />
   </a>
   <img src="https://img.shields.io/badge/license-MIT-yellow.svg?style=for-the-badge" alt="MIT license" />
 </p>
@@ -41,17 +41,17 @@ Import memes, OCR the text, and search instantly — everything stays on your ma
 
 ## Download
 
-Badges above always point at the **latest** GitHub release assets:
+Latest release assets:
 
-| Platform | File |
+| Platform | Build |
 | --- | --- |
-| macOS Apple Silicon | [`MemeFactory-macos-arm64.dmg`](https://github.com/tusk/MemeFactory/releases/latest/download/MemeFactory-macos-arm64.dmg) |
-| macOS Intel | [`MemeFactory-macos-x64.dmg`](https://github.com/tusk/MemeFactory/releases/latest/download/MemeFactory-macos-x64.dmg) |
-| Windows | [`MemeFactory-windows-x64.msi`](https://github.com/tusk/MemeFactory/releases/latest/download/MemeFactory-windows-x64.msi) |
-| Linux | [`MemeFactory-linux-x86_64.AppImage`](https://github.com/tusk/MemeFactory/releases/latest/download/MemeFactory-linux-x86_64.AppImage) |
-| Linux (deb) | [`MemeFactory-linux-amd64.deb`](https://github.com/tusk/MemeFactory/releases/latest/download/MemeFactory-linux-amd64.deb) |
+| macOS Apple Silicon | [`.dmg`](https://github.com/gabojkz/meme-factory/releases/latest/download/MemeFactory-macos-arm64.dmg) |
+| macOS Intel | [`.dmg`](https://github.com/gabojkz/meme-factory/releases/latest/download/MemeFactory-macos-x64.dmg) |
+| Windows | [`.msi`](https://github.com/gabojkz/meme-factory/releases/latest/download/MemeFactory-windows-x64.msi) |
+| Linux | [`.AppImage`](https://github.com/gabojkz/meme-factory/releases/latest/download/MemeFactory-linux-x86_64.AppImage) |
+| Linux | [`.deb`](https://github.com/gabojkz/meme-factory/releases/latest/download/MemeFactory-linux-amd64.deb) |
 
-All releases: [github.com/tusk/MemeFactory/releases](https://github.com/tusk/MemeFactory/releases)
+All releases: [github.com/gabojkz/meme-factory/releases](https://github.com/gabojkz/meme-factory/releases)
 
 ## Develop
 
