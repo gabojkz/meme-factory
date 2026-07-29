@@ -17,12 +17,22 @@ jobs:
         include:
           - platform: macos-latest
             args: --target aarch64-apple-darwin
+            alias_glob: "**/*aarch64*.dmg"
+            alias_name: MemeFactory-macos-arm64.dmg
           - platform: macos-latest
             args: --target x86_64-apple-darwin
+            alias_glob: "**/*x64*.dmg"
+            alias_name: MemeFactory-macos-x64.dmg
           - platform: ubuntu-22.04
             args: ""
+            alias_glob: "**/*.AppImage"
+            alias_name: MemeFactory-linux-x86_64.AppImage
+            alias_glob_extra: "**/*.deb"
+            alias_name_extra: MemeFactory-linux-amd64.deb
           - platform: windows-latest
             args: ""
+            alias_glob: "**/*.msi"
+            alias_name: MemeFactory-windows-x64.msi
 
     runs-on: ${{ matrix.platform }}
 
@@ -67,9 +77,45 @@ jobs:
           tagName: ${{ github.ref_name }}
           releaseName: MemeFactory ${{ github.ref_name }}
           releaseBody: |
-            MemeFactory release for Windows, macOS, and Linux.
+            ## Downloads
 
-            Download the installer for your platform below.
+            | Platform | Link |
+            | --- | --- |
+            | macOS Apple Silicon | [MemeFactory-macos-arm64.dmg](https://github.com/${{ github.repository }}/releases/latest/download/MemeFactory-macos-arm64.dmg) |
+            | macOS Intel | [MemeFactory-macos-x64.dmg](https://github.com/${{ github.repository }}/releases/latest/download/MemeFactory-macos-x64.dmg) |
+            | Windows | [MemeFactory-windows-x64.msi](https://github.com/${{ github.repository }}/releases/latest/download/MemeFactory-windows-x64.msi) |
+            | Linux AppImage | [MemeFactory-linux-x86_64.AppImage](https://github.com/${{ github.repository }}/releases/latest/download/MemeFactory-linux-x86_64.AppImage) |
+            | Linux deb | [MemeFactory-linux-amd64.deb](https://github.com/${{ github.repository }}/releases/latest/download/MemeFactory-linux-amd64.deb) |
+
+            Free and open source (MIT).
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
+
+      - name: Upload stable download alias
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ALIAS_GLOB: ${{ matrix.alias_glob }}
+          ALIAS_NAME: ${{ matrix.alias_name }}
+          ALIAS_GLOB_EXTRA: ${{ matrix.alias_glob_extra }}
+          ALIAS_NAME_EXTRA: ${{ matrix.alias_name_extra }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          upload_alias () {
+            local pattern="$1"
+            local name="$2"
+            [[ -z "$pattern" || -z "$name" ]] && return 0
+            local file
+            file="$(find src-tauri/target -type f -path "$pattern" | head -n 1 || true)"
+            if [[ -z "$file" ]]; then
+              echo "No artifact matched $pattern"
+              return 0
+            fi
+            cp "$file" "$name"
+            gh release upload "$TAG" "$name" --clobber
+            echo "Uploaded $name from $file"
+          }
+          upload_alias "$ALIAS_GLOB" "$ALIAS_NAME"
+          upload_alias "${ALIAS_GLOB_EXTRA:-}" "${ALIAS_NAME_EXTRA:-}"

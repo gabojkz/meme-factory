@@ -8,5 +8,9 @@ commands.allow = [
   "delete_meme",
   "update_meme_ocr",
   "meme_count",
-  "copy_meme"
+  "copy_meme",
+  "get_settings",
+  "set_memes_folder",
+  "reset_memes_folder",
+  "sync_library"
 ]
