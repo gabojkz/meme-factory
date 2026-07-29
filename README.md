@@ -70,6 +70,7 @@ xattr -cr /Applications/MemeFactory.app
 
 Then open the app again.
 
+
 ## Develop
 
 ### Prerequisites
