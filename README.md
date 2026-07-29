@@ -96,15 +96,11 @@ Installers land in `src-tauri/target/release/bundle/`.
 
 ### Release
 
-Bump every version file in one go (don’t edit them by hand):
-
 ```bash
-npm run version:set -- 0.3.0
-git add package.json package-lock.json src-tauri/tauri.conf.json src-tauri/Cargo.toml src-tauri/Cargo.lock
-git commit -m "Bump version to 0.3.0"
-git tag v0.3.0
-git push origin main v0.3.0
+./scripts/release.sh 0.3.0
 ```
+
+That bumps every version file, commits, tags `v0.3.0`, and pushes to GitHub so the release workflow can build installers.
 
 The release workflow also syncs the version from the git tag before building, so the published app always matches `vX.Y.Z`.
 
