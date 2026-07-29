@@ -41,15 +41,15 @@ jobs:
 
       - name: Sync app version from tag
         if: startsWith(github.ref, 'refs/tags/v')
-        run: node scripts/version.mjs set "${GITHUB_REF_NAME#v}"
+        run: node scripts/version.mjs set "${{ github.ref_name }}"
 
       - name: Verify version files match
-        run: |
-          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
-            node scripts/version.mjs check "${GITHUB_REF_NAME#v}"
-          else
-            node scripts/version.mjs check
-          fi
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: node scripts/version.mjs check "${{ github.ref_name }}"
+
+      - name: Verify version files match
+        if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
+        run: node scripts/version.mjs check
 
       - name: Install Linux dependencies
         if: matrix.platform == 'ubuntu-22.04'
