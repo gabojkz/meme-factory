@@ -37,7 +37,7 @@ if git ls-remote --tags origin "refs/tags/$TAG" | grep -q "$TAG"; then
 fi
 
 # Allow dirty tree only for the version files we're about to rewrite.
-DIRTY="$(git status --porcelain | grep -vE ' (package\.json|package-lock\.json|src-tauri/tauri\.conf\.json|src-tauri/Cargo\.toml|src-tauri/Cargo\.lock)$' || true)"
+DIRTY="$(git status --porcelain | grep -vE ' (package\.json|package-lock\.json|src-tauri/tauri\.conf\.json|src-tauri/Cargo\.toml|src-tauri/Cargo\.lock|snapcraft\.yaml)$' || true)"
 if [[ -n "$DIRTY" ]]; then
   echo "Working tree has unrelated changes. Commit or stash them first:"
   echo "$DIRTY"
@@ -52,7 +52,8 @@ git add \
   package-lock.json \
   src-tauri/tauri.conf.json \
   src-tauri/Cargo.toml \
-  src-tauri/Cargo.lock
+  src-tauri/Cargo.lock \
+  snapcraft.yaml
 
 if ! git diff --cached --quiet; then
   echo "→ Committing version bump"

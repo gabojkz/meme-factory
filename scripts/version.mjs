@@ -19,6 +19,7 @@ const paths = {
   tauriConf: join(root, "src-tauri", "tauri.conf.json"),
   cargoToml: join(root, "src-tauri", "Cargo.toml"),
   cargoLock: join(root, "src-tauri", "Cargo.lock"),
+  snapcraft: join(root, "snapcraft.yaml"),
 };
 
 function normalize(raw) {
@@ -50,6 +51,8 @@ function readVersions() {
   const cargoLockMatch = cargoLock.match(
     /name\s*=\s*"memefactory"\nversion\s*=\s*"([^"]+)"/,
   );
+  const snapcraft = readFileSync(paths.snapcraft, "utf8");
+  const snapMatch = snapcraft.match(/^version:\s*["']?([^"'\n]+)["']?/m);
 
   return {
     "package.json": packageJson.version,
@@ -58,6 +61,7 @@ function readVersions() {
     "src-tauri/tauri.conf.json": tauriConf.version,
     "src-tauri/Cargo.toml": cargoTomlMatch?.[1] ?? null,
     "src-tauri/Cargo.lock": cargoLockMatch?.[1] ?? null,
+    "snapcraft.yaml": snapMatch?.[1] ?? null,
   };
 }
 
@@ -90,6 +94,13 @@ function setVersion(version) {
     `$1version = "${next}"`,
   );
   writeFileSync(paths.cargoLock, cargoLock);
+
+  let snapcraft = readFileSync(paths.snapcraft, "utf8");
+  snapcraft = snapcraft.replace(
+    /^version:\s*["']?[^"'\n]+["']?/m,
+    `version: "${next}"`,
+  );
+  writeFileSync(paths.snapcraft, snapcraft);
 
   console.log(`Synced app version to ${next}`);
 }

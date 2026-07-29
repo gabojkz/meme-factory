@@ -54,7 +54,7 @@ One app, three operating systems — grab the installer for your machine:
 | **Windows** | Windows 10/11 (x64) | `.msi` |
 | **macOS Apple Silicon** | M1 / M2 / M3 / M4 Macs | `.dmg` (arm64) |
 | **macOS Intel** | Intel Macs | `.dmg` (x64) |
-| **Linux** | Most x86_64 distros | `.AppImage` or `.deb` |
+| **Linux** | Most x86_64 distros | `.AppImage`, `.deb`, or **Snap** |
 
 **macOS tip:** Apple menu → About This Mac — if the chip says Apple M… use **arm64**; if it says Intel, use **x64**.
 
@@ -101,6 +101,56 @@ xattr -cr /Applications/MemeFactory.app
 
 Then open the app again.
 
+### Linux Snap (Ubuntu Store)
+
+MemeFactory ships a `snapcraft.yaml` for the [Snap Store](https://snapcraft.io/).
+
+**You can’t build snaps on macOS** — use GitHub Actions instead.
+
+#### 1. Register the snap name
+1. Create an [Ubuntu One](https://login.ubuntu.com/) account  
+2. Register `meme-factory` at https://snapcraft.io/account/register-snap  
+
+#### 2. Add a GitHub secret (one-time)
+On a Mac, the easiest way to export login credentials is [Multipass](https://multipass.run/):
+
+```bash
+brew install --cask multipass
+multipass launch --name snap-login
+multipass shell snap-login
+```
+
+Inside the VM:
+
+```bash
+sudo snap install snapcraft --classic
+snapcraft export-login \
+  --snaps=meme-factory \
+  --channels=edge,beta,candidate,stable \
+  exported.txt
+cat exported.txt
+```
+
+Copy the full contents of `exported.txt`, then in GitHub:
+
+**Repo → Settings → Secrets and variables → Actions → New repository secret**
+
+- Name: `SNAPCRAFT_STORE_CREDENTIALS`  
+- Value: paste the exported file contents  
+
+You can delete the VM afterward: `multipass delete snap-login && multipass purge`
+
+#### 3. Publish
+- Push a version tag (`./scripts/release.sh 0.5.0`) → Snap workflow builds and publishes to **edge**  
+- Or run **Actions → Snap → Run workflow** and pick a channel (`edge` / `stable`)
+
+After it’s on the store:
+
+```bash
+sudo snap install meme-factory --edge
+# later, when stable:
+sudo snap install meme-factory
+```
 
 ## Develop
 

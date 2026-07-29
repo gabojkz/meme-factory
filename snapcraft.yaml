@@ -1,0 +1,81 @@
+# Snap Store package for MemeFactory (Tauri 2).
+# Register the name first: https://snapcraft.io/account/register-snap
+# Docs: https://v2.tauri.app/distribute/snapcraft/
+name: meme-factory
+base: core22
+version: "0.4.0"
+summary: Local meme library with OCR search — no cloud, no account
+description: |
+  MemeFactory turns a folder of memes into a searchable desktop library.
+
+  Import PNG, JPG, GIF, WebP, or BMP files. On import, OCR reads the text
+  inside each image so you can search for memes by what they say — not by
+  filename. Copy results to the clipboard for Discord, Slack, and chats.
+
+  Everything stays on your machine. Free and open source (MIT).
+
+grade: stable
+confinement: strict
+
+icon: src-tauri/icons/128x128.png
+
+layout:
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.1
+
+apps:
+  meme-factory:
+    command: usr/bin/memefactory
+    desktop: usr/share/applications/memefactory.desktop
+    extensions: [gnome]
+    plugs:
+      - home
+      - removable-media
+      - network
+      - network-bind
+      - desktop
+      - desktop-legacy
+      - wayland
+      - x11
+      - opengl
+
+package-repositories:
+  - type: apt
+    components: [main]
+    suites: [noble]
+    key-id: 78E1918602959B9C59103100F1831DDAFC42E99D
+    url: http://ppa.launchpad.net/snappy-dev/snapcraft-daily/ubuntu
+
+parts:
+  build-app:
+    plugin: dump
+    build-snaps:
+      - node/22/stable
+      - rustup/latest/stable
+    build-packages:
+      - libwebkit2gtk-4.1-dev
+      - build-essential
+      - curl
+      - wget
+      - file
+      - libxdo-dev
+      - libssl-dev
+      - libayatana-appindicator3-dev
+      - librsvg2-dev
+      - dpkg
+      - patchelf
+    stage-packages:
+      - libwebkit2gtk-4.1-0
+      - libayatana-appindicator3-1
+    source: .
+    override-build: |
+      set -eu
+      rustup default stable
+      npm ci
+      npm run tauri build -- --bundles deb
+      dpkg -x src-tauri/target/release/bundle/deb/*.deb "$SNAPCRAFT_PART_INSTALL/"
+      # Prefer absolute icon path inside the snap
+      if [ -f "$SNAPCRAFT_PART_INSTALL/usr/share/applications/memefactory.desktop" ]; then
+        sed -i -e 's|^Icon=.*|Icon=/usr/share/icons/hicolor/128x128/apps/memefactory.png|g' \
+          "$SNAPCRAFT_PART_INSTALL/usr/share/applications/memefactory.desktop"
+      fi
