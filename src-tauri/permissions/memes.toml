@@ -1,0 +1,12 @@
+[[permission]]
+identifier = "allow-meme-ops"
+description = "Allows meme library commands"
+commands.allow = [
+  "list_memes",
+  "search_memes",
+  "import_meme",
+  "delete_meme",
+  "update_meme_ocr",
+  "meme_count",
+  "copy_meme"
+]
