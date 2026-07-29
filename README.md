@@ -94,6 +94,20 @@ npm run tauri build
 
 Installers land in `src-tauri/target/release/bundle/`.
 
+### Release
+
+Bump every version file in one go (don’t edit them by hand):
+
+```bash
+npm run version:set -- 0.3.0
+git add package.json package-lock.json src-tauri/tauri.conf.json src-tauri/Cargo.toml src-tauri/Cargo.lock
+git commit -m "Bump version to 0.3.0"
+git tag v0.3.0
+git push origin main v0.3.0
+```
+
+The release workflow also syncs the version from the git tag before building, so the published app always matches `vX.Y.Z`.
+
 ## Stack
 
 - [Tauri 2](https://tauri.app/) + Rust

@@ -38,5 +38,8 @@ jobs:
           workspaces: src-tauri -> target
 
       - run: npm ci
+      - name: Check version files match
+        if: matrix.platform == 'ubuntu-22.04'
+        run: npm run version:check
       - run: npm run build
       - run: cargo check --manifest-path src-tauri/Cargo.toml
