@@ -236,6 +236,13 @@ That bumps every version file, commits, tags `v0.3.0`, and pushes to GitHub so t
 
 The release workflow also syncs the version from the git tag before building, so the published app always matches `vX.Y.Z`.
 
+Safety checks, so a broken build never reaches users:
+
+1. **Before tagging**, `release.sh` builds the frontend and runs the Rust tests locally, and stops if either fails.
+2. **Before building installers**, the release workflow's `verify` job type-checks, builds and tests on Linux, Windows and macOS. Installers are built only if all three pass.
+3. **After building**, each installer's app is launched for 20 seconds (`scripts/smoke-test.sh`) to catch crashes on startup. The Intel macOS build can't run on the Apple Silicon runner, so it's skipped.
+4. **The release is a draft.** Publish it on the Releases page only when the Release run is fully green; download one installer and open it first.
+
 ## Stack
 
 - [Tauri 2](https://tauri.app/) + Rust

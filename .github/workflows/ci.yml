@@ -24,7 +24,8 @@ jobs:
             libwebkit2gtk-4.1-dev \
             librsvg2-dev \
             patchelf \
-            libayatana-appindicator3-dev
+            libayatana-appindicator3-dev \
+            xvfb
 
       - uses: actions/setup-node@v4
         with:
@@ -42,4 +43,18 @@ jobs:
         if: matrix.platform == 'ubuntu-22.04'
         run: npm run version:check
       - run: npm run build
-      - run: cargo check --manifest-path src-tauri/Cargo.toml
+      - name: Rust tests
+        run: cargo test --manifest-path src-tauri/Cargo.toml
+
+      # Release-mode app (frontend embedded), launched for 20s to catch startup crashes.
+      - name: Build the app (no installers)
+        run: npx tauri build --no-bundle
+
+      - name: Smoke test (launch the built app)
+        shell: bash
+        env:
+          SMOKE_PREFIX: ${{ matrix.platform == 'ubuntu-22.04' && 'xvfb-run -a' || '' }}
+        run: |
+          BIN=src-tauri/target/release/memefactory
+          [[ "$RUNNER_OS" == "Windows" ]] && BIN="$BIN.exe"
+          scripts/smoke-test.sh "$BIN" 20

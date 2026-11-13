@@ -44,6 +44,14 @@ if [[ -n "$DIRTY" ]]; then
   exit 1
 fi
 
+if [[ "${SKIP_CHECKS:-}" != "1" ]]; then
+  echo "→ Checking before release (set SKIP_CHECKS=1 to skip)"
+  npm run --silent build >/dev/null || { echo "✗ Frontend build failed — not releasing."; exit 1; }
+  cargo test --quiet --manifest-path src-tauri/Cargo.toml >/dev/null 2>&1 \
+    || { echo "✗ Rust tests failed — not releasing. Run: cargo test --manifest-path src-tauri/Cargo.toml"; exit 1; }
+  echo "  ✓ Frontend builds and Rust tests pass"
+fi
+
 echo "→ Syncing version files to $VERSION"
 node scripts/version.mjs set "$VERSION"
 

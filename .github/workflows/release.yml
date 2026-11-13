@@ -10,7 +10,55 @@ permissions:
   contents: write
 
 jobs:
+  # Nothing is built or uploaded unless the code passes every check on every OS.
+  verify:
+    strategy:
+      fail-fast: true
+      matrix:
+        platform: [ubuntu-22.04, windows-latest, macos-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync app version from tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: node scripts/version.mjs set "${{ github.ref_name }}"
+
+      - name: Verify version files match
+        run: node scripts/version.mjs check ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '' }}
+
+      - name: Install Linux dependencies
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            librsvg2-dev \
+            patchelf \
+            libayatana-appindicator3-dev
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+
+      - run: npm ci
+
+      - name: Type-check and build the frontend
+        run: npm run build
+
+      - name: Rust tests
+        run: cargo test --manifest-path src-tauri/Cargo.toml
+
   publish:
+    needs: verify
     strategy:
       fail-fast: false
       matrix:
@@ -19,20 +67,26 @@ jobs:
             args: --target aarch64-apple-darwin
             alias_glob: "**/*aarch64*.dmg"
             alias_name: MemeFactory-macos-arm64.dmg
+            smoke_bin: src-tauri/target/aarch64-apple-darwin/release/memefactory
           - platform: macos-latest
             args: --target x86_64-apple-darwin
             alias_glob: "**/*x64*.dmg"
             alias_name: MemeFactory-macos-x64.dmg
+            # Intel build: can't be launched on the Apple Silicon runner, so no smoke test.
+            smoke_bin: ""
           - platform: ubuntu-22.04
             args: ""
             alias_glob: "**/*.AppImage"
             alias_name: MemeFactory-linux-x86_64.AppImage
             alias_glob_extra: "**/*.deb"
             alias_name_extra: MemeFactory-linux-amd64.deb
+            smoke_bin: src-tauri/target/release/memefactory
+            smoke_prefix: xvfb-run -a
           - platform: windows-latest
             args: ""
             alias_glob: "**/*.msi"
             alias_name: MemeFactory-windows-x64.msi
+            smoke_bin: src-tauri/target/release/memefactory.exe
 
     runs-on: ${{ matrix.platform }}
 
@@ -59,7 +113,8 @@ jobs:
             libwebkit2gtk-4.1-dev \
             librsvg2-dev \
             patchelf \
-            libayatana-appindicator3-dev
+            libayatana-appindicator3-dev \
+            xvfb
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -102,6 +157,14 @@ jobs:
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
+
+      # The release stays a draft until you publish it; a red job here means don't.
+      - name: Smoke test (launch the built app)
+        if: matrix.smoke_bin != ''
+        shell: bash
+        env:
+          SMOKE_PREFIX: ${{ matrix.smoke_prefix }}
+        run: scripts/smoke-test.sh "${{ matrix.smoke_bin }}" 20
 
       - name: Upload stable download alias
         shell: bash
