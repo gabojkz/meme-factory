@@ -1,4 +1,5 @@
 mod assets;
+mod erase;
 
 use chrono::Utc;
 use rusqlite::{params, Connection};
@@ -61,9 +62,9 @@ struct ProjectMeta {
     updated_at: String,
 }
 
-struct AppState {
-    db: Mutex<Connection>,
-    memes_dir: Mutex<PathBuf>,
+pub(crate) struct AppState {
+    pub(crate) db: Mutex<Connection>,
+    pub(crate) memes_dir: Mutex<PathBuf>,
 }
 
 fn data_dir(app: &AppHandle) -> Result<PathBuf, String> {
@@ -245,7 +246,7 @@ fn normalize_tags(tags: &[String]) -> Vec<String> {
 }
 
 /// Images and short videos the library can hold.
-fn is_meme_path(path: &Path) -> bool {
+pub(crate) fn is_meme_path(path: &Path) -> bool {
     matches!(
         path.extension()
             .and_then(|e| e.to_str())
@@ -1020,6 +1021,9 @@ pub fn run() {
             list_tags,
             meme_count,
             library_stats,
+            erase::erase_plan,
+            erase::erase_everything,
+            erase::quit_after_erase,
             copy_meme,
             get_settings,
             set_memes_folder,

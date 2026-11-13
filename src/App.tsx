@@ -15,7 +15,21 @@ import {
   type QuickItem,
 } from "./quickAdd";
 import "./App.css";
+import { DangerZone, ErasedScreen, type EraseReport } from "./DangerZone";
 import { VIDEO_EXTENSIONS, isVideoPath, videoFrames, videoMime } from "./videoToGif";
+import {
+  ANY_TIME,
+  DATE_LABEL,
+  SORT_LABEL,
+  filterByDate,
+  formatBytes,
+  fullAdded,
+  shortAdded,
+  sortMemes,
+  type DateFilter,
+  type DatePreset,
+  type SortOrder,
+} from "./libraryView";
 
 const REPO_URL = "https://github.com/gabojkz/meme-factory";
 const ISSUES_URL = `${REPO_URL}/issues`;
@@ -123,6 +137,8 @@ function App() {
   const [view, setView] = useState<View>("library");
   const [memes, setMemes] = useState<Meme[]>([]);
   const [stats, setStats] = useState<LibraryStats | null>(null);
+  // Set once "Erase everything" has run: the app shows only the goodbye screen.
+  const [erased, setErased] = useState<EraseReport | null>(null);
   // Which kinds the grid shows; null = everything. Remembered between launches.
   const [shownKinds, setShownKinds] = useState<MemeKind[] | null>(loadShownKinds);
   useEffect(() => {
@@ -133,7 +149,12 @@ function App() {
       // storage unavailable: the filter just isn't remembered
     }
   }, [shownKinds]);
-  const visibleMemes = shownKinds ? memes.filter((m) => shownKinds.includes(memeKind(m.path))) : memes;
+  const [sortOrder, setSortOrder] = useStoredState<SortOrder>(SORT_KEY, "newest", (v) => typeof v === "string" && v in SORT_LABEL);
+  const [dateFilter, setDateFilter] = useStoredState<DateFilter>(
+    DATE_KEY,
+    ANY_TIME,
+    (v) => !!v && typeof v === "object" && (v as DateFilter).preset in DATE_LABEL,
+  );
 
   /** First click shows only that kind; further clicks add or remove kinds. */
   function toggleKind(kind: MemeKind) {
@@ -152,6 +173,16 @@ function App() {
   const [appVersion, setAppVersion] = useState("");
   const [updateCheck, setUpdateCheck] = useState<UpdateCheck>({ status: "idle" });
   const [query, setQuery] = useState("");
+  const searching = query.trim() !== "";
+  // "Best match" only means something while searching.
+  const effectiveSort: SortOrder = sortOrder === "relevance" && !searching ? "newest" : sortOrder;
+  const kindFiltered = shownKinds ? memes.filter((m) => shownKinds.includes(memeKind(m.path))) : memes;
+  const visibleMemes = sortMemes(filterByDate(kindFiltered, dateFilter), effectiveSort);
+  const filtering = !!shownKinds || dateFilter.preset !== "all";
+  function clearFilters() {
+    setShownKinds(null);
+    setDateFilter(ANY_TIME);
+  }
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
   const [selected, setSelected] = useState<Meme | null>(null);
@@ -611,6 +642,15 @@ function App() {
     );
   }
 
+  if (erased) {
+    return (
+      <div className="stage">
+        <div className="halftone" aria-hidden />
+        <ErasedScreen report={erased} />
+      </div>
+    );
+  }
+
   return (
     <div className="stage">
       <div className="halftone" aria-hidden />
@@ -779,6 +819,63 @@ function App() {
         </form>
       ) : null}
 
+      {view === "library" && memes.length ? (
+        <div className="view-bar">
+          <label>
+            <span>Sort</span>
+            <select value={effectiveSort} onChange={(e) => setSortOrder(e.target.value as SortOrder)}>
+              {(Object.keys(SORT_LABEL) as SortOrder[])
+                .filter((o) => o !== "relevance" || searching)
+                .map((o) => (
+                  <option key={o} value={o}>
+                    {SORT_LABEL[o]}
+                  </option>
+                ))}
+            </select>
+          </label>
+          <label>
+            <span>Added</span>
+            <select
+              value={dateFilter.preset}
+              onChange={(e) => setDateFilter({ ...dateFilter, preset: e.target.value as DatePreset })}
+            >
+              {(Object.keys(DATE_LABEL) as DatePreset[]).map((p) => (
+                <option key={p} value={p}>
+                  {DATE_LABEL[p]}
+                </option>
+              ))}
+            </select>
+          </label>
+          {dateFilter.preset === "custom" ? (
+            <span className="date-range">
+              <input
+                type="date"
+                value={dateFilter.from}
+                max={dateFilter.to || undefined}
+                onChange={(e) => setDateFilter({ ...dateFilter, from: e.target.value })}
+                aria-label="Added from"
+              />
+              <span>to</span>
+              <input
+                type="date"
+                value={dateFilter.to}
+                min={dateFilter.from || undefined}
+                onChange={(e) => setDateFilter({ ...dateFilter, to: e.target.value })}
+                aria-label="Added until"
+              />
+            </span>
+          ) : null}
+          <span className="view-count">
+            {filtering ? `Showing ${visibleMemes.length} of ${memes.length}` : `${memes.length} memes`}
+          </span>
+          {filtering ? (
+            <button type="button" className="status-link" onClick={clearFilters}>
+              Clear filters
+            </button>
+          ) : null}
+        </div>
+      ) : null}
+
       {view === "library" && allTags.length ? (
         <nav className="tag-bar" aria-label="Tags">
           {allTags.slice(0, 24).map(({ tag, count }) => {
@@ -895,6 +992,14 @@ function App() {
               ) : null}
             </div>
           </section>
+
+          <DangerZone
+            disabled={busy}
+            onErased={(report) => {
+              setSelected(null);
+              setErased(report);
+            }}
+          />
         </div>
       ) : view === "about" ? (
         <div className="settings about-page">
@@ -977,12 +1082,15 @@ function App() {
         <div className="empty">
           <div className="bubble">
             <strong>
-              No {shownKinds?.map((k) => KIND_LABEL[k].toLowerCase()).join(" or ")}
-              {query ? " match your search" : " yet"}.
+              {shownKinds
+                ? `No ${shownKinds.map((k) => KIND_LABEL[k].toLowerCase()).join(" or ")}`
+                : "Nothing"}
+              {dateFilter.preset !== "all" ? ` added ${dateFilterText(dateFilter)}` : ""}
+              {searching ? " matches your search" : ""}.
             </strong>
             <span>
-              Other types are hidden.{" "}
-              <button type="button" className="status-link" onClick={() => setShownKinds(null)}>
+              Some memes are hidden by your filters.{" "}
+              <button type="button" className="status-link" onClick={clearFilters}>
                 Show everything
               </button>
             </span>
@@ -1019,6 +1127,9 @@ function App() {
                   loading="lazy"
                 />
               )}
+              <time className="card-date" dateTime={m.createdAt} title={`Added ${fullAdded(m.createdAt)}`}>
+                {shortAdded(m.createdAt)}
+              </time>
             </button>
           ))}
         </div>
@@ -1060,6 +1171,9 @@ function App() {
             )}
             <div className="meta">
               <h2>{selected.title || "Untitled"}</h2>
+              <p className="added">
+                Added <time dateTime={selected.createdAt}>{fullAdded(selected.createdAt)}</time>
+              </p>
               <TagEditor
                 tags={selected.tags}
                 suggestions={allTags.map((t) => t.tag)}
@@ -1167,6 +1281,39 @@ const KINDS: MemeKind[] = ["image", "gif", "video"];
 const KIND_LABEL: Record<MemeKind, string> = { image: "Images", gif: "GIFs", video: "Videos" };
 const KIND_STAT = { image: "images", gif: "gifs", video: "videos" } as const;
 const KINDS_KEY = "memefactory.shownKinds";
+const SORT_KEY = "memefactory.sort";
+const DATE_KEY = "memefactory.dateFilter";
+
+/** useState that's remembered in localStorage (and works without it). */
+function useStoredState<T>(key: string, fallback: T, valid: (v: unknown) => boolean) {
+  const [value, setValue] = useState<T>(() => {
+    try {
+      const raw = localStorage.getItem(key);
+      const parsed: unknown = raw === null ? null : JSON.parse(raw);
+      return parsed !== null && valid(parsed) ? (parsed as T) : fallback;
+    } catch {
+      return fallback;
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // storage unavailable: the choice just isn't remembered
+    }
+  }, [key, value]);
+  return [value, setValue] as const;
+}
+
+function dateFilterText(f: DateFilter): string {
+  if (f.preset !== "custom") return DATE_LABEL[f.preset].toLowerCase();
+  const day = (v: string) =>
+    new Date(`${v}T00:00`).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
+  if (f.from && f.to) return `between ${day(f.from)} and ${day(f.to)}`;
+  if (f.from) return `since ${day(f.from)}`;
+  if (f.to) return `before the end of ${day(f.to)}`;
+  return "at any time";
+}
 
 function memeKind(path: string): MemeKind {
   if (isVideoPath(path)) return "video";
@@ -1184,17 +1331,6 @@ function loadShownKinds(): MemeKind[] | null {
   }
 }
 
-function formatBytes(n: number): string {
-  if (n < 1024) return `${n} B`;
-  const units = ["KB", "MB", "GB", "TB"];
-  let v = n / 1024;
-  let i = 0;
-  while (v >= 1024 && i < units.length - 1) {
-    v /= 1024;
-    i++;
-  }
-  return `${v < 10 ? v.toFixed(1) : Math.round(v)} ${units[i]}`;
-}
 
 /** Reads a library file as a Blob, typed so videos are recognised. */
 async function readMemeFile(path: string): Promise<Blob> {

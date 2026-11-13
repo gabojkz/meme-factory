@@ -303,6 +303,83 @@ button.stat[data-hidden] {
   opacity: 0.7;
 }
 
+.view-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  font-size: 0.88rem;
+}
+
+.view-bar label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.view-bar label > span {
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.65;
+}
+
+.view-bar select,
+.view-bar input[type="date"] {
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font: 700 0.85rem var(--font-body);
+  padding: 4px 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+.view-bar select:focus-visible,
+.view-bar input[type="date"]:focus-visible {
+  box-shadow: 3px 3px 0 var(--cyan);
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.view-count {
+  margin-left: auto;
+  font-weight: 700;
+  opacity: 0.65;
+  font-variant-numeric: tabular-nums;
+}
+
+.card-date {
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  max-width: calc(100% - 48px);
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(18, 18, 18, 0.72);
+  color: #fff;
+  font: 700 0.68rem var(--font-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.added {
+  margin: -4px 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
 .tag-bar {
   position: relative;
   z-index: 1;
@@ -471,6 +548,135 @@ button.stat[data-hidden] {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.danger-zone {
+  border-color: var(--accent);
+  box-shadow: 5px 5px 0 var(--accent);
+  background:
+    repeating-linear-gradient(-45deg, rgba(255, 59, 59, 0.07) 0 12px, transparent 12px 24px),
+    #fff;
+}
+
+.danger-zone h2 {
+  color: var(--accent);
+}
+
+.danger-btn {
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font: 700 0.95rem var(--font-body);
+  padding: 8px 18px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.danger-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.erase-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border: 2px dashed var(--accent);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.erase-confirm h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.erase-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.erase-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.erase-list code {
+  grid-column: 1;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  overflow-wrap: anywhere;
+}
+
+.erase-list small {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.erase-limits summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.erase-limits ul {
+  margin: 8px 0;
+  padding-left: 20px;
+  line-height: 1.45;
+  font-size: 0.9rem;
+}
+
+.erase-type {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.erase-type input {
+  max-width: 240px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font: 800 1rem var(--font-body);
+  letter-spacing: 0.12em;
+  outline: none;
+}
+
+.erase-type input:focus {
+  box-shadow: 3px 3px 0 var(--accent);
+}
+
+.erase-error {
+  color: var(--accent);
+}
+
+.erase-error code {
+  overflow-wrap: anywhere;
+}
+
+.erased {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.erased-card {
+  max-width: 560px;
 }
 
 .settings-card.about {
