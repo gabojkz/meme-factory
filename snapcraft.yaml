@@ -39,13 +39,6 @@ apps:
       - x11
       - opengl
 
-package-repositories:
-  - type: apt
-    components: [main]
-    suites: [noble]
-    key-id: 78E1918602959B9C59103100F1831DDAFC42E99D
-    url: http://ppa.launchpad.net/snappy-dev/snapcraft-daily/ubuntu
-
 parts:
   build-app:
     plugin: dump

@@ -49,10 +49,10 @@ function readVersions() {
 
   const cargoTomlMatch = cargoToml.match(/^version\s*=\s*"([^"]+)"/m);
   const cargoLockMatch = cargoLock.match(
-    /name\s*=\s*"memefactory"\nversion\s*=\s*"([^"]+)"/,
+    /name\s*=\s*"memefactory"\r?\nversion\s*=\s*"([^"]+)"/,
   );
   const snapcraft = readFileSync(paths.snapcraft, "utf8");
-  const snapMatch = snapcraft.match(/^version:\s*["']?([^"'\n]+)["']?/m);
+  const snapMatch = snapcraft.match(/^version:\s*["']?([^"'\r\n]+)["']?/m);
 
   return {
     "package.json": packageJson.version,
@@ -90,14 +90,14 @@ function setVersion(version) {
 
   let cargoLock = readFileSync(paths.cargoLock, "utf8");
   cargoLock = cargoLock.replace(
-    /(name\s*=\s*"memefactory"\n)version\s*=\s*"[^"]+"/,
+    /(name\s*=\s*"memefactory"\r?\n)version\s*=\s*"[^"]+"/,
     `$1version = "${next}"`,
   );
   writeFileSync(paths.cargoLock, cargoLock);
 
   let snapcraft = readFileSync(paths.snapcraft, "utf8");
   snapcraft = snapcraft.replace(
-    /^version:\s*["']?[^"'\n]+["']?/m,
+    /^version:\s*["']?[^"'\r\n]+["']?/m,
     `version: "${next}"`,
   );
   writeFileSync(paths.snapcraft, snapcraft);
