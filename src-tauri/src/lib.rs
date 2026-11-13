@@ -1,6 +1,9 @@
+mod assets;
+
 use chrono::Utc;
 use rusqlite::{params, Connection};
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::sync::Mutex;
@@ -16,6 +19,7 @@ pub struct Meme {
     pub title: Option<String>,
     pub ocr_text: String,
     pub created_at: String,
+    pub tags: Vec<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, Default)]
@@ -39,6 +43,23 @@ pub struct SyncReport {
     pub total: u32,
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct ProjectSummary {
+    pub id: String,
+    pub name: String,
+    pub updated_at: String,
+    pub thumbnail_path: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone, Default)]
+#[serde(rename_all = "camelCase")]
+struct ProjectMeta {
+    #[serde(default)]
+    name: String,
+    #[serde(default)]
+    updated_at: String,
+}
 
 struct AppState {
     db: Mutex<Connection>,
@@ -86,6 +107,62 @@ fn resolve_memes_dir(app: &AppHandle) -> Result<PathBuf, String> {
     default_memes_dir(app)
 }
 
+fn projects_dir(app: &AppHandle) -> Result<PathBuf, String> {
+    let dir = data_dir(app)?.join("projects");
+    fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+    Ok(dir)
+}
+
+/// Project ids come from the frontend; only allow plain uuid-ish names so
+/// they can never escape the projects folder.
+fn check_project_id(id: &str) -> Result<(), String> {
+    let ok = !id.is_empty()
+        && id.len() <= 64
+        && id.chars().all(|c| c.is_ascii_alphanumeric() || c == '-');
+    if ok {
+        Ok(())
+    } else {
+        Err("Invalid project id".into())
+    }
+}
+
+fn decode_base64(data: &str) -> Result<Vec<u8>, String> {
+    use base64::Engine;
+    // Accept both raw base64 and `data:image/png;base64,...` URLs.
+    let raw = data.split_once(',').map(|(_, b)| b).unwrap_or(data);
+    base64::engine::general_purpose::STANDARD
+        .decode(raw.trim())
+        .map_err(|e| format!("Invalid image data: {e}"))
+}
+
+const MEME_COLUMNS: &str = "m.id, m.filename, m.path, m.title, m.ocr_text, m.created_at, m.tags";
+
+const FTS_SCHEMA: &str = "
+        CREATE VIRTUAL TABLE IF NOT EXISTS memes_fts USING fts5(
+            id UNINDEXED,
+            title,
+            ocr_text,
+            filename,
+            tags,
+            content='memes',
+            content_rowid='rowid'
+        );
+        CREATE TRIGGER IF NOT EXISTS memes_ai AFTER INSERT ON memes BEGIN
+            INSERT INTO memes_fts(rowid, id, title, ocr_text, filename, tags)
+            VALUES (new.rowid, new.id, new.title, new.ocr_text, new.filename, new.tags);
+        END;
+        CREATE TRIGGER IF NOT EXISTS memes_ad AFTER DELETE ON memes BEGIN
+            INSERT INTO memes_fts(memes_fts, rowid, id, title, ocr_text, filename, tags)
+            VALUES ('delete', old.rowid, old.id, old.title, old.ocr_text, old.filename, old.tags);
+        END;
+        CREATE TRIGGER IF NOT EXISTS memes_au AFTER UPDATE ON memes BEGIN
+            INSERT INTO memes_fts(memes_fts, rowid, id, title, ocr_text, filename, tags)
+            VALUES ('delete', old.rowid, old.id, old.title, old.ocr_text, old.filename, old.tags);
+            INSERT INTO memes_fts(rowid, id, title, ocr_text, filename, tags)
+            VALUES (new.rowid, new.id, new.title, new.ocr_text, new.filename, new.tags);
+        END;
+";
+
 fn init_db(conn: &Connection) -> Result<(), String> {
     conn.execute_batch(
         "
@@ -95,45 +172,97 @@ fn init_db(conn: &Connection) -> Result<(), String> {
             path TEXT NOT NULL,
             title TEXT,
             ocr_text TEXT NOT NULL DEFAULT '',
-            created_at TEXT NOT NULL
+            created_at TEXT NOT NULL,
+            tags TEXT NOT NULL DEFAULT ''
         );
-        CREATE VIRTUAL TABLE IF NOT EXISTS memes_fts USING fts5(
-            id UNINDEXED,
-            title,
-            ocr_text,
-            filename,
-            content='memes',
-            content_rowid='rowid'
-        );
-        CREATE TRIGGER IF NOT EXISTS memes_ai AFTER INSERT ON memes BEGIN
-            INSERT INTO memes_fts(rowid, id, title, ocr_text, filename)
-            VALUES (new.rowid, new.id, new.title, new.ocr_text, new.filename);
-        END;
-        CREATE TRIGGER IF NOT EXISTS memes_ad AFTER DELETE ON memes BEGIN
-            INSERT INTO memes_fts(memes_fts, rowid, id, title, ocr_text, filename)
-            VALUES ('delete', old.rowid, old.id, old.title, old.ocr_text, old.filename);
-        END;
-        CREATE TRIGGER IF NOT EXISTS memes_au AFTER UPDATE ON memes BEGIN
-            INSERT INTO memes_fts(memes_fts, rowid, id, title, ocr_text, filename)
-            VALUES ('delete', old.rowid, old.id, old.title, old.ocr_text, old.filename);
-            INSERT INTO memes_fts(rowid, id, title, ocr_text, filename)
-            VALUES (new.rowid, new.id, new.title, new.ocr_text, new.filename);
-        END;
         ",
     )
-    .map_err(|e| e.to_string())
+    .map_err(|e| e.to_string())?;
+
+    // v1: tags. Older libraries get the column, and the search index is
+    // rebuilt so tags are searchable too.
+    let version: i64 = conn
+        .query_row("PRAGMA user_version", [], |r| r.get(0))
+        .map_err(|e| e.to_string())?;
+    if version < 1 {
+        let has_tags = conn
+            .prepare("SELECT 1 FROM pragma_table_info('memes') WHERE name = 'tags'")
+            .and_then(|mut st| st.exists([]))
+            .map_err(|e| e.to_string())?;
+        if !has_tags {
+            conn.execute_batch("ALTER TABLE memes ADD COLUMN tags TEXT NOT NULL DEFAULT '';")
+                .map_err(|e| e.to_string())?;
+        }
+        conn.execute_batch(
+            "
+            DROP TRIGGER IF EXISTS memes_ai;
+            DROP TRIGGER IF EXISTS memes_ad;
+            DROP TRIGGER IF EXISTS memes_au;
+            DROP TABLE IF EXISTS memes_fts;
+            ",
+        )
+        .map_err(|e| e.to_string())?;
+        conn.execute_batch(FTS_SCHEMA).map_err(|e| e.to_string())?;
+        conn.execute_batch(
+            "INSERT INTO memes_fts(memes_fts) VALUES ('rebuild');
+             PRAGMA user_version = 1;",
+        )
+        .map_err(|e| e.to_string())?;
+    }
+    conn.execute_batch(FTS_SCHEMA).map_err(|e| e.to_string())
 }
 
+/// Tags are stored as ", "-joined text so the search index sees each word.
+fn tags_to_text(tags: &[String]) -> String {
+    tags.join(", ")
+}
 
-fn is_image_path(path: &Path) -> bool {
-    match path
-        .extension()
-        .and_then(|e| e.to_str())
-        .map(|e| e.to_lowercase())
-        .as_deref()
-    {
-        Some("png" | "jpg" | "jpeg" | "gif" | "webp" | "bmp") => true,
-        _ => false,
+fn tags_from_text(text: &str) -> Vec<String> {
+    text.split(',').map(|t| t.trim().to_string()).filter(|t| !t.is_empty()).collect()
+}
+
+/// Lower-case, single-spaced, without commas or search syntax; unique, at most 30.
+fn normalize_tags(tags: &[String]) -> Vec<String> {
+    let mut out: Vec<String> = Vec::new();
+    for raw in tags {
+        let clean: String = raw
+            .trim()
+            .trim_start_matches('#')
+            .chars()
+            .map(|c| if c == ',' || c == '"' || c == '*' || c.is_control() { ' ' } else { c })
+            .collect::<String>()
+            .to_lowercase()
+            .split_whitespace()
+            .collect::<Vec<_>>()
+            .join(" ");
+        let clean: String = clean.chars().take(40).collect();
+        if !clean.is_empty() && !out.contains(&clean) {
+            out.push(clean);
+        }
+    }
+    out.truncate(30);
+    out
+}
+
+/// Images and short videos the library can hold.
+fn is_meme_path(path: &Path) -> bool {
+    matches!(
+        path.extension()
+            .and_then(|e| e.to_str())
+            .map(|e| e.to_lowercase())
+            .as_deref(),
+        Some("png" | "jpg" | "jpeg" | "gif" | "webp" | "bmp" | "mp4" | "m4v" | "mov" | "webm")
+    )
+}
+
+/// "mp4", "mov" or "webm" when the bytes are one of those containers.
+pub(crate) fn video_ext(bytes: &[u8]) -> Option<&'static str> {
+    if bytes.len() > 12 && &bytes[4..8] == b"ftyp" {
+        Some(if &bytes[8..12] == b"qt  " { "mov" } else { "mp4" })
+    } else if bytes.starts_with(&[0x1A, 0x45, 0xDF, 0xA3]) {
+        Some("webm")
+    } else {
+        None
     }
 }
 
@@ -227,7 +356,7 @@ fn sync_library_inner(state: &AppState) -> Result<SyncReport, String> {
     for entry in entries {
         let entry = entry.map_err(|e| e.to_string())?;
         let path = entry.path();
-        if !path.is_file() || !is_image_path(&path) {
+        if !path.is_file() || !is_meme_path(&path) {
             continue;
         }
         let canon = path.canonicalize().unwrap_or_else(|_| path.clone());
@@ -284,6 +413,7 @@ fn row_to_meme(row: &rusqlite::Row<'_>) -> rusqlite::Result<Meme> {
         title: row.get(3)?,
         ocr_text: row.get(4)?,
         created_at: row.get(5)?,
+        tags: tags_from_text(&row.get::<_, String>(6)?),
     })
 }
 
@@ -348,8 +478,7 @@ fn list_memes(state: State<'_, AppState>) -> Result<Vec<Meme>, String> {
     let conn = state.db.lock().map_err(|e| e.to_string())?;
     let mut stmt = conn
         .prepare(
-            "SELECT id, filename, path, title, ocr_text, created_at
-             FROM memes ORDER BY created_at DESC",
+            &format!("SELECT {MEME_COLUMNS} FROM memes m ORDER BY m.created_at DESC"),
         )
         .map_err(|e| e.to_string())?;
     let rows = stmt
@@ -368,27 +497,42 @@ fn search_memes(query: String, state: State<'_, AppState>) -> Result<Vec<Meme>, 
     }
 
     let conn = state.db.lock().map_err(|e| e.to_string())?;
+    // Words match anywhere (prefix match); `#tag` matches only that tag.
     let safe = q
         .replace('"', " ")
         .split_whitespace()
-        .filter(|t| !t.is_empty())
-        .map(|t| format!("\"{}\"*", t.replace('*', "")))
+        .filter_map(|t| {
+            let (tag_only, word) = match t.strip_prefix('#') {
+                Some(rest) => (true, rest),
+                None => (false, t),
+            };
+            let word = word.replace(['*', ','], "");
+            if word.is_empty() {
+                return None;
+            }
+            Some(if tag_only {
+                format!("tags : \"{word}\"*")
+            } else {
+                format!("\"{word}\"*")
+            })
+        })
         .collect::<Vec<_>>()
-        .join(" ");
+        .join(" AND ");
 
     if safe.is_empty() {
         drop(conn);
         return list_memes(state);
     }
 
+    // Tag and title hits rank above text found by OCR.
     let mut stmt = conn
-        .prepare(
-            "SELECT m.id, m.filename, m.path, m.title, m.ocr_text, m.created_at
+        .prepare(&format!(
+            "SELECT {MEME_COLUMNS}
              FROM memes m
              JOIN memes_fts f ON m.rowid = f.rowid
              WHERE memes_fts MATCH ?
-             ORDER BY rank, m.created_at DESC",
-        )
+             ORDER BY bm25(memes_fts, 0.0, 6.0, 1.0, 1.0, 10.0), m.created_at DESC"
+        ))
         .map_err(|e| e.to_string())?;
 
     let rows = stmt
@@ -397,6 +541,47 @@ fn search_memes(query: String, state: State<'_, AppState>) -> Result<Vec<Meme>, 
         .collect::<Result<Vec<_>, _>>()
         .map_err(|e| e.to_string())?;
     Ok(rows)
+}
+
+/// Replaces a meme's tags; returns them cleaned up.
+#[tauri::command]
+fn update_meme_tags(id: String, tags: Vec<String>, state: State<'_, AppState>) -> Result<Vec<String>, String> {
+    let tags = normalize_tags(&tags);
+    let conn = state.db.lock().map_err(|e| e.to_string())?;
+    let n = conn
+        .execute("UPDATE memes SET tags = ?1 WHERE id = ?2", params![tags_to_text(&tags), id])
+        .map_err(|e| e.to_string())?;
+    if n == 0 {
+        return Err("Meme not found".into());
+    }
+    Ok(tags)
+}
+
+#[derive(Serialize)]
+struct TagCount {
+    tag: String,
+    count: u32,
+}
+
+/// Every tag in the library, most used first.
+#[tauri::command]
+fn list_tags(state: State<'_, AppState>) -> Result<Vec<TagCount>, String> {
+    let conn = state.db.lock().map_err(|e| e.to_string())?;
+    let mut stmt = conn
+        .prepare("SELECT tags FROM memes WHERE tags != ''")
+        .map_err(|e| e.to_string())?;
+    let mut counts: HashMap<String, u32> = HashMap::new();
+    let rows = stmt
+        .query_map([], |r| r.get::<_, String>(0))
+        .map_err(|e| e.to_string())?;
+    for text in rows {
+        for tag in tags_from_text(&text.map_err(|e| e.to_string())?) {
+            *counts.entry(tag).or_default() += 1;
+        }
+    }
+    let mut out: Vec<TagCount> = counts.into_iter().map(|(tag, count)| TagCount { tag, count }).collect();
+    out.sort_by(|a, b| b.count.cmp(&a.count).then(a.tag.cmp(&b.tag)));
+    Ok(out)
 }
 
 #[tauri::command]
@@ -414,6 +599,9 @@ fn import_meme(
         return Err("Source file not found".into());
     }
 
+    if !is_meme_path(src) {
+        return Err("Not a supported image or video file".into());
+    }
     let ext = src
         .extension()
         .and_then(|e| e.to_str())
@@ -450,7 +638,190 @@ fn import_meme(
         title,
         ocr_text: ocr_clean,
         created_at,
+        tags: Vec::new(),
     })
+}
+
+/// Saves pasted, dropped or downloaded image bytes into the library.
+#[tauri::command]
+fn import_meme_bytes(
+    data: String,
+    title: Option<String>,
+    ocr_text: String,
+    state: State<'_, AppState>,
+) -> Result<Meme, String> {
+    let bytes = decode_base64(&data)?;
+    let ext = match (image::guess_format(&bytes), video_ext(&bytes)) {
+        (_, Some(video)) => video,
+        (Ok(image::ImageFormat::Png), _) => "png",
+        (Ok(image::ImageFormat::Jpeg), _) => "jpg",
+        (Ok(image::ImageFormat::Gif), _) => "gif",
+        (Ok(image::ImageFormat::WebP), _) => "webp",
+        (Ok(image::ImageFormat::Bmp), _) => "bmp",
+        _ => return Err("Not a supported image or video (PNG, JPEG, GIF, WebP, BMP, MP4, MOV or WebM)".into()),
+    };
+    if video_ext(&bytes).is_none() {
+        image::load_from_memory(&bytes).map_err(|e| format!("Failed to decode image: {e}"))?;
+    }
+
+    let memes_dir = state.memes_dir.lock().map_err(|e| e.to_string())?.clone();
+    fs::create_dir_all(&memes_dir).map_err(|e| e.to_string())?;
+    let id = Uuid::new_v4().to_string();
+    let filename = format!("{id}.{ext}");
+    let dest = memes_dir.join(&filename);
+    fs::write(&dest, &bytes).map_err(|e| e.to_string())?;
+
+    let created_at = Utc::now().to_rfc3339();
+    let path_str = dest.to_string_lossy().to_string();
+    let title = title.map(|t| t.trim().to_string()).filter(|t| !t.is_empty());
+    let ocr_clean = ocr_text.trim().to_string();
+    {
+        let conn = state.db.lock().map_err(|e| e.to_string())?;
+        conn.execute(
+            "INSERT INTO memes (id, filename, path, title, ocr_text, created_at)
+             VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+            params![id, filename, path_str, title, ocr_clean, created_at],
+        )
+        .map_err(|e| e.to_string())?;
+    }
+    Ok(Meme {
+        id,
+        filename,
+        path: path_str,
+        title,
+        ocr_text: ocr_clean,
+        created_at,
+        tags: Vec::new(),
+    })
+}
+
+/// Saves a PNG rendered by the Studio canvas straight into the library.
+#[tauri::command]
+fn save_creation(
+    data: String,
+    title: Option<String>,
+    ocr_text: String,
+    state: State<'_, AppState>,
+) -> Result<Meme, String> {
+    let bytes = decode_base64(&data)?;
+    image::load_from_memory(&bytes).map_err(|e| format!("Failed to decode image: {e}"))?;
+
+    let memes_dir = state.memes_dir.lock().map_err(|e| e.to_string())?.clone();
+    fs::create_dir_all(&memes_dir).map_err(|e| e.to_string())?;
+
+    let id = Uuid::new_v4().to_string();
+    let filename = format!("{id}.png");
+    let dest = memes_dir.join(&filename);
+    fs::write(&dest, &bytes).map_err(|e| e.to_string())?;
+
+    let created_at = Utc::now().to_rfc3339();
+    let path_str = dest.to_string_lossy().to_string();
+    let title = title
+        .map(|t| t.trim().to_string())
+        .filter(|t| !t.is_empty());
+    let ocr_clean = ocr_text.trim().to_string();
+
+    {
+        let conn = state.db.lock().map_err(|e| e.to_string())?;
+        conn.execute(
+            "INSERT INTO memes (id, filename, path, title, ocr_text, created_at)
+             VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+            params![id, filename, path_str, title, ocr_clean, created_at],
+        )
+        .map_err(|e| e.to_string())?;
+    }
+
+    Ok(Meme {
+        id,
+        filename,
+        path: path_str,
+        title,
+        ocr_text: ocr_clean,
+        created_at,
+        tags: Vec::new(),
+    })
+}
+
+#[tauri::command]
+fn list_projects(app: AppHandle) -> Result<Vec<ProjectSummary>, String> {
+    let dir = projects_dir(&app)?;
+    let mut out = Vec::new();
+    for entry in fs::read_dir(&dir).map_err(|e| e.to_string())? {
+        let path = entry.map_err(|e| e.to_string())?.path();
+        if path.extension().and_then(|e| e.to_str()) != Some("json") {
+            continue;
+        }
+        let Some(id) = path.file_stem().and_then(|s| s.to_str()).map(String::from) else {
+            continue;
+        };
+        let meta: ProjectMeta = fs::read_to_string(&path)
+            .ok()
+            .and_then(|raw| serde_json::from_str(&raw).ok())
+            .unwrap_or_default();
+        let thumb = dir.join(format!("{id}.png"));
+        out.push(ProjectSummary {
+            name: if meta.name.is_empty() {
+                "Untitled meme".into()
+            } else {
+                meta.name
+            },
+            updated_at: meta.updated_at,
+            thumbnail_path: thumb
+                .exists()
+                .then(|| thumb.to_string_lossy().to_string()),
+            id,
+        });
+    }
+    out.sort_by(|a, b| b.updated_at.cmp(&a.updated_at));
+    Ok(out)
+}
+
+#[tauri::command]
+fn load_project(id: String, app: AppHandle) -> Result<String, String> {
+    check_project_id(&id)?;
+    let path = projects_dir(&app)?.join(format!("{id}.json"));
+    fs::read_to_string(path).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn save_project(
+    id: String,
+    data: String,
+    thumbnail: Option<String>,
+    app: AppHandle,
+) -> Result<ProjectSummary, String> {
+    check_project_id(&id)?;
+    let meta: ProjectMeta =
+        serde_json::from_str(&data).map_err(|e| format!("Invalid project data: {e}"))?;
+    let dir = projects_dir(&app)?;
+    let json_path = dir.join(format!("{id}.json"));
+    let tmp_path = dir.join(format!("{id}.json.tmp"));
+    // Write then rename so a crash mid-save never corrupts the old copy.
+    fs::write(&tmp_path, &data).map_err(|e| e.to_string())?;
+    fs::rename(&tmp_path, &json_path).map_err(|e| e.to_string())?;
+
+    let thumb_path = dir.join(format!("{id}.png"));
+    if let Some(thumb) = thumbnail {
+        fs::write(&thumb_path, decode_base64(&thumb)?).map_err(|e| e.to_string())?;
+    }
+
+    Ok(ProjectSummary {
+        id,
+        name: meta.name,
+        updated_at: meta.updated_at,
+        thumbnail_path: thumb_path
+            .exists()
+            .then(|| thumb_path.to_string_lossy().to_string()),
+    })
+}
+
+#[tauri::command]
+fn delete_project(id: String, app: AppHandle) -> Result<(), String> {
+    check_project_id(&id)?;
+    let dir = projects_dir(&app)?;
+    fs::remove_file(dir.join(format!("{id}.json"))).map_err(|e| e.to_string())?;
+    let _ = fs::remove_file(dir.join(format!("{id}.png")));
+    Ok(())
 }
 
 #[tauri::command]
@@ -486,8 +857,25 @@ fn update_meme_ocr(
     Ok(())
 }
 
+/// True for GIFs and WebPs with more than one frame.
+fn is_animated(bytes: &[u8]) -> bool {
+    use image::AnimationDecoder;
+    use std::io::Cursor;
+    match image::guess_format(bytes) {
+        Ok(image::ImageFormat::Gif) => image::codecs::gif::GifDecoder::new(Cursor::new(bytes))
+            .map(|d| d.into_frames().take(2).count() > 1)
+            .unwrap_or(false),
+        Ok(image::ImageFormat::WebP) => image::codecs::webp::WebPDecoder::new(Cursor::new(bytes))
+            .map(|d| d.has_animation())
+            .unwrap_or(false),
+        _ => false,
+    }
+}
+
+/// Copies a meme. Videos and animated images go on the clipboard as the file itself
+/// (pixels would keep only the first frame); returns "video", "file" or "image".
 #[tauri::command]
-fn copy_meme(id: String, state: State<'_, AppState>) -> Result<(), String> {
+fn copy_meme(id: String, state: State<'_, AppState>) -> Result<&'static str, String> {
     let path: String = {
         let conn = state.db.lock().map_err(|e| e.to_string())?;
         conn.query_row(
@@ -499,12 +887,26 @@ fn copy_meme(id: String, state: State<'_, AppState>) -> Result<(), String> {
     };
 
     let bytes = fs::read(&path).map_err(|e| e.to_string())?;
+    let mut clipboard = arboard::Clipboard::new().map_err(|e| e.to_string())?;
+    if video_ext(&bytes).is_some() {
+        clipboard
+            .set()
+            .file_list(&[PathBuf::from(&path)])
+            .map_err(|e| e.to_string())?;
+        return Ok("video");
+    }
+    if is_animated(&bytes) {
+        clipboard
+            .set()
+            .file_list(&[PathBuf::from(&path)])
+            .map_err(|e| e.to_string())?;
+        return Ok("file");
+    }
+
     let img = image::load_from_memory(&bytes)
         .map_err(|e| format!("Failed to decode image: {e}"))?
         .into_rgba8();
     let (w, h) = img.dimensions();
-
-    let mut clipboard = arboard::Clipboard::new().map_err(|e| e.to_string())?;
     clipboard
         .set_image(arboard::ImageData {
             width: w as usize,
@@ -512,7 +914,7 @@ fn copy_meme(id: String, state: State<'_, AppState>) -> Result<(), String> {
             bytes: std::borrow::Cow::Owned(img.into_raw()),
         })
         .map_err(|e| e.to_string())?;
-    Ok(())
+    Ok("image")
 }
 
 #[tauri::command]
@@ -520,6 +922,71 @@ fn meme_count(state: State<'_, AppState>) -> Result<i64, String> {
     let conn = state.db.lock().map_err(|e| e.to_string())?;
     conn.query_row("SELECT COUNT(*) FROM memes", [], |row| row.get(0))
         .map_err(|e| e.to_string())
+}
+
+#[derive(Serialize, Default)]
+#[serde(rename_all = "camelCase")]
+struct KindStats {
+    count: u32,
+    bytes: u64,
+}
+
+#[derive(Serialize, Default)]
+#[serde(rename_all = "camelCase")]
+struct LibraryStats {
+    total: u32,
+    images: KindStats,
+    gifs: KindStats,
+    videos: KindStats,
+    /// Everything in the memes folder, including files the library doesn't index.
+    folder_bytes: u64,
+    folder: String,
+}
+
+fn dir_size(dir: &Path, depth: u8) -> u64 {
+    let Ok(entries) = fs::read_dir(dir) else { return 0 };
+    entries
+        .flatten()
+        .map(|e| match e.file_type() {
+            Ok(t) if t.is_file() => e.metadata().map(|m| m.len()).unwrap_or(0),
+            Ok(t) if t.is_dir() && depth > 0 => dir_size(&e.path(), depth - 1),
+            _ => 0, // symlinks are not followed
+        })
+        .sum()
+}
+
+/// Counts and sizes for the header: images, GIFs and videos, plus the folder's size.
+#[tauri::command]
+fn library_stats(state: State<'_, AppState>) -> Result<LibraryStats, String> {
+    let memes_dir = state.memes_dir.lock().map_err(|e| e.to_string())?.clone();
+    let paths: Vec<String> = {
+        let conn = state.db.lock().map_err(|e| e.to_string())?;
+        let mut stmt = conn.prepare("SELECT path FROM memes").map_err(|e| e.to_string())?;
+        let rows = stmt
+            .query_map([], |row| row.get::<_, String>(0))
+            .map_err(|e| e.to_string())?
+            .collect::<Result<Vec<_>, _>>()
+            .map_err(|e| e.to_string())?;
+        rows
+    };
+    let mut stats = LibraryStats {
+        total: paths.len() as u32,
+        folder_bytes: dir_size(&memes_dir, 4),
+        folder: memes_dir.to_string_lossy().to_string(),
+        ..Default::default()
+    };
+    for path in paths {
+        let p = Path::new(&path);
+        let ext = p.extension().and_then(|e| e.to_str()).unwrap_or("").to_lowercase();
+        let kind = match ext.as_str() {
+            "gif" => &mut stats.gifs,
+            "mp4" | "m4v" | "mov" | "webm" => &mut stats.videos,
+            _ => &mut stats.images,
+        };
+        kind.count += 1;
+        kind.bytes += fs::metadata(p).map(|m| m.len()).unwrap_or(0);
+    }
+    Ok(stats)
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -538,21 +1005,112 @@ pub fn run() {
                 db: Mutex::new(conn),
                 memes_dir: Mutex::new(memes_dir),
             });
+            let version = app.package_info().version.to_string();
+            app.manage(assets::LibraryState::new(&version)?);
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
             list_memes,
             search_memes,
             import_meme,
+            import_meme_bytes,
             delete_meme,
             update_meme_ocr,
+            update_meme_tags,
+            list_tags,
             meme_count,
+            library_stats,
             copy_meme,
             get_settings,
             set_memes_folder,
             reset_memes_folder,
-            sync_library
+            sync_library,
+            save_creation,
+            list_projects,
+            load_project,
+            save_project,
+            delete_project,
+            assets::library_state,
+            assets::fetch_image_url,
+            assets::library_download,
+            assets::library_cancel,
+            assets::library_upload,
+            assets::library_remove,
+            assets::library_favourite,
+            assets::library_clear_cache,
+            assets::pack_inspect,
+            assets::pack_install,
+            assets::pack_install_remote,
+            assets::pack_remove,
+            assets::catalog_fetch,
+            assets::catalog_sanitize,
+            assets::online_search
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn matches(conn: &Connection, q: &str) -> i64 {
+        conn.query_row("SELECT COUNT(*) FROM memes_fts WHERE memes_fts MATCH ?1", params![q], |r| r.get(0))
+            .unwrap()
+    }
+
+    #[test]
+    fn detects_animated_gifs() {
+        use image::codecs::gif::GifEncoder;
+        use image::{Frame, RgbaImage};
+        let gif = |frames: u32| {
+            let mut out = Vec::new();
+            {
+                let mut enc = GifEncoder::new(&mut out);
+                for i in 0..frames {
+                    let img = RgbaImage::from_pixel(4, 4, image::Rgba([i as u8 * 80, 0, 0, 255]));
+                    enc.encode_frame(Frame::new(img)).unwrap();
+                }
+            }
+            out
+        };
+        assert!(is_animated(&gif(3)));
+        assert!(!is_animated(&gif(1)));
+        let mut png = Vec::new();
+        image::DynamicImage::new_rgba8(2, 2)
+            .write_to(&mut std::io::Cursor::new(&mut png), image::ImageFormat::Png)
+            .unwrap();
+        assert!(!is_animated(&png));
+    }
+
+    #[test]
+    fn upgrades_old_libraries_and_indexes_tags() {
+        let conn = Connection::open_in_memory().unwrap();
+        // The schema before tags existed.
+        conn.execute_batch(
+            "CREATE TABLE memes (id TEXT PRIMARY KEY, filename TEXT NOT NULL, path TEXT NOT NULL,
+                title TEXT, ocr_text TEXT NOT NULL DEFAULT '', created_at TEXT NOT NULL);
+             CREATE VIRTUAL TABLE memes_fts USING fts5(id UNINDEXED, title, ocr_text, filename,
+                content='memes', content_rowid='rowid');
+             CREATE TRIGGER memes_ai AFTER INSERT ON memes BEGIN
+                INSERT INTO memes_fts(rowid, id, title, ocr_text, filename)
+                VALUES (new.rowid, new.id, new.title, new.ocr_text, new.filename);
+             END;
+             INSERT INTO memes (id, filename, path, title, ocr_text, created_at)
+             VALUES ('a', 'a.png', '/a.png', 'Old one', 'when the code works', 'now');",
+        )
+        .unwrap();
+
+        init_db(&conn).unwrap();
+        init_db(&conn).unwrap(); // idempotent
+        assert_eq!(matches(&conn, "\"code\"*"), 1, "old text is still searchable");
+
+        let tags = normalize_tags(&["#Cats".into(), " Reaction  Face ".into(), "cats".into(), "".into()]);
+        assert_eq!(tags, vec!["cats", "reaction face"]);
+        conn.execute("UPDATE memes SET tags = ?1 WHERE id = 'a'", params![tags_to_text(&tags)]).unwrap();
+        assert_eq!(matches(&conn, "tags : \"cat\"*"), 1);
+        assert_eq!(matches(&conn, "tags : \"code\"*"), 0, "#tag only looks at tags");
+        assert_eq!(matches(&conn, "\"reaction\"*"), 1);
+        assert_eq!(tags_from_text(&tags_to_text(&tags)), tags);
+    }
 }

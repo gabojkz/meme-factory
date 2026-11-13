@@ -16,11 +16,12 @@
         "width": 1100,
         "height": 760,
         "minWidth": 720,
-        "minHeight": 520
+        "minHeight": 520,
+        "dragDropEnabled": false
       }
     ],
     "security": {
-      "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost blob: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self' https://cdn.jsdelivr.net https://api.github.com ipc: http://ipc.localhost",
+      "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost blob: data: https://api.openverse.org https://i.imgflip.com https://raw.githubusercontent.com https://upload.wikimedia.org https://thumb.wikimedia.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'wasm-unsafe-eval'; media-src 'self' blob: asset: http://asset.localhost; connect-src 'self' https://cdn.jsdelivr.net https://api.github.com ipc: http://ipc.localhost",
       "assetProtocol": {
         "enable": true,
         "scope": [

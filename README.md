@@ -63,12 +63,60 @@ One app, three operating systems — grab the installer for your machine:
 ## Features
 
 - Multi-select import for PNG / JPG / GIF / WebP / BMP
+- **Quick add**: paste an image (⌘V / Ctrl+V), drag one straight from your browser, or paste a link into the link box — the image is downloaded and saved automatically (links to a web page use the page's preview image)
 - OCR on import (Tesseract.js) so text is searchable
+- **GIFs**: animated GIFs and WebPs stay animated — pasting or dragging one from a browser downloads the original (not the browser's still copy), and Copy puts the file itself on the clipboard so it pastes animated. Links to X/Twitter posts (whose "GIFs" are really MP4 videos) and direct `.mp4` links are converted to a looping GIF (up to 20 s, 480 px)
+- **Videos**: short video memes (MP4, MOV, WebM) live alongside images — import them, paste or drop them, or paste a link (X/Twitter video posts and pages with an `og:video` are followed). They preview on hover, play in the details, have their captions read from three frames for search, and Copy puts the video file on the clipboard. X "GIFs" are still saved as real GIFs
+- **Stats**: the top-right corner shows the memes folder's size and how many memes, images, GIFs and videos you have (hover for each kind's size). Click Images, GIFs or Videos to show only that type, click others to add them back, or click Total to show everything — the choice is remembered
+- **Tags**: add tags in a meme's details, click a tag to filter, or search `#cat` to match only that tag; search covers OCR text, titles and tags
 - Fast SQLite FTS5 search across OCR text and titles
 - Copy meme images to the clipboard
 - Configurable local meme folder
 - Fully local storage (no cloud, no account)
 - Native installers for Windows, macOS, and Linux
+
+### Meme Studio
+
+Make new memes on a canvas, then save them straight into your library:
+
+- Blank canvases (square, landscape, portrait, custom) or start from any image
+- Add images from disk, from your library, by drag-and-drop or paste
+- **Cut out** anything with the lasso or polygon tool (add/subtract, feather, invert) — the original image is never changed, and cutouts stay editable
+- Meme text presets (top/bottom Impact, caption box), shapes, and emoji stickers
+- Move, resize, rotate, flip, lock, hide, and reorder layers; undo/redo
+- **Save to library** — the text on your meme becomes searchable right away
+- Projects are saved with every layer editable, so you can come back later
+- Export as PNG or JPEG
+
+### Asset library
+
+Open **📚 Asset library** in the Studio to drop characters, reactions, stickers, objects and backgrounds onto your canvas:
+
+- **Starter kit** of 64 original assets, built in and available offline
+- **Online catalog** (`catalog/` in this repo): browse thumbnails, download single assets or whole packs on demand (Blob Crew, Anime Feels, Ribbit & Friends, Internet Folk, Pixel Quest)
+- **😀 Emotions** tab: browse everything by feeling — happy, laughing, excited, love, cool, smug, sleepy, embarrassed, shocked, scared, sad, crying, angry and more
+- **Online search**: Creative Commons images via [Openverse](https://openverse.org), freely licensed images from [Wikimedia Commons](https://commons.wikimedia.org), and popular meme templates via Imgflip
+- Search by name, tags, emotion or description; filter by emotion, style, format, transparency and licence
+- Favourites (kept offline), **My uploads**, download manager with progress/cancel/retry, storage management
+- Import asset packs as `.zip` (`manifest.json`, `assets/`, `metadata/`) — validated, no scripts or SVGs
+- Every asset shows its source and licence; only MemeFactory-verified licences are presented as verified
+- Images are embedded in your project, so removing a pack never breaks a saved meme
+
+#### Categories
+
+| Category | What's in it |
+| --- | --- |
+| Reactions | Emoji-style faces for 17 emotions |
+| Anime & manga | Anime-style faces (blushing, crying, angry, shocked, smug), chibis, sweat drops, anger veins, blush marks, speed/focus lines, screentone |
+| Internet characters | Line-art archetypes: gloomy, sunny, square-jaw, gray NPC, boomer, zoomer |
+| Classic memes | Advice-style colour wheels, pixel shades, EPIC WIN / FAIL stamps |
+| Gaming & fandom | Pixel hearts, coins, swords, potions, crowns, slimes, controller, rocket, UFO, GAME OVER / LEVEL UP! labels |
+| Animals & frogs | Ribbit the frog in every mood, cats, dogs, birds |
+| Characters, Stickers, Objects, Backgrounds, Templates | Blobs, speech bubbles, comic effects, everyday props, backdrops, Imgflip templates |
+
+Everything bundled or in the catalog is original MemeFactory artwork. Characters owned by someone else — Pepe the Frog, Trollface, Nyan Cat, Doge, Success Kid, Bad Luck Brian, rage faces, Wojak and its variants — are **not** shipped with the app. Find them with **Online search** (Imgflip templates, Wikimedia Commons, Openverse), where each result shows its source and licence, or upload your own.
+
+Regenerate the starter kit and sample catalog with `python3 scripts/generate-assets.py` (needs Pillow).
 
 ## Download
 

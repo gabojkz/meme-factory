@@ -1,0 +1,2345 @@
+{
+ "version": 1,
+ "name": "MemeFactory catalog",
+ "updatedAt": "2026-11-03",
+ "assets": [
+  {
+   "id": "blobcrew-gloomy",
+   "name": "Gloomy blob",
+   "description": "Gloomy blob from the Blob Crew pack.",
+   "category": "characters",
+   "subcategory": "blobs",
+   "tags": [
+    "blob",
+    "character",
+    "wave",
+    "sad"
+   ],
+   "emotions": [
+    "sad"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 344,
+    "height": 414
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "blob-crew",
+   "packName": "Blob Crew",
+   "file": {
+    "url": "assets/blobcrew-gloomy.png",
+    "thumbnail": "thumbs/blobcrew-gloomy.png",
+    "sizeBytes": 26519,
+    "checksum": "sha256-a87173371c0f119e8a4d7319d685e043c0bb4a78c78971424567f0612131273b"
+   }
+  },
+  {
+   "id": "blobcrew-hyped",
+   "name": "Hyped blob",
+   "description": "Hyped blob from the Blob Crew pack.",
+   "category": "characters",
+   "subcategory": "blobs",
+   "tags": [
+    "blob",
+    "character",
+    "cheer",
+    "wow"
+   ],
+   "emotions": [
+    "shocked"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 356,
+    "height": 430
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "blob-crew",
+   "packName": "Blob Crew",
+   "file": {
+    "url": "assets/blobcrew-hyped.png",
+    "thumbnail": "thumbs/blobcrew-hyped.png",
+    "sizeBytes": 31369,
+    "checksum": "sha256-db7ae431d482597f7563b301d1890f1b3dc74fcf589703ddb6825c9e1f869624"
+   }
+  },
+  {
+   "id": "blobcrew-look-at-this",
+   "name": "Look-at-this blob",
+   "description": "Look-at-this blob from the Blob Crew pack.",
+   "category": "characters",
+   "subcategory": "blobs",
+   "tags": [
+    "blob",
+    "character",
+    "point",
+    "happy"
+   ],
+   "emotions": [
+    "happy"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 354,
+    "height": 414
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "blob-crew",
+   "packName": "Blob Crew",
+   "file": {
+    "url": "assets/blobcrew-look-at-this.png",
+    "thumbnail": "thumbs/blobcrew-look-at-this.png",
+    "sizeBytes": 29231,
+    "checksum": "sha256-b9484b69840ebca58af3de54a08747612ac538caea961840c5f1ae728b166817"
+   }
+  },
+  {
+   "id": "blobcrew-defeated",
+   "name": "Defeated blob",
+   "description": "Defeated blob from the Blob Crew pack.",
+   "category": "characters",
+   "subcategory": "blobs",
+   "tags": [
+    "blob",
+    "character",
+    "shrug",
+    "sad"
+   ],
+   "emotions": [
+    "sad"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 366,
+    "height": 414
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "blob-crew",
+   "packName": "Blob Crew",
+   "file": {
+    "url": "assets/blobcrew-defeated.png",
+    "thumbnail": "thumbs/blobcrew-defeated.png",
+    "sizeBytes": 28930,
+    "checksum": "sha256-bde9f3ceb1c2b54b1e75b0e5b51be7dd58aaccf6bf294f0eee1c6430c224e320"
+   }
+  },
+  {
+   "id": "blobcrew-chill",
+   "name": "Chill blob",
+   "description": "Chill blob from the Blob Crew pack.",
+   "category": "characters",
+   "subcategory": "blobs",
+   "tags": [
+    "blob",
+    "character",
+    "sit",
+    "happy"
+   ],
+   "emotions": [
+    "happy"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 302,
+    "height": 414
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "blob-crew",
+   "packName": "Blob Crew",
+   "file": {
+    "url": "assets/blobcrew-chill.png",
+    "thumbnail": "thumbs/blobcrew-chill.png",
+    "sizeBytes": 29195,
+    "checksum": "sha256-339c974d244e841bf7791219a3cd0fe816c2f7722eef9eafca6d27d8bb37bfe0"
+   }
+  },
+  {
+   "id": "blobcrew-done",
+   "name": "Done blob",
+   "description": "Done blob from the Blob Crew pack.",
+   "category": "characters",
+   "subcategory": "blobs",
+   "tags": [
+    "blob",
+    "character",
+    "facepalm",
+    "meh"
+   ],
+   "emotions": [
+    "neutral"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 302,
+    "height": 414
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "blob-crew",
+   "packName": "Blob Crew",
+   "file": {
+    "url": "assets/blobcrew-done.png",
+    "thumbnail": "thumbs/blobcrew-done.png",
+    "sizeBytes": 29008,
+    "checksum": "sha256-43e691f12405c555ff3e086342395efa5ac72388870ec07f9a2c2aeaae8ab83b"
+   }
+  },
+  {
+   "id": "blobcrew-fx-zap",
+   "name": "ZAP!",
+   "description": "ZAP! comic effect.",
+   "category": "stickers",
+   "subcategory": "effects",
+   "tags": [
+    "zap",
+    "comic",
+    "effect"
+   ],
+   "emotions": [],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 531,
+    "height": 456
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "blob-crew",
+   "packName": "Blob Crew",
+   "file": {
+    "url": "assets/blobcrew-fx-zap.png",
+    "thumbnail": "thumbs/blobcrew-fx-zap.png",
+    "sizeBytes": 56209,
+    "checksum": "sha256-5706374c329a244df2c177e272f8d6de7faee0c640ac42c32ed50537f87e1cfc"
+   }
+  },
+  {
+   "id": "blobcrew-fx-bam",
+   "name": "BAM!",
+   "description": "BAM! comic effect.",
+   "category": "stickers",
+   "subcategory": "effects",
+   "tags": [
+    "bam",
+    "comic",
+    "effect"
+   ],
+   "emotions": [],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 531,
+    "height": 456
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "blob-crew",
+   "packName": "Blob Crew",
+   "file": {
+    "url": "assets/blobcrew-fx-bam.png",
+    "thumbnail": "thumbs/blobcrew-fx-bam.png",
+    "sizeBytes": 56866,
+    "checksum": "sha256-216e523268088ad44f100fe3893692336d3ea27a349dec618cc3408613bbd427"
+   }
+  },
+  {
+   "id": "blobcrew-fx-oof",
+   "name": "OOF",
+   "description": "OOF comic effect.",
+   "category": "stickers",
+   "subcategory": "effects",
+   "tags": [
+    "oof",
+    "comic",
+    "effect"
+   ],
+   "emotions": [],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 531,
+    "height": 456
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "blob-crew",
+   "packName": "Blob Crew",
+   "file": {
+    "url": "assets/blobcrew-fx-oof.png",
+    "thumbnail": "thumbs/blobcrew-fx-oof.png",
+    "sizeBytes": 55465,
+    "checksum": "sha256-eefd5b18d88ffb29f4fcda3d7dbcbd01510b1e36e5bccc4172844febc616b4de"
+   }
+  },
+  {
+   "id": "blobcrew-fx-bruh",
+   "name": "BRUH",
+   "description": "BRUH comic effect.",
+   "category": "stickers",
+   "subcategory": "effects",
+   "tags": [
+    "bruh",
+    "comic",
+    "effect"
+   ],
+   "emotions": [],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 531,
+    "height": 456
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "blob-crew",
+   "packName": "Blob Crew",
+   "file": {
+    "url": "assets/blobcrew-fx-bruh.png",
+    "thumbnail": "thumbs/blobcrew-fx-bruh.png",
+    "sizeBytes": 49175,
+    "checksum": "sha256-7436d1d4bcf74d975d8d444a3526e9fd32765eba64a1014c55716282beb6524e"
+   }
+  },
+  {
+   "id": "anime-blush",
+   "name": "Anime blushing face",
+   "description": "Blushing anime-style face.",
+   "category": "anime",
+   "subcategory": "faces",
+   "tags": [
+    "anime",
+    "manga",
+    "blush",
+    "shy",
+    "kawaii",
+    "girl"
+   ],
+   "emotions": [
+    "embarrassed",
+    "love"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 514,
+    "height": 498
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "anime-feels",
+   "packName": "Anime Feels",
+   "file": {
+    "url": "assets/anime-blush.png",
+    "thumbnail": "thumbs/anime-blush.png",
+    "sizeBytes": 73045,
+    "checksum": "sha256-1ffafca484f76ec6b0bdde1fd0373714fbd736c5093a9cc6e23353b6e5661a75"
+   }
+  },
+  {
+   "id": "anime-crying",
+   "name": "Anime crying face",
+   "description": "Anime-style face in floods of tears.",
+   "category": "anime",
+   "subcategory": "faces",
+   "tags": [
+    "anime",
+    "manga",
+    "tears",
+    "cry",
+    "sob"
+   ],
+   "emotions": [
+    "crying",
+    "sad"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 514,
+    "height": 531
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "anime-feels",
+   "packName": "Anime Feels",
+   "file": {
+    "url": "assets/anime-crying.png",
+    "thumbnail": "thumbs/anime-crying.png",
+    "sizeBytes": 72708,
+    "checksum": "sha256-b1ab04fac33eb2b198976f85b8524d9e23aaa3600bbcbaf26be7a590e4122ad7"
+   }
+  },
+  {
+   "id": "anime-angry",
+   "name": "Anime angry face",
+   "description": "Anime-style face, furious, anger vein included.",
+   "category": "anime",
+   "subcategory": "faces",
+   "tags": [
+    "anime",
+    "manga",
+    "mad",
+    "rage",
+    "fang",
+    "vein"
+   ],
+   "emotions": [
+    "angry"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 514,
+    "height": 498
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "anime-feels",
+   "packName": "Anime Feels",
+   "file": {
+    "url": "assets/anime-angry.png",
+    "thumbnail": "thumbs/anime-angry.png",
+    "sizeBytes": 84019,
+    "checksum": "sha256-8c29b4fe400cce10ab263820e01330ef75fc0c2c5a360549f44d0439ad3cd97b"
+   }
+  },
+  {
+   "id": "anime-smug",
+   "name": "Anime smug face",
+   "description": "Smug anime-style face.",
+   "category": "anime",
+   "subcategory": "faces",
+   "tags": [
+    "anime",
+    "manga",
+    "smug",
+    "tease",
+    "girl"
+   ],
+   "emotions": [
+    "smug"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 514,
+    "height": 498
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "anime-feels",
+   "packName": "Anime Feels",
+   "file": {
+    "url": "assets/anime-smug.png",
+    "thumbnail": "thumbs/anime-smug.png",
+    "sizeBytes": 75392,
+    "checksum": "sha256-1b6095280e4338a5586b17ffd85d07a28f64b71afdad0eb496de32216353db79"
+   }
+  },
+  {
+   "id": "anime-joy",
+   "name": "Anime joyful face",
+   "description": "Joyful anime-style face.",
+   "category": "anime",
+   "subcategory": "faces",
+   "tags": [
+    "anime",
+    "manga",
+    "smile",
+    "boy",
+    "joy"
+   ],
+   "emotions": [
+    "happy",
+    "excited"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 514,
+    "height": 498
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "anime-feels",
+   "packName": "Anime Feels",
+   "file": {
+    "url": "assets/anime-joy.png",
+    "thumbnail": "thumbs/anime-joy.png",
+    "sizeBytes": 66677,
+    "checksum": "sha256-bccf474dc3737c825f52684c052f4e98f7e501af979a8f092e1da12946e4581b"
+   }
+  },
+  {
+   "id": "chibi-cheer",
+   "name": "Chibi cheer",
+   "description": "A tiny chibi cheering.",
+   "category": "anime",
+   "subcategory": "chibi",
+   "tags": [
+    "anime",
+    "manga",
+    "chibi",
+    "cute",
+    "yay",
+    "cheer"
+   ],
+   "emotions": [
+    "excited",
+    "happy"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 473,
+    "height": 513
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "anime-feels",
+   "packName": "Anime Feels",
+   "file": {
+    "url": "assets/chibi-cheer.png",
+    "thumbnail": "thumbs/chibi-cheer.png",
+    "sizeBytes": 67696,
+    "checksum": "sha256-090f4f7d629a77eea20b26ff2b331d317e4344dab486fc58d2fd5bb9fe94f14b"
+   }
+  },
+  {
+   "id": "chibi-stand",
+   "name": "Chibi standing",
+   "description": "A shy chibi.",
+   "category": "anime",
+   "subcategory": "chibi",
+   "tags": [
+    "anime",
+    "manga",
+    "chibi",
+    "cute",
+    "shy"
+   ],
+   "emotions": [
+    "embarrassed"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 312,
+    "height": 513
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "anime-feels",
+   "packName": "Anime Feels",
+   "file": {
+    "url": "assets/chibi-stand.png",
+    "thumbnail": "thumbs/chibi-stand.png",
+    "sizeBytes": 51636,
+    "checksum": "sha256-900012fc5bba02bdda4fa3810ac63dcce805f4761746d59d156876172e53a5c3"
+   }
+  },
+  {
+   "id": "anime-vein",
+   "name": "Anger vein",
+   "description": "The manga anger vein symbol.",
+   "category": "anime",
+   "subcategory": "effects",
+   "tags": [
+    "anime",
+    "manga",
+    "anger",
+    "vein",
+    "mad",
+    "symbol"
+   ],
+   "emotions": [
+    "angry"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 200,
+    "height": 200
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "anime-feels",
+   "packName": "Anime Feels",
+   "file": {
+    "url": "assets/anime-vein.png",
+    "thumbnail": "thumbs/anime-vein.png",
+    "sizeBytes": 10587,
+    "checksum": "sha256-3ce7eb0ae7cbdf3bfdc92b2b5cc2426f99ff9fa69cfe8132107074d80b53f4f1"
+   }
+  },
+  {
+   "id": "anime-blushmarks",
+   "name": "Blush marks",
+   "description": "Blush marks to put on any face.",
+   "category": "anime",
+   "subcategory": "effects",
+   "tags": [
+    "anime",
+    "manga",
+    "blush",
+    "cheeks",
+    "shy"
+   ],
+   "emotions": [
+    "embarrassed",
+    "love"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 562,
+    "height": 132
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "anime-feels",
+   "packName": "Anime Feels",
+   "file": {
+    "url": "assets/anime-blushmarks.png",
+    "thumbnail": "thumbs/anime-blushmarks.png",
+    "sizeBytes": 8021,
+    "checksum": "sha256-41d0038047c31448ee469caec4fee70bafacdccde9679c0ef725e77d18301f3a"
+   }
+  },
+  {
+   "id": "anime-focus",
+   "name": "Focus lines",
+   "description": "Manga focus lines framing the centre.",
+   "category": "anime",
+   "subcategory": "backgrounds",
+   "tags": [
+    "anime",
+    "manga",
+    "focus",
+    "lines",
+    "dramatic",
+    "reveal"
+   ],
+   "emotions": [
+    "shocked"
+   ],
+   "style": "sketch",
+   "format": "jpg",
+   "dimensions": {
+    "width": 800,
+    "height": 800
+   },
+   "transparent": false,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "anime-feels",
+   "packName": "Anime Feels",
+   "file": {
+    "url": "assets/anime-focus.jpg",
+    "thumbnail": "thumbs/anime-focus.png",
+    "sizeBytes": 139076,
+    "checksum": "sha256-c3e36cfe2bad30d7bc3fb099401e5c63f5b4ea63ac1b099907f6dbaaebb57b58"
+   }
+  },
+  {
+   "id": "anime-screentone",
+   "name": "Screentone",
+   "description": "Manga screentone gradient.",
+   "category": "anime",
+   "subcategory": "backgrounds",
+   "tags": [
+    "anime",
+    "manga",
+    "screentone",
+    "halftone",
+    "dots",
+    "panel"
+   ],
+   "emotions": [],
+   "style": "sketch",
+   "format": "jpg",
+   "dimensions": {
+    "width": 800,
+    "height": 800
+   },
+   "transparent": false,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "anime-feels",
+   "packName": "Anime Feels",
+   "file": {
+    "url": "assets/anime-screentone.jpg",
+    "thumbnail": "thumbs/anime-screentone.png",
+    "sizeBytes": 206187,
+    "checksum": "sha256-c8d84346bc515f4e96da2d8e79bd57fef6b08009a6e579e313a00422b35b8c07"
+   }
+  },
+  {
+   "id": "frog-smug",
+   "name": "Ribbit (smug)",
+   "description": "Ribbit, looking far too pleased.",
+   "category": "animals",
+   "subcategory": "frogs",
+   "tags": [
+    "frog",
+    "ribbit",
+    "green",
+    "smug"
+   ],
+   "emotions": [
+    "smug"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 482,
+    "height": 420
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "ribbit-and-friends",
+   "packName": "Ribbit & Friends",
+   "file": {
+    "url": "assets/frog-smug.png",
+    "thumbnail": "thumbs/frog-smug.png",
+    "sizeBytes": 47542,
+    "checksum": "sha256-464a61980e18ba82b4f87e47c4a273e6342d4b9fc714e6696606bd31a694951c"
+   }
+  },
+  {
+   "id": "frog-angry",
+   "name": "Ribbit (angry)",
+   "description": "Ribbit, furious.",
+   "category": "animals",
+   "subcategory": "frogs",
+   "tags": [
+    "frog",
+    "ribbit",
+    "green",
+    "mad",
+    "rage"
+   ],
+   "emotions": [
+    "angry"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 482,
+    "height": 420
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "ribbit-and-friends",
+   "packName": "Ribbit & Friends",
+   "file": {
+    "url": "assets/frog-angry.png",
+    "thumbnail": "thumbs/frog-angry.png",
+    "sizeBytes": 55307,
+    "checksum": "sha256-b41e41b54c2a5c60b21fbe6e20f787695802116fcdb50abd628badaee370bb88"
+   }
+  },
+  {
+   "id": "frog-crying",
+   "name": "Ribbit (crying)",
+   "description": "Ribbit in tears.",
+   "category": "animals",
+   "subcategory": "frogs",
+   "tags": [
+    "frog",
+    "ribbit",
+    "green",
+    "tears",
+    "cry"
+   ],
+   "emotions": [
+    "crying",
+    "sad"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 482,
+    "height": 420
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "ribbit-and-friends",
+   "packName": "Ribbit & Friends",
+   "file": {
+    "url": "assets/frog-crying.png",
+    "thumbnail": "thumbs/frog-crying.png",
+    "sizeBytes": 58548,
+    "checksum": "sha256-51d1962d7092c90a80b961dd76b16f75291fc615b0ccbe24f2ef19bd06fcf5e5"
+   }
+  },
+  {
+   "id": "frog-feelsgood",
+   "name": "Ribbit (feels good)",
+   "description": "Ribbit, feeling good.",
+   "category": "animals",
+   "subcategory": "frogs",
+   "tags": [
+    "frog",
+    "ribbit",
+    "green",
+    "feels",
+    "good",
+    "content",
+    "bliss"
+   ],
+   "emotions": [
+    "happy",
+    "excited"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 482,
+    "height": 431
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "ribbit-and-friends",
+   "packName": "Ribbit & Friends",
+   "file": {
+    "url": "assets/frog-feelsgood.png",
+    "thumbnail": "thumbs/frog-feelsgood.png",
+    "sizeBytes": 55156,
+    "checksum": "sha256-f90fe5bf21fc6eb57b0e2b4abf8a608904c939e3f8a15ec28dad2a30180f8f9c"
+   }
+  },
+  {
+   "id": "frog-shocked",
+   "name": "Ribbit (shocked)",
+   "description": "Ribbit, shocked.",
+   "category": "animals",
+   "subcategory": "frogs",
+   "tags": [
+    "frog",
+    "ribbit",
+    "green",
+    "surprised",
+    "omg"
+   ],
+   "emotions": [
+    "shocked"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 482,
+    "height": 420
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "ribbit-and-friends",
+   "packName": "Ribbit & Friends",
+   "file": {
+    "url": "assets/frog-shocked.png",
+    "thumbnail": "thumbs/frog-shocked.png",
+    "sizeBytes": 54766,
+    "checksum": "sha256-e559beed82894e330cb3ac137682511ccae6f9f75945cd2f43eea3dce495d490"
+   }
+  },
+  {
+   "id": "cat-shocked",
+   "name": "Surprised cat",
+   "description": "A cat that just saw something.",
+   "category": "animals",
+   "subcategory": "cats",
+   "tags": [
+    "cat",
+    "kitty",
+    "surprised",
+    "omg"
+   ],
+   "emotions": [
+    "shocked"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 506,
+    "height": 456
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "ribbit-and-friends",
+   "packName": "Ribbit & Friends",
+   "file": {
+    "url": "assets/cat-shocked.png",
+    "thumbnail": "thumbs/cat-shocked.png",
+    "sizeBytes": 55428,
+    "checksum": "sha256-cac70da28175f6dcc48f6585ca4b2b9e4a0b63dcf19608ed9661fd48d2be67a8"
+   }
+  },
+  {
+   "id": "cat-annoyed",
+   "name": "Annoyed cat",
+   "description": "An unimpressed cat.",
+   "category": "animals",
+   "subcategory": "cats",
+   "tags": [
+    "cat",
+    "kitty",
+    "annoyed",
+    "unimpressed",
+    "side-eye"
+   ],
+   "emotions": [
+    "disgusted",
+    "neutral"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 506,
+    "height": 456
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "ribbit-and-friends",
+   "packName": "Ribbit & Friends",
+   "file": {
+    "url": "assets/cat-annoyed.png",
+    "thumbnail": "thumbs/cat-annoyed.png",
+    "sizeBytes": 41764,
+    "checksum": "sha256-951b760c3e4b4400a95be068679d37d387a3d56eb706e14a60a9881ba369d3ab"
+   }
+  },
+  {
+   "id": "dog-confused",
+   "name": "Confused dog",
+   "description": "A head-tilting, confused dog.",
+   "category": "animals",
+   "subcategory": "dogs",
+   "tags": [
+    "dog",
+    "doggo",
+    "head tilt",
+    "huh"
+   ],
+   "emotions": [
+    "confused"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 512,
+    "height": 448
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "ribbit-and-friends",
+   "packName": "Ribbit & Friends",
+   "file": {
+    "url": "assets/dog-confused.png",
+    "thumbnail": "thumbs/dog-confused.png",
+    "sizeBytes": 68289,
+    "checksum": "sha256-4920f93a08f9ba221ec2f94cafb53a09dd2845c3e478482cd57a18cbc25526ce"
+   }
+  },
+  {
+   "id": "bird-happy",
+   "name": "Little bird",
+   "description": "A round little bird.",
+   "category": "animals",
+   "subcategory": "birds",
+   "tags": [
+    "bird",
+    "birb",
+    "cute"
+   ],
+   "emotions": [
+    "happy"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 446,
+    "height": 411
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "ribbit-and-friends",
+   "packName": "Ribbit & Friends",
+   "file": {
+    "url": "assets/bird-happy.png",
+    "thumbnail": "thumbs/bird-happy.png",
+    "sizeBytes": 38697,
+    "checksum": "sha256-4cbbea4481b64dc683463b42364a77c7f4d011cddef25ddff53dd11788b91ac0"
+   }
+  },
+  {
+   "id": "bird-shocked",
+   "name": "Screaming bird",
+   "description": "A bird screaming into the void.",
+   "category": "animals",
+   "subcategory": "birds",
+   "tags": [
+    "bird",
+    "birb",
+    "scream",
+    "yell"
+   ],
+   "emotions": [
+    "shocked",
+    "scared"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 446,
+    "height": 411
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "ribbit-and-friends",
+   "packName": "Ribbit & Friends",
+   "file": {
+    "url": "assets/bird-shocked.png",
+    "thumbnail": "thumbs/bird-shocked.png",
+    "sizeBytes": 44674,
+    "checksum": "sha256-5b16377237f6f29a482f9a9e32746950c7e91f96b2ccdef88143aa42f11bd639"
+   }
+  },
+  {
+   "id": "folk-jaw",
+   "name": "Square-jaw guy",
+   "description": "Supremely confident line-art guy (original archetype).",
+   "category": "internet",
+   "subcategory": "archetypes",
+   "tags": [
+    "chad",
+    "jaw",
+    "confident",
+    "yes",
+    "guy"
+   ],
+   "emotions": [
+    "smug",
+    "cool"
+   ],
+   "style": "hand-drawn",
+   "format": "png",
+   "dimensions": {
+    "width": 422,
+    "height": 559
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "internet-folk",
+   "packName": "Internet Folk",
+   "file": {
+    "url": "assets/folk-jaw.png",
+    "thumbnail": "thumbs/folk-jaw.png",
+    "sizeBytes": 26991,
+    "checksum": "sha256-6aec765d5fece7553d451b946c2c002d57b7f25e031d34c8b4505574a6c3f93d"
+   }
+  },
+  {
+   "id": "folk-npc",
+   "name": "Gray NPC",
+   "description": "Blank gray NPC-style character (original archetype).",
+   "category": "internet",
+   "subcategory": "archetypes",
+   "tags": [
+    "npc",
+    "gray",
+    "blank",
+    "guy"
+   ],
+   "emotions": [
+    "neutral"
+   ],
+   "style": "hand-drawn",
+   "format": "png",
+   "dimensions": {
+    "width": 422,
+    "height": 516
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "internet-folk",
+   "packName": "Internet Folk",
+   "file": {
+    "url": "assets/folk-npc.png",
+    "thumbnail": "thumbs/folk-npc.png",
+    "sizeBytes": 32496,
+    "checksum": "sha256-5cb35d2d5d5e1272c2279519a265c4bc9c56785892515f3b990364b15970479e"
+   }
+  },
+  {
+   "id": "folk-boomer",
+   "name": "Boomer guy",
+   "description": "Cap, shades and moustache (original archetype).",
+   "category": "internet",
+   "subcategory": "archetypes",
+   "tags": [
+    "boomer",
+    "dad",
+    "sunglasses",
+    "cap",
+    "guy"
+   ],
+   "emotions": [
+    "cool"
+   ],
+   "style": "hand-drawn",
+   "format": "png",
+   "dimensions": {
+    "width": 422,
+    "height": 531
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "internet-folk",
+   "packName": "Internet Folk",
+   "file": {
+    "url": "assets/folk-boomer.png",
+    "thumbnail": "thumbs/folk-boomer.png",
+    "sizeBytes": 37818,
+    "checksum": "sha256-06519ac788fc269c501bf60bd94a75e3e6524b01d60447f0248238870bbf2605"
+   }
+  },
+  {
+   "id": "folk-zoomer",
+   "name": "Zoomer guy",
+   "description": "Headphones on, always online (original archetype).",
+   "category": "internet",
+   "subcategory": "archetypes",
+   "tags": [
+    "zoomer",
+    "headphones",
+    "gen z",
+    "guy"
+   ],
+   "emotions": [
+    "happy"
+   ],
+   "style": "hand-drawn",
+   "format": "png",
+   "dimensions": {
+    "width": 422,
+    "height": 538
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "internet-folk",
+   "packName": "Internet Folk",
+   "file": {
+    "url": "assets/folk-zoomer.png",
+    "thumbnail": "thumbs/folk-zoomer.png",
+    "sizeBytes": 41136,
+    "checksum": "sha256-fef4400131b63102b9d954dce833cec73bbc7df2de48bc2bb9a4c67bff7fcae5"
+   }
+  },
+  {
+   "id": "classic-wheel-cool",
+   "name": "Cool colour wheel",
+   "description": "Cool-toned advice-style backdrop.",
+   "category": "classic",
+   "subcategory": "backgrounds",
+   "tags": [
+    "advice",
+    "animal",
+    "colour",
+    "wheel",
+    "classic"
+   ],
+   "emotions": [],
+   "style": "vector",
+   "format": "jpg",
+   "dimensions": {
+    "width": 800,
+    "height": 800
+   },
+   "transparent": false,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "internet-folk",
+   "packName": "Internet Folk",
+   "file": {
+    "url": "assets/classic-wheel-cool.jpg",
+    "thumbnail": "thumbs/classic-wheel-cool.png",
+    "sizeBytes": 11964,
+    "checksum": "sha256-6c14537dd8ce7ee592a13a9394799349e2e5525f5621c0708e6493f595d58c45"
+   }
+  },
+  {
+   "id": "classic-win",
+   "name": "EPIC WIN stamp",
+   "description": "Stamp it a win.",
+   "category": "classic",
+   "subcategory": "stamps",
+   "tags": [
+    "epic",
+    "win",
+    "stamp",
+    "success"
+   ],
+   "emotions": [
+    "happy",
+    "excited"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 599,
+    "height": 292
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "internet-folk",
+   "packName": "Internet Folk",
+   "file": {
+    "url": "assets/classic-win.png",
+    "thumbnail": "thumbs/classic-win.png",
+    "sizeBytes": 59539,
+    "checksum": "sha256-63870386b9bc60c1a575aeba4e23a96b28cae698828b6a0f0f1774a3be6ca1df"
+   }
+  },
+  {
+   "id": "classic-fail",
+   "name": "FAIL stamp",
+   "description": "Stamp it a fail.",
+   "category": "classic",
+   "subcategory": "stamps",
+   "tags": [
+    "fail",
+    "stamp",
+    "epic"
+   ],
+   "emotions": [
+    "sad"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 599,
+    "height": 292
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "internet-folk",
+   "packName": "Internet Folk",
+   "file": {
+    "url": "assets/classic-fail.png",
+    "thumbnail": "thumbs/classic-fail.png",
+    "sizeBytes": 38568,
+    "checksum": "sha256-2004e669e5a32bdea7778270a64c0b5988b1f98fba14438cf71afc4f680bf7d6"
+   }
+  },
+  {
+   "id": "pixel-coin",
+   "name": "Pixel coin",
+   "description": "An 8-bit coin.",
+   "category": "gaming",
+   "subcategory": "pixel",
+   "tags": [
+    "pixel",
+    "8bit",
+    "coin",
+    "gold"
+   ],
+   "emotions": [],
+   "style": "pixel art",
+   "format": "png",
+   "dimensions": {
+    "width": 320,
+    "height": 320
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "pixel-quest",
+   "packName": "Pixel Quest",
+   "file": {
+    "url": "assets/pixel-coin.png",
+    "thumbnail": "thumbs/pixel-coin.png",
+    "sizeBytes": 989,
+    "checksum": "sha256-04297a43d0af99fce40ed610029e6bc883635ef67cf896af20ec07afdd4fc5e7"
+   }
+  },
+  {
+   "id": "pixel-sword",
+   "name": "Pixel sword",
+   "description": "An 8-bit sword.",
+   "category": "gaming",
+   "subcategory": "fantasy",
+   "tags": [
+    "pixel",
+    "8bit",
+    "sword",
+    "rpg"
+   ],
+   "emotions": [],
+   "style": "pixel art",
+   "format": "png",
+   "dimensions": {
+    "width": 364,
+    "height": 364
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "pixel-quest",
+   "packName": "Pixel Quest",
+   "file": {
+    "url": "assets/pixel-sword.png",
+    "thumbnail": "thumbs/pixel-sword.png",
+    "sizeBytes": 1423,
+    "checksum": "sha256-8ca1c36276c7597b888a31c8f58aa150dca5c0a689e386915e4cc5ca00a03b46"
+   }
+  },
+  {
+   "id": "pixel-potion",
+   "name": "Pixel potion",
+   "description": "An 8-bit potion.",
+   "category": "gaming",
+   "subcategory": "fantasy",
+   "tags": [
+    "pixel",
+    "8bit",
+    "potion",
+    "rpg",
+    "magic"
+   ],
+   "emotions": [],
+   "style": "pixel art",
+   "format": "png",
+   "dimensions": {
+    "width": 288,
+    "height": 288
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "pixel-quest",
+   "packName": "Pixel Quest",
+   "file": {
+    "url": "assets/pixel-potion.png",
+    "thumbnail": "thumbs/pixel-potion.png",
+    "sizeBytes": 918,
+    "checksum": "sha256-41c9075914fb33c037c3e827c0f0efeaca5c0d732b7c126771634b8a631f7436"
+   }
+  },
+  {
+   "id": "pixel-crown",
+   "name": "Pixel crown",
+   "description": "An 8-bit crown.",
+   "category": "gaming",
+   "subcategory": "fantasy",
+   "tags": [
+    "pixel",
+    "8bit",
+    "crown",
+    "king",
+    "winner"
+   ],
+   "emotions": [
+    "proud"
+   ],
+   "style": "pixel art",
+   "format": "png",
+   "dimensions": {
+    "width": 360,
+    "height": 280
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "pixel-quest",
+   "packName": "Pixel Quest",
+   "file": {
+    "url": "assets/pixel-crown.png",
+    "thumbnail": "thumbs/pixel-crown.png",
+    "sizeBytes": 936,
+    "checksum": "sha256-41fdba2b67d392674701ea19207d1f763447424d1312bb3c96ec5d1ad4b1b45e"
+   }
+  },
+  {
+   "id": "pixel-slime",
+   "name": "Pixel slime",
+   "description": "A friendly 8-bit slime.",
+   "category": "gaming",
+   "subcategory": "fantasy",
+   "tags": [
+    "pixel",
+    "8bit",
+    "slime",
+    "monster",
+    "rpg"
+   ],
+   "emotions": [
+    "happy"
+   ],
+   "style": "pixel art",
+   "format": "png",
+   "dimensions": {
+    "width": 324,
+    "height": 252
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "pixel-quest",
+   "packName": "Pixel Quest",
+   "file": {
+    "url": "assets/pixel-slime.png",
+    "thumbnail": "thumbs/pixel-slime.png",
+    "sizeBytes": 838,
+    "checksum": "sha256-47bb3bd62747efbabc9a2133986266ec316108d1016ee282a7345eff01418ace"
+   }
+  },
+  {
+   "id": "scifi-rocket",
+   "name": "Rocket",
+   "description": "A cartoon rocket.",
+   "category": "gaming",
+   "subcategory": "sci-fi",
+   "tags": [
+    "rocket",
+    "space",
+    "launch",
+    "to the moon"
+   ],
+   "emotions": [
+    "excited"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 269,
+    "height": 549
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "pixel-quest",
+   "packName": "Pixel Quest",
+   "file": {
+    "url": "assets/scifi-rocket.png",
+    "thumbnail": "thumbs/scifi-rocket.png",
+    "sizeBytes": 19236,
+    "checksum": "sha256-1e2be137390703000a8a947f7175a559843ab5b650dabf2688fe79716f9716a4"
+   }
+  },
+  {
+   "id": "scifi-ufo",
+   "name": "UFO",
+   "description": "A UFO with tractor beam.",
+   "category": "gaming",
+   "subcategory": "sci-fi",
+   "tags": [
+    "ufo",
+    "alien",
+    "space",
+    "abduction"
+   ],
+   "emotions": [],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 542,
+    "height": 371
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "pixel-quest",
+   "packName": "Pixel Quest",
+   "file": {
+    "url": "assets/scifi-ufo.png",
+    "thumbnail": "thumbs/scifi-ufo.png",
+    "sizeBytes": 28638,
+    "checksum": "sha256-df645b3ca93ef951ef460e568341547c8b763895fc3af1a7ed9d9ccf72134081"
+   }
+  },
+  {
+   "id": "label-gameover",
+   "name": "GAME OVER",
+   "description": "GAME OVER label.",
+   "category": "gaming",
+   "subcategory": "labels",
+   "tags": [
+    "game over",
+    "lose",
+    "dead",
+    "label"
+   ],
+   "emotions": [
+    "sad"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 582,
+    "height": 182
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "pixel-quest",
+   "packName": "Pixel Quest",
+   "file": {
+    "url": "assets/label-gameover.png",
+    "thumbnail": "thumbs/label-gameover.png",
+    "sizeBytes": 22996,
+    "checksum": "sha256-1a7f94d584c9fdd51de160400b3f0bad5668f67e2131e019760f8628e74ab894"
+   }
+  },
+  {
+   "id": "label-levelup",
+   "name": "LEVEL UP!",
+   "description": "LEVEL UP! label.",
+   "category": "gaming",
+   "subcategory": "labels",
+   "tags": [
+    "level up",
+    "win",
+    "xp",
+    "label"
+   ],
+   "emotions": [
+    "excited"
+   ],
+   "style": "cartoon",
+   "format": "png",
+   "dimensions": {
+    "width": 582,
+    "height": 182
+   },
+   "transparent": true,
+   "version": 1,
+   "source": {
+    "name": "MemeFactory",
+    "url": "https://github.com/gabojkz/meme-factory"
+   },
+   "licensing": {
+    "license": "MIT (MemeFactory original artwork)",
+    "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+    "commercialUse": true,
+    "modification": true,
+    "redistribution": true,
+    "attributionRequired": false,
+    "verified": true,
+    "verifiedAt": "2026-11-03",
+    "declaredBy": "MemeFactory",
+    "attributionText": null
+   },
+   "packId": "pixel-quest",
+   "packName": "Pixel Quest",
+   "file": {
+    "url": "assets/label-levelup.png",
+    "thumbnail": "thumbs/label-levelup.png",
+    "sizeBytes": 18920,
+    "checksum": "sha256-d1b7aac4c65f5283dc68f86d54b839541532fb85a36c03121116f2a5698bd330"
+   }
+  }
+ ],
+ "packs": [
+  {
+   "id": "blob-crew",
+   "name": "Blob Crew",
+   "description": "Six moody blob characters plus four comic effects. Original MemeFactory artwork.",
+   "author": "MemeFactory",
+   "version": "1.0.0",
+   "license": "See individual asset records",
+   "preview": "packs/blob-crew-preview.png",
+   "downloadUrl": "packs/blob-crew.zip",
+   "sizeBytes": 442794,
+   "checksum": "sha256-adf1b6111fe75e7bb9f1380bc2b2555db64e82166f51a09314d6375e31ebe43b",
+   "assetCount": 10
+  },
+  {
+   "id": "anime-feels",
+   "name": "Anime Feels",
+   "description": "Anime-style faces, chibis, manga effects and backgrounds. Original MemeFactory artwork.",
+   "author": "MemeFactory",
+   "version": "1.0.0",
+   "license": "See individual asset records",
+   "preview": "packs/anime-feels-preview.png",
+   "downloadUrl": "packs/anime-feels.zip",
+   "sizeBytes": 712787,
+   "checksum": "sha256-69d5dd43fc07066ba365c1cfe3e3d74284bf7988cc84fc4d29f79f9959d1768e",
+   "assetCount": 11
+  },
+  {
+   "id": "ribbit-and-friends",
+   "name": "Ribbit & Friends",
+   "description": "Ribbit the frog in every mood, plus cats, dogs and birds. Original MemeFactory artwork.",
+   "author": "MemeFactory",
+   "version": "1.0.0",
+   "license": "See individual asset records",
+   "preview": "packs/ribbit-and-friends-preview.png",
+   "downloadUrl": "packs/ribbit-and-friends.zip",
+   "sizeBytes": 576686,
+   "checksum": "sha256-b73653f270e66425212e46805c961a70058a8d5286bf6abe649f0624e2d412fe",
+   "assetCount": 10
+  },
+  {
+   "id": "internet-folk",
+   "name": "Internet Folk",
+   "description": "Line-art internet archetypes, advice-style backdrops and stamps. Original MemeFactory artwork.",
+   "author": "MemeFactory",
+   "version": "1.0.0",
+   "license": "See individual asset records",
+   "preview": "packs/internet-folk-preview.png",
+   "downloadUrl": "packs/internet-folk.zip",
+   "sizeBytes": 291121,
+   "checksum": "sha256-443a22e13def4f5c802c1e0f5c12952c28f793a6954cf63f048be0f2140d585b",
+   "assetCount": 7
+  },
+  {
+   "id": "pixel-quest",
+   "name": "Pixel Quest",
+   "description": "8-bit gaming sprites, sci-fi props and game labels. Original MemeFactory artwork.",
+   "author": "MemeFactory",
+   "version": "1.0.0",
+   "license": "See individual asset records",
+   "preview": "packs/pixel-quest-preview.png",
+   "downloadUrl": "packs/pixel-quest.zip",
+   "sizeBytes": 102683,
+   "checksum": "sha256-b735daa33c426fefabea052785e2b45aaeed7037010d0dc8e665b20bc88b96ad",
+   "assetCount": 9
+  }
+ ]
+}

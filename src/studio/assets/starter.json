@@ -1,0 +1,2996 @@
+[
+ {
+  "id": "starter-face-happy",
+  "name": "Happy face",
+  "description": "A happy reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "happy",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "happy"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-happy.png",
+   "thumbnail": "/starter/face-happy.png",
+   "sizeBytes": 38220,
+   "checksum": "sha256-da1abb2cd4c1abb981e8f3779d463487a596fbd8a249d5a5359547ce4b22fcd4"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-sad",
+  "name": "Sad face",
+  "description": "A sad reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "sad",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "sad"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-sad.png",
+   "thumbnail": "/starter/face-sad.png",
+   "sizeBytes": 37793,
+   "checksum": "sha256-30a9fe76a9d522c2605d3aecb23ff968b59fbef8b5c87bcdcad3986146481eac"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-angry",
+  "name": "Angry face",
+  "description": "A angry reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "angry",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "angry"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-angry.png",
+   "thumbnail": "/starter/face-angry.png",
+   "sizeBytes": 35896,
+   "checksum": "sha256-c42e193d6352d21233757b8cc697d5a0bd0d9070365317efdb0312aca8423cd6"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-laughing",
+  "name": "Laughing face",
+  "description": "A laughing reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "laughing",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "laughing"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-laughing.png",
+   "thumbnail": "/starter/face-laughing.png",
+   "sizeBytes": 43670,
+   "checksum": "sha256-57f34247ea5b35f60b79338b0ba04a038f9f4e4215e89a009994dc5b0994515f"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-crying",
+  "name": "Crying face",
+  "description": "A crying reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "crying",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "crying"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-crying.png",
+   "thumbnail": "/starter/face-crying.png",
+   "sizeBytes": 36952,
+   "checksum": "sha256-15cce6d9cc6fc49f9f772e5f087d5ef8ed32d82da13271bc4a36dedec3ac2435"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-shocked",
+  "name": "Shocked face",
+  "description": "A shocked reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "shocked",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "shocked"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-shocked.png",
+   "thumbnail": "/starter/face-shocked.png",
+   "sizeBytes": 45408,
+   "checksum": "sha256-0b58d164d69b43e0055dc00df830e5f22e916bebde43e9dc00de1023cc3a2a9f"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-confused",
+  "name": "Confused face",
+  "description": "A confused reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "confused",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "confused"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 469
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-confused.png",
+   "thumbnail": "/starter/face-confused.png",
+   "sizeBytes": 40606,
+   "checksum": "sha256-bef12f24ccfc7aa1d890e10752ab273ef6dc96b4a9b9ae47d8d8f62e21f75328"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-disgusted",
+  "name": "Disgusted face",
+  "description": "A disgusted reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "disgusted",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "disgusted"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-disgusted.png",
+   "thumbnail": "/starter/face-disgusted.png",
+   "sizeBytes": 39544,
+   "checksum": "sha256-5cdc6131ed8b8abab52b5e6a25df07440df3f3142a1270ec7c9af63cd9c607fc"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-scared",
+  "name": "Scared face",
+  "description": "A scared reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "scared",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "scared"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-scared.png",
+   "thumbnail": "/starter/face-scared.png",
+   "sizeBytes": 46328,
+   "checksum": "sha256-b4b90ae830e2b6936ec3c5daae82b10efe696b8a17ed3c813158057bd3a03966"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-smug",
+  "name": "Smug face",
+  "description": "A smug reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "smug",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "smug"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-smug.png",
+   "thumbnail": "/starter/face-smug.png",
+   "sizeBytes": 34211,
+   "checksum": "sha256-7a71aa5007987c93caec07800513a0999fb21c3326b67ebf2241e369772bd3ef"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-neutral",
+  "name": "Neutral face",
+  "description": "A neutral reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "neutral",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "neutral"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-neutral.png",
+   "thumbnail": "/starter/face-neutral.png",
+   "sizeBytes": 31164,
+   "checksum": "sha256-0adc395785e1c8d0e55584c0107c90f7033a99aece9e5e57e7829cb2edf1fd6b"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-thinking",
+  "name": "Thinking face",
+  "description": "A thinking reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "thinking",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "thinking"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 464,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-thinking.png",
+   "thumbnail": "/starter/face-thinking.png",
+   "sizeBytes": 41900,
+   "checksum": "sha256-b6d9bbb5bf57bcf5d7d861d3c4c4cbebb42a1d96cafc9b1b663b46384606434b"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-love",
+  "name": "Love face",
+  "description": "A love reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "love",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "love"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-love.png",
+   "thumbnail": "/starter/face-love.png",
+   "sizeBytes": 43465,
+   "checksum": "sha256-930aeb1c85252e14c7ad8854c74ef6eee5c406bdb9385bfce2236ffacb20d999"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-cool",
+  "name": "Cool face",
+  "description": "A cool reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "cool",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "cool"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-cool.png",
+   "thumbnail": "/starter/face-cool.png",
+   "sizeBytes": 32975,
+   "checksum": "sha256-966f86f5d32c9dfd9300bf2680147e52fa34a237cd02d3f10652a487ae4a81d5"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-sleepy",
+  "name": "Sleepy face",
+  "description": "A sleepy reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "sleepy",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "sleepy"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 467,
+   "height": 487
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-sleepy.png",
+   "thumbnail": "/starter/face-sleepy.png",
+   "sizeBytes": 40534,
+   "checksum": "sha256-a55d5be4f16986c3bb6e8c5b96d764414e1817deb48139df5576405c05482c22"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-embarrassed",
+  "name": "Embarrassed face",
+  "description": "A embarrassed reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "embarrassed",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "embarrassed"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-embarrassed.png",
+   "thumbnail": "/starter/face-embarrassed.png",
+   "sizeBytes": 39680,
+   "checksum": "sha256-e96a8d84c66436cfd57175572e39911710ee8ef0de7b0c805021b48a69791b2b"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-face-excited",
+  "name": "Excited face",
+  "description": "A excited reaction face.",
+  "category": "reactions",
+  "subcategory": "faces",
+  "tags": [
+   "excited",
+   "face",
+   "reaction",
+   "emoji"
+  ],
+  "emotions": [
+   "excited"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 462
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/face-excited.png",
+   "thumbnail": "/starter/face-excited.png",
+   "sizeBytes": 41173,
+   "checksum": "sha256-9ae0d187f58c8b557f5da0e869f5f11de5c80f63cc6972a529ec31b125eced32"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-blob-wave",
+  "name": "Waving blob",
+  "description": "An original MemeFactory blob character (wave).",
+  "category": "characters",
+  "subcategory": "blobs",
+  "tags": [
+   "blob",
+   "character",
+   "wave",
+   "person"
+  ],
+  "emotions": [
+   "happy"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 344,
+   "height": 414
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/blob-wave.png",
+   "thumbnail": "/starter/blob-wave.png",
+   "sizeBytes": 29074,
+   "checksum": "sha256-96735ee6e4db713eb88bc133693a74bdd72dbfc475f41ea67b7880cb7260b59a"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-blob-cheer",
+  "name": "Cheering blob",
+  "description": "An original MemeFactory blob character (cheer).",
+  "category": "characters",
+  "subcategory": "blobs",
+  "tags": [
+   "blob",
+   "character",
+   "cheer",
+   "person"
+  ],
+  "emotions": [
+   "happy"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 356,
+   "height": 430
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/blob-cheer.png",
+   "thumbnail": "/starter/blob-cheer.png",
+   "sizeBytes": 29855,
+   "checksum": "sha256-d72ac2922a3fdf3d5ecd40978dd1a4736ce74ebd01d483162570a3a93db1edcb"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-blob-shrug",
+  "name": "Shrugging blob",
+  "description": "An original MemeFactory blob character (shrug).",
+  "category": "characters",
+  "subcategory": "blobs",
+  "tags": [
+   "blob",
+   "character",
+   "shrug",
+   "person"
+  ],
+  "emotions": [
+   "neutral"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 366,
+   "height": 414
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/blob-shrug.png",
+   "thumbnail": "/starter/blob-shrug.png",
+   "sizeBytes": 25683,
+   "checksum": "sha256-5171b24ab0f90098f1444179ffa5dfc6239e0037ea4928702773ea79c5046835"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-blob-point",
+  "name": "Pointing blob",
+  "description": "An original MemeFactory blob character (point).",
+  "category": "characters",
+  "subcategory": "blobs",
+  "tags": [
+   "blob",
+   "character",
+   "point",
+   "person"
+  ],
+  "emotions": [
+   "shocked"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 354,
+   "height": 414
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/blob-point.png",
+   "thumbnail": "/starter/blob-point.png",
+   "sizeBytes": 31512,
+   "checksum": "sha256-d591055594cb0e338a54a1656404e7f5bd1589fb68d79b0991e502f42ebf4dff"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-blob-facepalm",
+  "name": "Facepalm blob",
+  "description": "An original MemeFactory blob character (facepalm).",
+  "category": "characters",
+  "subcategory": "blobs",
+  "tags": [
+   "blob",
+   "character",
+   "facepalm",
+   "person"
+  ],
+  "emotions": [
+   "sad"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 302,
+   "height": 414
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/blob-facepalm.png",
+   "thumbnail": "/starter/blob-facepalm.png",
+   "sizeBytes": 31819,
+   "checksum": "sha256-f843a390fcc77c9566833e7ea34449a8614400adc02d108aeb7c9c0c2c1f3ab2"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-blob-sit",
+  "name": "Sitting blob",
+  "description": "An original MemeFactory blob character (sit).",
+  "category": "characters",
+  "subcategory": "blobs",
+  "tags": [
+   "blob",
+   "character",
+   "sit",
+   "person"
+  ],
+  "emotions": [
+   "neutral"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 302,
+   "height": 414
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/blob-sit.png",
+   "thumbnail": "/starter/blob-sit.png",
+   "sizeBytes": 24787,
+   "checksum": "sha256-0efae7f92d38b8a662513be4ad1a30ebce24bc9896173e4c5e45c16a0c962714"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-bubble-speech",
+  "name": "Speech bubble",
+  "description": "Speech bubble sticker.",
+  "category": "stickers",
+  "subcategory": "bubble",
+  "tags": [
+   "speech",
+   "bubble",
+   "talk",
+   "say"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 542,
+   "height": 437
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-bubble-speech.png",
+   "thumbnail": "/starter/sticker-bubble-speech.png",
+   "sizeBytes": 30057,
+   "checksum": "sha256-47055655d24007453bc289f70bacaeb92682c200a1f42afce2f9f74a25ffe215"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-bubble-thought",
+  "name": "Thought bubble",
+  "description": "Thought bubble sticker.",
+  "category": "stickers",
+  "subcategory": "bubble",
+  "tags": [
+   "thought",
+   "bubble",
+   "think"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 522,
+   "height": 436
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-bubble-thought.png",
+   "thumbnail": "/starter/sticker-bubble-thought.png",
+   "sizeBytes": 31861,
+   "checksum": "sha256-258819b97eb574ad44a940e0dd531b4618f1e227a48753d6a8733c65831b22de"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-bubble-shout",
+  "name": "Shout bubble",
+  "description": "Shout bubble sticker.",
+  "category": "stickers",
+  "subcategory": "bubble",
+  "tags": [
+   "shout",
+   "bubble",
+   "yell"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 559,
+   "height": 388
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-bubble-shout.png",
+   "thumbnail": "/starter/sticker-bubble-shout.png",
+   "sizeBytes": 34789,
+   "checksum": "sha256-049646715a4b948ca5c960124c155faacdb2a21177c9e49d68d876651a97531d"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-burst-pow",
+  "name": "POW!",
+  "description": "POW! sticker.",
+  "category": "stickers",
+  "subcategory": "effects",
+  "tags": [
+   "pow",
+   "comic",
+   "effect",
+   "hit"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 531,
+   "height": 456
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-burst-pow.png",
+   "thumbnail": "/starter/sticker-burst-pow.png",
+   "sizeBytes": 62069,
+   "checksum": "sha256-9d6d273e0d558d83d4e0521281e25a5f62abd720bd9776c147aacefc9aac653b"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-burst-boom",
+  "name": "BOOM!",
+  "description": "BOOM! sticker.",
+  "category": "stickers",
+  "subcategory": "effects",
+  "tags": [
+   "boom",
+   "comic",
+   "effect",
+   "explosion"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 531,
+   "height": 456
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-burst-boom.png",
+   "thumbnail": "/starter/sticker-burst-boom.png",
+   "sizeBytes": 59907,
+   "checksum": "sha256-af9303f27d0ec85a44cabc62b3c99d8df76da21bd8c0cbc0c73e42ffcfa396ca"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-burst-wow",
+  "name": "WOW",
+  "description": "WOW sticker.",
+  "category": "stickers",
+  "subcategory": "effects",
+  "tags": [
+   "wow",
+   "comic",
+   "effect"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 531,
+   "height": 456
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-burst-wow.png",
+   "thumbnail": "/starter/sticker-burst-wow.png",
+   "sizeBytes": 58769,
+   "checksum": "sha256-afd6efb50226ba06cd7fde35a7dda815e7063b1a0c9c81da522abd17c2a7f6b6"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-label-lol",
+  "name": "LOL label",
+  "description": "LOL label sticker.",
+  "category": "stickers",
+  "subcategory": "effects",
+  "tags": [
+   "lol",
+   "label",
+   "laugh"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 582,
+   "height": 182
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-label-lol.png",
+   "thumbnail": "/starter/sticker-label-lol.png",
+   "sizeBytes": 11060,
+   "checksum": "sha256-2d87b50ea48fa606d944a6c07f4e6b5ffd44197908854956bcc030ac456018cf"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-label-nope",
+  "name": "NOPE label",
+  "description": "NOPE label sticker.",
+  "category": "stickers",
+  "subcategory": "effects",
+  "tags": [
+   "nope",
+   "label",
+   "no"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 582,
+   "height": 182
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-label-nope.png",
+   "thumbnail": "/starter/sticker-label-nope.png",
+   "sizeBytes": 12890,
+   "checksum": "sha256-a089780e96e3818f560c40ddd52e03aada9c0a2e638ec15bc898837b0daf6b62"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-arrow-straight",
+  "name": "Big arrow",
+  "description": "Big arrow sticker.",
+  "category": "stickers",
+  "subcategory": "effects",
+  "tags": [
+   "arrow",
+   "point",
+   "this"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 522,
+   "height": 271
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-arrow-straight.png",
+   "thumbnail": "/starter/sticker-arrow-straight.png",
+   "sizeBytes": 5439,
+   "checksum": "sha256-e2303d793518efc12a1f143ec29c76c25b64359dfabf9fe8520d058e2c856063"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-arrow-curved",
+  "name": "Curved arrow",
+  "description": "Curved arrow sticker.",
+  "category": "stickers",
+  "subcategory": "effects",
+  "tags": [
+   "arrow",
+   "curved",
+   "point"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 503,
+   "height": 235
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-arrow-curved.png",
+   "thumbnail": "/starter/sticker-arrow-curved.png",
+   "sizeBytes": 22743,
+   "checksum": "sha256-df77c97c6e837f054cf567a47dc05888939ffb4bdcdb7cc2331202bf991e92f0"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-symbol-heart",
+  "name": "Heart",
+  "description": "Heart sticker.",
+  "category": "stickers",
+  "subcategory": "effects",
+  "tags": [
+   "heart",
+   "love"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 368,
+   "height": 335
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-symbol-heart.png",
+   "thumbnail": "/starter/sticker-symbol-heart.png",
+   "sizeBytes": 21257,
+   "checksum": "sha256-0b32a161abe317b8864369efbc24c6a8339227e8a797195c782ad72d8b1a73ff"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-symbol-exclaim",
+  "name": "Exclamation",
+  "description": "Exclamation sticker.",
+  "category": "stickers",
+  "subcategory": "effects",
+  "tags": [
+   "exclamation",
+   "alert",
+   "symbol"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 117,
+   "height": 306
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-symbol-exclaim.png",
+   "thumbnail": "/starter/sticker-symbol-exclaim.png",
+   "sizeBytes": 5709,
+   "checksum": "sha256-008accc2cc67a969f8813df5cee2fdbf9db66b4ac0b0203057fdc98fb921dcd4"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-symbol-question",
+  "name": "Question mark",
+  "description": "Question mark sticker.",
+  "category": "stickers",
+  "subcategory": "effects",
+  "tags": [
+   "question",
+   "confused",
+   "symbol"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 199,
+   "height": 311
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-symbol-question.png",
+   "thumbnail": "/starter/sticker-symbol-question.png",
+   "sizeBytes": 13033,
+   "checksum": "sha256-4a6d86366c0647d2bb37e74f50978eb44ff3df9521de494e5b75a4d4894dbcfc"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-sticker-symbol-sparkle",
+  "name": "Sparkles",
+  "description": "Sparkles sticker.",
+  "category": "stickers",
+  "subcategory": "effects",
+  "tags": [
+   "sparkle",
+   "shiny",
+   "star"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 364,
+   "height": 335
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/sticker-symbol-sparkle.png",
+   "thumbnail": "/starter/sticker-symbol-sparkle.png",
+   "sizeBytes": 15324,
+   "checksum": "sha256-81ebce5bc0eda4928df4059e55677a6b553962b1fa2ddb0513f9a58082068fbf"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-object-computer",
+  "name": "Computer",
+  "description": "A cartoon computer.",
+  "category": "objects",
+  "subcategory": "everyday",
+  "tags": [
+   "computer",
+   "pc",
+   "monitor",
+   "work"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 462,
+   "height": 432
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/object-computer.png",
+   "thumbnail": "/starter/object-computer.png",
+   "sizeBytes": 8686,
+   "checksum": "sha256-f409c5ccacbb4256c5d138bf7f3266ca36a4857c60767295e3ab04ae1fdb0a06"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-object-phone",
+  "name": "Smartphone",
+  "description": "A cartoon smartphone.",
+  "category": "objects",
+  "subcategory": "everyday",
+  "tags": [
+   "phone",
+   "mobile",
+   "smartphone"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 242,
+   "height": 502
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/object-phone.png",
+   "thumbnail": "/starter/object-phone.png",
+   "sizeBytes": 7753,
+   "checksum": "sha256-abfbb92fb3a3aa8090f92f721ab6b5607c9fba8da762f2d53b7b94be9c3ca015"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-object-mug",
+  "name": "Coffee mug",
+  "description": "A cartoon coffee mug.",
+  "category": "objects",
+  "subcategory": "everyday",
+  "tags": [
+   "coffee",
+   "mug",
+   "drink"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 365,
+   "height": 456
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/object-mug.png",
+   "thumbnail": "/starter/object-mug.png",
+   "sizeBytes": 17070,
+   "checksum": "sha256-20961ce219f7e7c7648e96a20e05411a3797286dac9e16e30a7e9c02d7beb88f"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-object-money",
+  "name": "Money bill",
+  "description": "A cartoon money bill.",
+  "category": "objects",
+  "subcategory": "everyday",
+  "tags": [
+   "money",
+   "cash",
+   "dollar"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 522,
+   "height": 302
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/object-money.png",
+   "thumbnail": "/starter/object-money.png",
+   "sizeBytes": 22340,
+   "checksum": "sha256-0448e3ade7fa1e3f1f39bf110107599b0ec831472b0afd4341a0608867412a9b"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-object-pizza",
+  "name": "Pizza slice",
+  "description": "A cartoon pizza slice.",
+  "category": "objects",
+  "subcategory": "everyday",
+  "tags": [
+   "pizza",
+   "food"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 482,
+   "height": 477
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/object-pizza.png",
+   "thumbnail": "/starter/object-pizza.png",
+   "sizeBytes": 42874,
+   "checksum": "sha256-c53d545995614bdeca47c6551135b1ecedce3f0afac80c5084e53aa10a1b7fe2"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-bg-sunset",
+  "name": "Sunset gradient",
+  "description": "Sunset gradient background.",
+  "category": "backgrounds",
+  "subcategory": "gradient",
+  "tags": [
+   "gradient",
+   "sunset",
+   "orange"
+  ],
+  "emotions": [],
+  "style": "vector",
+  "format": "jpg",
+  "dimensions": {
+   "width": 800,
+   "height": 800
+  },
+  "transparent": false,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/bg-sunset.jpg",
+   "thumbnail": "/starter/bg-sunset.jpg",
+   "sizeBytes": 7188,
+   "checksum": "sha256-d8e8db1ed247eb2d2d7c0e94544fabaa72a2c997fb95dc6616576813c65db4f4"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-bg-ocean",
+  "name": "Ocean gradient",
+  "description": "Ocean gradient background.",
+  "category": "backgrounds",
+  "subcategory": "gradient",
+  "tags": [
+   "gradient",
+   "blue",
+   "ocean"
+  ],
+  "emotions": [],
+  "style": "vector",
+  "format": "jpg",
+  "dimensions": {
+   "width": 800,
+   "height": 800
+  },
+  "transparent": false,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/bg-ocean.jpg",
+   "thumbnail": "/starter/bg-ocean.jpg",
+   "sizeBytes": 8758,
+   "checksum": "sha256-0b9fa839a2d2b57191962fee2de6969ccf6d745d3c334d2bbbacccee30ce2840"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-bg-void",
+  "name": "Dark void",
+  "description": "Dark void background.",
+  "category": "backgrounds",
+  "subcategory": "dark",
+  "tags": [
+   "dark",
+   "black",
+   "void"
+  ],
+  "emotions": [],
+  "style": "vector",
+  "format": "jpg",
+  "dimensions": {
+   "width": 800,
+   "height": 800
+  },
+  "transparent": false,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/bg-void.jpg",
+   "thumbnail": "/starter/bg-void.jpg",
+   "sizeBytes": 6127,
+   "checksum": "sha256-e83b023e45b1134471b9d87c287e62c63c83e5a27be479f04a5d4bc98e8c5597"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-bg-halftone",
+  "name": "Comic halftone",
+  "description": "Comic halftone background.",
+  "category": "backgrounds",
+  "subcategory": "comic",
+  "tags": [
+   "comic",
+   "halftone",
+   "dots",
+   "pattern"
+  ],
+  "emotions": [],
+  "style": "vector",
+  "format": "jpg",
+  "dimensions": {
+   "width": 800,
+   "height": 800
+  },
+  "transparent": false,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/bg-halftone.jpg",
+   "thumbnail": "/starter/bg-halftone.jpg",
+   "sizeBytes": 194402,
+   "checksum": "sha256-60209889eaac0e44ba129b6a8ef1c5ef6ba3375b1426c3525cbb2560f63c11cd"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-bg-sunburst",
+  "name": "Sunburst",
+  "description": "Sunburst background.",
+  "category": "backgrounds",
+  "subcategory": "sunburst",
+  "tags": [
+   "sunburst",
+   "rays",
+   "comic"
+  ],
+  "emotions": [],
+  "style": "vector",
+  "format": "jpg",
+  "dimensions": {
+   "width": 800,
+   "height": 800
+  },
+  "transparent": false,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/bg-sunburst.jpg",
+   "thumbnail": "/starter/bg-sunburst.jpg",
+   "sizeBytes": 20593,
+   "checksum": "sha256-999837bdd2259ff5a741830d6d9e6869fb94b7cb4434ed967eebb9796cdbfd48"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-bg-stripes",
+  "name": "Candy stripes",
+  "description": "Candy stripes background.",
+  "category": "backgrounds",
+  "subcategory": "stripes",
+  "tags": [
+   "stripes",
+   "pattern"
+  ],
+  "emotions": [],
+  "style": "vector",
+  "format": "jpg",
+  "dimensions": {
+   "width": 800,
+   "height": 800
+  },
+  "transparent": false,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/bg-stripes.jpg",
+   "thumbnail": "/starter/bg-stripes.jpg",
+   "sizeBytes": 68506,
+   "checksum": "sha256-caf7de06e2b55e2c54399d4a20f080d1976776729a8d8cf5cb7b5ea7db4590a6"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-bg-grid",
+  "name": "Grid paper",
+  "description": "Grid paper background.",
+  "category": "backgrounds",
+  "subcategory": "grid",
+  "tags": [
+   "grid",
+   "paper",
+   "notebook"
+  ],
+  "emotions": [],
+  "style": "vector",
+  "format": "jpg",
+  "dimensions": {
+   "width": 800,
+   "height": 800
+  },
+  "transparent": false,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/bg-grid.jpg",
+   "thumbnail": "/starter/bg-grid.jpg",
+   "sizeBytes": 63129,
+   "checksum": "sha256-b4a03f77e3de6130933fccc0dd0305f432c3a170ffcabd43abc3948d01c5b569"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-bg-room",
+  "name": "Simple room",
+  "description": "Simple room background.",
+  "category": "backgrounds",
+  "subcategory": "room",
+  "tags": [
+   "room",
+   "indoor",
+   "house"
+  ],
+  "emotions": [],
+  "style": "vector",
+  "format": "jpg",
+  "dimensions": {
+   "width": 800,
+   "height": 800
+  },
+  "transparent": false,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/bg-room.jpg",
+   "thumbnail": "/starter/bg-room.jpg",
+   "sizeBytes": 13695,
+   "checksum": "sha256-6388037ad5fa246ffb24c2f98e17ea82e21ed4011945e64a3f582ffa5da66d51"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-anime-happy",
+  "name": "Anime happy face",
+  "description": "An original anime-style face, smiling.",
+  "category": "anime",
+  "subcategory": "faces",
+  "tags": [
+   "anime",
+   "manga",
+   "girl",
+   "smile",
+   "kawaii"
+  ],
+  "emotions": [
+   "happy"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 514,
+   "height": 498
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/anime-happy.png",
+   "thumbnail": "/starter/anime-happy.png",
+   "sizeBytes": 70601,
+   "checksum": "sha256-988f16ae07630bb75803c874da4a3eda78deb08b7101e4fefe52436e0c8e1e1e"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-anime-shocked",
+  "name": "Anime shocked face",
+  "description": "An original anime-style face in shock.",
+  "category": "anime",
+  "subcategory": "faces",
+  "tags": [
+   "anime",
+   "manga",
+   "boy",
+   "surprised",
+   "omg"
+  ],
+  "emotions": [
+   "shocked"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 514,
+   "height": 498
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/anime-shocked.png",
+   "thumbnail": "/starter/anime-shocked.png",
+   "sizeBytes": 74865,
+   "checksum": "sha256-de6c8b125ffbf126645a2ecfb187af77d93e8547127782c9e965f653c27e4a30"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-anime-sweat",
+  "name": "Sweat drop",
+  "description": "The classic manga sweat drop.",
+  "category": "anime",
+  "subcategory": "effects",
+  "tags": [
+   "anime",
+   "manga",
+   "sweat",
+   "nervous",
+   "awkward"
+  ],
+  "emotions": [
+   "embarrassed"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 210,
+   "height": 340
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/anime-sweat.png",
+   "thumbnail": "/starter/anime-sweat.png",
+   "sizeBytes": 17930,
+   "checksum": "sha256-46a062c4b3a8e845527e80df7d8928cdfe3231727661d898fbe150e49915aa97"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-anime-speedlines",
+  "name": "Speed lines",
+  "description": "Manga speed lines background.",
+  "category": "anime",
+  "subcategory": "backgrounds",
+  "tags": [
+   "anime",
+   "manga",
+   "speed",
+   "lines",
+   "action"
+  ],
+  "emotions": [],
+  "style": "sketch",
+  "format": "jpg",
+  "dimensions": {
+   "width": 800,
+   "height": 800
+  },
+  "transparent": false,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/anime-speedlines.jpg",
+   "thumbnail": "/starter/anime-speedlines.jpg",
+   "sizeBytes": 190525,
+   "checksum": "sha256-ebb3ddd82f0a0974d8b5923abfdb226e10696087941bfa97e93ba970a2be6382"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-frog-happy",
+  "name": "Ribbit (happy)",
+  "description": "Ribbit, MemeFactory's own frog, happy.",
+  "category": "animals",
+  "subcategory": "frogs",
+  "tags": [
+   "frog",
+   "ribbit",
+   "green",
+   "feels"
+  ],
+  "emotions": [
+   "happy"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 482,
+   "height": 420
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/frog-happy.png",
+   "thumbnail": "/starter/frog-happy.png",
+   "sizeBytes": 49517,
+   "checksum": "sha256-facf7308ff0a3ef4656a938be45c9a9dddc52c2aa4e54bfb10fce1fb7da46e54"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-frog-sad",
+  "name": "Ribbit (sad)",
+  "description": "Ribbit, MemeFactory's own frog, feeling bad.",
+  "category": "animals",
+  "subcategory": "frogs",
+  "tags": [
+   "frog",
+   "ribbit",
+   "green",
+   "feels",
+   "bad"
+  ],
+  "emotions": [
+   "sad"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 482,
+   "height": 420
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/frog-sad.png",
+   "thumbnail": "/starter/frog-sad.png",
+   "sizeBytes": 56681,
+   "checksum": "sha256-a1edf096af6d1817f04cfa402b003b39fda881eee5fd70fd8550713089ecc35f"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-cat-happy",
+  "name": "Happy cat",
+  "description": "A happy cartoon cat.",
+  "category": "animals",
+  "subcategory": "cats",
+  "tags": [
+   "cat",
+   "kitty",
+   "pet"
+  ],
+  "emotions": [
+   "happy"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 506,
+   "height": 456
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/cat-happy.png",
+   "thumbnail": "/starter/cat-happy.png",
+   "sizeBytes": 48135,
+   "checksum": "sha256-be11b348f7fdd512034a85bfc3ae4465574cb5cc588e2a68006104f598e074d1"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-dog-happy",
+  "name": "Happy dog",
+  "description": "A happy cartoon dog.",
+  "category": "animals",
+  "subcategory": "dogs",
+  "tags": [
+   "dog",
+   "puppy",
+   "doggo",
+   "pet"
+  ],
+  "emotions": [
+   "happy"
+  ],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 512,
+   "height": 402
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/dog-happy.png",
+   "thumbnail": "/starter/dog-happy.png",
+   "sizeBytes": 59922,
+   "checksum": "sha256-99344cca89e0d15395210d23822750841ff1e35eff7a7607ba634b0984b0bba9"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-folk-sunny",
+  "name": "Sunny guy",
+  "description": "An optimistic line-art character (original archetype).",
+  "category": "internet",
+  "subcategory": "archetypes",
+  "tags": [
+   "optimist",
+   "bloomer",
+   "wholesome",
+   "guy"
+  ],
+  "emotions": [
+   "happy"
+  ],
+  "style": "hand-drawn",
+  "format": "png",
+  "dimensions": {
+   "width": 471,
+   "height": 600
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/folk-sunny.png",
+   "thumbnail": "/starter/folk-sunny.png",
+   "sizeBytes": 48099,
+   "checksum": "sha256-bb07edc4018e55b90d4162dcd8d002376767a8ef7d4b59e1b98ac740e828c790"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-folk-gloomy",
+  "name": "Gloomy guy",
+  "description": "A gloomy line-art character (original archetype).",
+  "category": "internet",
+  "subcategory": "archetypes",
+  "tags": [
+   "gloomy",
+   "doomer",
+   "beanie",
+   "guy"
+  ],
+  "emotions": [
+   "sad"
+  ],
+  "style": "hand-drawn",
+  "format": "png",
+  "dimensions": {
+   "width": 422,
+   "height": 541
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/folk-gloomy.png",
+   "thumbnail": "/starter/folk-gloomy.png",
+   "sizeBytes": 30170,
+   "checksum": "sha256-65ca48f5cd77444c520d0b5999387f5b9bb5e0ef02355be2c96fb93c90a565c0"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-pixel-heart",
+  "name": "Pixel heart",
+  "description": "An 8-bit heart.",
+  "category": "gaming",
+  "subcategory": "pixel",
+  "tags": [
+   "pixel",
+   "8bit",
+   "heart",
+   "life",
+   "hp"
+  ],
+  "emotions": [
+   "love"
+  ],
+  "style": "pixel art",
+  "format": "png",
+  "dimensions": {
+   "width": 252,
+   "height": 224
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/pixel-heart.png",
+   "thumbnail": "/starter/pixel-heart.png",
+   "sizeBytes": 670,
+   "checksum": "sha256-fa233cc1901edd0e92859f3e28a4490223f27a6e208d915145114ef064e38652"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-gaming-controller",
+  "name": "Game controller",
+  "description": "A cartoon game controller.",
+  "category": "gaming",
+  "subcategory": "gear",
+  "tags": [
+   "controller",
+   "gamepad",
+   "gamer",
+   "console"
+  ],
+  "emotions": [],
+  "style": "cartoon",
+  "format": "png",
+  "dimensions": {
+   "width": 502,
+   "height": 232
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/gaming-controller.png",
+   "thumbnail": "/starter/gaming-controller.png",
+   "sizeBytes": 23286,
+   "checksum": "sha256-7fa61d2ce51e1e7f0165359620ec4bdb212ed0d3019779a889c9c6fc7afb8dcd"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-classic-wheel",
+  "name": "Advice colour wheel",
+  "description": "The multi-coloured backdrop of classic advice-style memes.",
+  "category": "classic",
+  "subcategory": "backgrounds",
+  "tags": [
+   "advice",
+   "animal",
+   "colour",
+   "wheel",
+   "classic"
+  ],
+  "emotions": [],
+  "style": "vector",
+  "format": "jpg",
+  "dimensions": {
+   "width": 800,
+   "height": 800
+  },
+  "transparent": false,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/classic-wheel.jpg",
+   "thumbnail": "/starter/classic-wheel.jpg",
+   "sizeBytes": 11452,
+   "checksum": "sha256-5aee16450e9f683b714b4daf7ae332cd129f4aad83e47075083077267371dd2f"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ },
+ {
+  "id": "starter-classic-shades",
+  "name": "Pixel shades",
+  "description": "Pixel sunglasses, for dropping onto a face.",
+  "category": "classic",
+  "subcategory": "props",
+  "tags": [
+   "pixel",
+   "sunglasses",
+   "shades",
+   "deal",
+   "cool"
+  ],
+  "emotions": [
+   "cool"
+  ],
+  "style": "pixel art",
+  "format": "png",
+  "dimensions": {
+   "width": 408,
+   "height": 96
+  },
+  "transparent": true,
+  "version": 1,
+  "source": {
+   "name": "MemeFactory",
+   "url": "https://github.com/gabojkz/meme-factory"
+  },
+  "licensing": {
+   "license": "MIT (MemeFactory original artwork)",
+   "licenseUrl": "https://github.com/gabojkz/meme-factory/blob/main/LICENSE",
+   "commercialUse": true,
+   "modification": true,
+   "redistribution": true,
+   "attributionRequired": false,
+   "verified": true,
+   "verifiedAt": "2026-11-03",
+   "declaredBy": "MemeFactory",
+   "attributionText": null
+  },
+  "file": {
+   "url": "/starter/classic-shades.png",
+   "thumbnail": "/starter/classic-shades.png",
+   "sizeBytes": 430,
+   "checksum": "sha256-ac9c8aefc2df525cdf8a6f06c47920ad0e91a0be1d799572ae8c683990801b0e"
+  },
+  "packId": "starter",
+  "packName": "Starter kit"
+ }
+]

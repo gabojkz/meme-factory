@@ -1,11 +1,21 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { convertFileSrc, invoke, isTauri } from "@tauri-apps/api/core";
 import { getVersion } from "@tauri-apps/api/app";
 import { open } from "@tauri-apps/plugin-dialog";
 import { readFile } from "@tauri-apps/plugin-fs";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import Tesseract from "tesseract.js";
+import Studio from "./studio/Studio";
+import {
+  blobToDataUrl,
+  fetchImage,
+  hasExternalPayload,
+  isWebUrl,
+  readTransfer,
+  type QuickItem,
+} from "./quickAdd";
 import "./App.css";
+import { VIDEO_EXTENSIONS, isVideoPath, videoFrames, videoMime } from "./videoToGif";
 
 const REPO_URL = "https://github.com/gabojkz/meme-factory";
 const ISSUES_URL = `${REPO_URL}/issues`;
@@ -14,6 +24,17 @@ const LATEST_RELEASE_API =
   "https://api.github.com/repos/gabojkz/meme-factory/releases/latest";
 const COFFEE_URL = "https://www.buymeacoffee.com/gaboz";
 const SHARE_TEXT = `MemeFactory — free local meme library with OCR search. ${REPO_URL}`;
+const PASTE_KEY = /Mac/i.test(navigator.userAgent) ? "⌘V" : "Ctrl+V";
+/** Sites can't receive a local file by URL, so we copy the image and open the composer. */
+const SOCIALS = [
+  { name: "X", url: "https://x.com/compose/post" },
+  { name: "Facebook", url: "https://www.facebook.com/" },
+  { name: "Reddit", url: "https://www.reddit.com/submit?type=IMAGE" },
+  { name: "WhatsApp", url: "https://web.whatsapp.com/" },
+  { name: "Telegram", url: "https://web.telegram.org/" },
+  { name: "Discord", url: "https://discord.com/channels/@me" },
+  { name: "Bluesky", url: "https://bsky.app/intent/compose" },
+];
 
 type Meme = {
   id: string;
@@ -22,6 +43,18 @@ type Meme = {
   title: string | null;
   ocrText: string;
   createdAt: string;
+  tags: string[];
+};
+
+type TagCount = { tag: string; count: number };
+type KindStats = { count: number; bytes: number };
+type LibraryStats = {
+  total: number;
+  images: KindStats;
+  gifs: KindStats;
+  videos: KindStats;
+  folderBytes: number;
+  folder: string;
 };
 
 type AppSettings = {
@@ -43,7 +76,7 @@ type UpdateCheck =
   | { status: "available"; latest: string }
   | { status: "error"; message: string };
 
-type View = "library" | "settings" | "about";
+type View = "library" | "studio" | "settings" | "about";
 
 function formatSync(report: SyncReport): string {
   const bits = [];
@@ -89,6 +122,32 @@ function App() {
   const [inTauri, setInTauri] = useState(false);
   const [view, setView] = useState<View>("library");
   const [memes, setMemes] = useState<Meme[]>([]);
+  const [stats, setStats] = useState<LibraryStats | null>(null);
+  // Which kinds the grid shows; null = everything. Remembered between launches.
+  const [shownKinds, setShownKinds] = useState<MemeKind[] | null>(loadShownKinds);
+  useEffect(() => {
+    try {
+      if (shownKinds) localStorage.setItem(KINDS_KEY, JSON.stringify(shownKinds));
+      else localStorage.removeItem(KINDS_KEY);
+    } catch {
+      // storage unavailable: the filter just isn't remembered
+    }
+  }, [shownKinds]);
+  const visibleMemes = shownKinds ? memes.filter((m) => shownKinds.includes(memeKind(m.path))) : memes;
+
+  /** First click shows only that kind; further clicks add or remove kinds. */
+  function toggleKind(kind: MemeKind) {
+    setView("library");
+    setShownKinds((cur) => {
+      if (!cur) return [kind];
+      const next = cur.includes(kind) ? cur.filter((k) => k !== kind) : [...cur, kind];
+      return next.length === 0 || next.length === KINDS.length ? null : next;
+    });
+  }
+  // Any add, delete, rescan or folder change shows up as a new `memes` list.
+  useEffect(() => {
+    invoke<LibraryStats>("library_stats").then(setStats, () => setStats(null));
+  }, [memes]);
   const [settings, setSettings] = useState<AppSettings | null>(null);
   const [appVersion, setAppVersion] = useState("");
   const [updateCheck, setUpdateCheck] = useState<UpdateCheck>({ status: "idle" });
@@ -96,6 +155,12 @@ function App() {
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
   const [selected, setSelected] = useState<Meme | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  useEffect(() => setConfirmDelete(false), [selected]);
+  const [remixPath, setRemixPath] = useState<string | null>(null);
+  const [link, setLink] = useState("");
+  const [allTags, setAllTags] = useState<TagCount[]>([]);
+  const [dragging, setDragging] = useState(false);
   const searchTimer = useRef<number | null>(null);
 
   const loadAll = useCallback(async () => {
@@ -106,6 +171,10 @@ function App() {
   const loadSettings = useCallback(async () => {
     const next = await invoke<AppSettings>("get_settings");
     setSettings(next);
+  }, []);
+
+  const loadTags = useCallback(async () => {
+    setAllTags(await invoke<TagCount[]>("list_tags"));
   }, []);
 
   const runSearch = useCallback(async (q: string) => {
@@ -148,13 +217,13 @@ function App() {
           invoke<SyncReport>("sync_library"),
         ]);
         setAppVersion(version);
-        await Promise.all([loadAll(), loadSettings()]);
+        await Promise.all([loadAll(), loadSettings(), loadTags()]);
         void checkForUpdates(version, { quiet: true });
       } catch (e) {
         setStatus(String(e));
       }
     })();
-  }, [loadAll, loadSettings, checkForUpdates]);
+  }, [loadAll, loadSettings, loadTags, checkForUpdates]);
 
   useEffect(() => {
     if (!inTauri || view !== "library") return;
@@ -168,16 +237,55 @@ function App() {
   }, [query, runSearch, inTauri, view]);
 
   async function ocrImage(path: string): Promise<string> {
-    const bytes = await readFile(path);
-    const blob = new Blob([bytes]);
-    const url = URL.createObjectURL(blob);
+    return ocrBlob(await readMemeFile(path));
+  }
+
+  async function ocrBlob(blob: Blob): Promise<string> {
+    if (blob.type.startsWith("video/")) {
+      // Captions can change during a clip: read three stills and keep each new line.
+      const texts: string[] = [];
+      for (const still of await videoFrames(blob, [0.15, 0.5, 0.85])) {
+        const t = await ocrBlob(still);
+        if (t && !texts.some((x) => x.includes(t))) texts.push(t);
+      }
+      return texts.filter((t) => !texts.some((x) => x !== t && x.includes(t))).join(" ");
+    }
+    // Hand Tesseract the pixels directly: a blob: URL makes it fetch(), which
+    // the CSP may refuse — and that used to fail silently.
+    const { data } = await Tesseract.recognize(await prepareForOcr(blob), "eng", {
+      logger: () => {},
+    });
+    return (data.text || "").replace(/\s+/g, " ").trim();
+  }
+
+  /** OCR that reports failures instead of saving empty text silently. */
+  async function scanText(blob: Blob): Promise<{ text: string; error: string | null }> {
     try {
-      const { data } = await Tesseract.recognize(url, "eng", {
-        logger: () => {},
-      });
-      return (data.text || "").replace(/\s+/g, " ").trim();
+      return { text: await ocrBlob(blob), error: null };
+    } catch (e) {
+      return { text: "", error: e instanceof Error ? e.message : String(e) };
+    }
+  }
+
+  async function onRescan(meme: Meme) {
+    setBusy(true);
+    setStatus("Scanning text…");
+    try {
+      const { text, error } = await scanText(await readMemeFile(meme.path));
+      if (error) throw new Error(error);
+      await invoke("update_meme_ocr", { id: meme.id, ocrText: text });
+      const next = { ...meme, ocrText: text };
+      setSelected((cur) => (cur?.id === meme.id ? next : cur));
+      setMemes((list) => list.map((m) => (m.id === meme.id ? next : m)));
+      setStatus(
+        text
+          ? `Text found: “${text.length > 60 ? `${text.slice(0, 60)}…` : text}”`
+          : `No text found in this ${isVideoPath(meme.path) ? "video" : "image"}`,
+      );
+    } catch (e) {
+      setStatus(`Couldn’t read the text: ${String(e)}`);
     } finally {
-      URL.revokeObjectURL(url);
+      setBusy(false);
     }
   }
 
@@ -186,8 +294,8 @@ function App() {
       multiple: true,
       filters: [
         {
-          name: "Images",
-          extensions: ["png", "jpg", "jpeg", "gif", "webp", "bmp"],
+          name: "Images and videos",
+          extensions: ["png", "jpg", "jpeg", "gif", "webp", "bmp", ...VIDEO_EXTENSIONS],
         },
       ],
     });
@@ -223,17 +331,166 @@ function App() {
     }
   }
 
+  /** Paste, drop and link-box imports all land here. */
+  async function quickAdd(items: QuickItem[]) {
+    if (!items.length) return;
+    setBusy(true);
+    let ok = 0;
+    let lastError = "";
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const n = items.length > 1 ? ` ${i + 1}/${items.length}` : "";
+      try {
+        let blob: Blob;
+        let data: string;
+        let title: string | null;
+        if (item.kind === "url") {
+          setStatus(`Downloading${n}…`);
+          try {
+            ({ blob, data, title } = await fetchImage(item.url, (msg) => setStatus(msg + n)));
+          } catch (err) {
+            if (!item.fallback) throw err;
+            // Keep the still copy rather than nothing.
+            blob = item.fallback.blob;
+            data = await blobToDataUrl(blob);
+            title = item.fallback.title;
+          }
+        } else {
+          blob = item.blob;
+          data = await blobToDataUrl(blob);
+          title = item.title;
+        }
+        setStatus(`Scanning text${n}…`);
+        const { text, error } = await scanText(blob);
+        await invoke<Meme>("import_meme_bytes", { data, title, ocrText: text });
+        ok += 1;
+        if (error) lastError = `text couldn’t be read (${error}) — open the meme and use Scan text again`;
+      } catch (e) {
+        lastError = String(e);
+      }
+    }
+    setBusy(false);
+    await runSearch(query).catch(() => {});
+    const saved = ok === 1 ? "1 meme saved" : `${ok} memes saved`;
+    setStatus(lastError ? (ok ? `${saved} · ${lastError}` : lastError) : saved);
+    return ok > 0;
+  }
+
+  async function onAddLink(e?: FormEvent, value = link) {
+    e?.preventDefault();
+    const url = value.trim();
+    if (!url || busy) return;
+    if (!isWebUrl(url)) {
+      setStatus("That doesn’t look like a link — it should start with https://");
+      return;
+    }
+    if (await quickAdd([{ kind: "url", url }])) setLink("");
+  }
+
+  // ⌘V / Ctrl+V anywhere in the library: an image, or an image/page link.
+  const quickAddRef = useRef(quickAdd);
+  quickAddRef.current = quickAdd;
+  useEffect(() => {
+    if (view !== "library" || selected) return;
+    function onPaste(e: ClipboardEvent) {
+      const t = e.target as HTMLElement | null;
+      if (t?.closest(".quick-add")) return; // the link box handles itself
+      const items = readTransfer(e.clipboardData);
+      const typing = !!t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable);
+      // Text pasted into the search box stays text; images are always imported.
+      if (!items.length || (typing && items[0].kind === "url")) return;
+      e.preventDefault();
+      void quickAddRef.current(items);
+    }
+    window.addEventListener("paste", onPaste);
+    return () => window.removeEventListener("paste", onPaste);
+  }, [view, selected]);
+
+  // Drag images (files or straight from a web page) onto the library.
+  useEffect(() => {
+    if (view !== "library") return;
+    let depth = 0;
+    function onEnter(e: DragEvent) {
+      if (!hasExternalPayload(e.dataTransfer)) return;
+      depth += 1;
+      setDragging(true);
+    }
+    function onOver(e: DragEvent) {
+      if (!hasExternalPayload(e.dataTransfer)) return;
+      e.preventDefault();
+      if (e.dataTransfer) e.dataTransfer.dropEffect = "copy";
+    }
+    function onLeave(e: DragEvent) {
+      if (!hasExternalPayload(e.dataTransfer)) return;
+      depth = Math.max(0, depth - 1);
+      if (!depth) setDragging(false);
+    }
+    function onDrop(e: DragEvent) {
+      depth = 0;
+      setDragging(false);
+      const items = readTransfer(e.dataTransfer);
+      if (!items.length) return;
+      e.preventDefault();
+      void quickAddRef.current(items);
+    }
+    window.addEventListener("dragenter", onEnter);
+    window.addEventListener("dragover", onOver);
+    window.addEventListener("dragleave", onLeave);
+    window.addEventListener("drop", onDrop);
+    return () => {
+      window.removeEventListener("dragenter", onEnter);
+      window.removeEventListener("dragover", onOver);
+      window.removeEventListener("dragleave", onLeave);
+      window.removeEventListener("drop", onDrop);
+      setDragging(false);
+    };
+  }, [view]);
+
+  async function onTagsChange(meme: Meme, tags: string[]) {
+    try {
+      const saved = await invoke<string[]>("update_meme_tags", { id: meme.id, tags });
+      const next = { ...meme, tags: saved };
+      setSelected((cur) => (cur?.id === meme.id ? next : cur));
+      setMemes((list) => list.map((m) => (m.id === meme.id ? next : m)));
+      await loadTags();
+    } catch (e) {
+      setStatus(String(e));
+    }
+  }
+
   async function onDelete(meme: Meme) {
-    await invoke("delete_meme", { id: meme.id });
-    if (selected?.id === meme.id) setSelected(null);
-    await runSearch(query);
-    setStatus("Deleted");
+    try {
+      await invoke("delete_meme", { id: meme.id });
+      if (selected?.id === meme.id) setSelected(null);
+      await runSearch(query);
+      await loadTags();
+      setStatus("Deleted");
+    } catch (e) {
+      setStatus(String(e));
+    }
   }
 
   async function onCopy(meme: Meme) {
     try {
-      await invoke("copy_meme", { id: meme.id });
-      setStatus("Copied image");
+      const how = await invoke<CopyKind>("copy_meme", { id: meme.id });
+      setStatus(
+        how === "video"
+          ? "Copied video — paste it into a chat or post"
+          : how === "file"
+            ? "Copied animated GIF — paste it to keep the animation"
+            : "Copied image",
+      );
+    } catch (e) {
+      setStatus(String(e));
+    }
+  }
+
+  async function onShareTo(meme: Meme, site: (typeof SOCIALS)[number]) {
+    try {
+      const how = await invoke<CopyKind>("copy_meme", { id: meme.id });
+      await openUrl(site.url);
+      const what = how === "video" ? "Video" : how === "file" ? "GIF" : "Image";
+      setStatus(`${what} copied — paste it into ${site.name} with ${PASTE_KEY}`);
     } catch (e) {
       setStatus(String(e));
     }
@@ -360,7 +617,7 @@ function App() {
       <header className="top">
         <div className="brand">
           <h1>MemeFactory</h1>
-          <p>stash · scan · find</p>
+          <p>stash · scan · find · make</p>
         </div>
         {view === "library" ? (
           <form
@@ -374,13 +631,59 @@ function App() {
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search OCR text…"
+              placeholder="Search text, titles or #tags…"
               aria-label="Search memes"
             />
           </form>
         ) : (
           <div className="search-spacer" />
         )}
+        <div className="top-end">
+        {stats ? (
+          <div
+            className="stats"
+            role="group"
+            aria-label="Show memes by type"
+            title={[
+              `Folder: ${stats.folder}`,
+              `Images: ${stats.images.count} · ${formatBytes(stats.images.bytes)}`,
+              `GIFs: ${stats.gifs.count} · ${formatBytes(stats.gifs.bytes)}`,
+              `Videos: ${stats.videos.count} · ${formatBytes(stats.videos.bytes)}`,
+              "",
+              "Click a type to show only it; click others to add them back.",
+            ].join("\n")}
+          >
+            <div className="stat stat-size">
+              <span className="stat-label">Folder</span>
+              <span className="stat-value">{formatBytes(stats.folderBytes)}</span>
+            </div>
+            <button
+              type="button"
+              className="stat"
+              aria-pressed={!shownKinds}
+              onClick={() => {
+                setView("library");
+                setShownKinds(null);
+              }}
+            >
+              <span className="stat-label">Total</span>
+              <span className="stat-value">{stats.total}</span>
+            </button>
+            {KINDS.map((kind) => (
+              <button
+                key={kind}
+                type="button"
+                className="stat"
+                aria-pressed={!!shownKinds?.includes(kind)}
+                data-hidden={shownKinds && !shownKinds.includes(kind) ? "" : undefined}
+                onClick={() => toggleKind(kind)}
+              >
+                <span className="stat-label">{KIND_LABEL[kind]}</span>
+                <span className="stat-value">{stats[KIND_STAT[kind]].count}</span>
+              </button>
+            ))}
+          </div>
+        ) : null}
         <div className="header-actions">
           {view === "library" ? (
             <button
@@ -401,6 +704,13 @@ function App() {
             </button>
           )}
           <button
+            className={view === "studio" ? "import active" : "ghost"}
+            type="button"
+            onClick={() => setView("studio")}
+          >
+            Studio
+          </button>
+          <button
             className={view === "settings" ? "import active" : "ghost"}
             type="button"
             onClick={() => setView("settings")}
@@ -414,6 +724,7 @@ function App() {
           >
             About
           </button>
+        </div>
         </div>
       </header>
 
@@ -438,7 +749,75 @@ function App() {
         </p>
       ) : null}
 
-      {view === "settings" ? (
+      {view === "library" ? (
+        <form className="quick-add" onSubmit={onAddLink}>
+          <input
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+            onPaste={(e) => {
+              const items = readTransfer(e.clipboardData);
+              if (!items.length) return;
+              e.preventDefault();
+              const first = items[0];
+              if (first.kind === "url") {
+                setLink(first.url);
+                void onAddLink(undefined, first.url);
+              } else {
+                void quickAdd(items);
+              }
+            }}
+            placeholder="Paste a meme link — it’s downloaded and saved automatically"
+            aria-label="Meme link"
+            disabled={busy}
+          />
+          <button type="submit" disabled={busy || !link.trim()}>
+            Add
+          </button>
+          <small>
+            or paste an image ({PASTE_KEY}) · or drag one in from your browser
+          </small>
+        </form>
+      ) : null}
+
+      {view === "library" && allTags.length ? (
+        <nav className="tag-bar" aria-label="Tags">
+          {allTags.slice(0, 24).map(({ tag, count }) => {
+            const q = `#${tag.replace(/ /g, " #")}`;
+            const on = query.trim() === q;
+            return (
+              <button
+                key={tag}
+                type="button"
+                className={on ? "on" : ""}
+                onClick={() => setQuery(on ? "" : q)}
+                title={on ? "Show all memes" : `Show memes tagged “${tag}”`}
+              >
+                #{tag} <span>{count}</span>
+              </button>
+            );
+          })}
+        </nav>
+      ) : null}
+
+      {dragging ? (
+        <div className="drop-overlay" aria-hidden>
+          <div className="bubble">
+            <strong>Drop to add to your library</strong>
+          </div>
+        </div>
+      ) : null}
+
+      <div className="studio-host" hidden={view !== "studio"}>
+        <Studio
+          active={view === "studio"}
+          remixPath={remixPath}
+          onRemixConsumed={() => setRemixPath(null)}
+          setStatus={setStatus}
+          onLibraryChanged={() => void runSearch(query).catch((e) => setStatus(String(e)))}
+        />
+      </div>
+
+      {view === "studio" ? null : view === "settings" ? (
         <div className="settings">
           <section className="settings-card">
             <h2>Meme folder</h2>
@@ -588,23 +967,58 @@ function App() {
         <div className="empty">
           <div className="bubble">
             <strong>No memes yet.</strong>
-            <span>Hit Import — OCR indexes the text for instant search.</span>
+            <span>
+              Hit Import, paste an image, video or link, or drag one in from
+              your browser — OCR indexes the text for instant search.
+            </span>
+          </div>
+        </div>
+      ) : visibleMemes.length === 0 ? (
+        <div className="empty">
+          <div className="bubble">
+            <strong>
+              No {shownKinds?.map((k) => KIND_LABEL[k].toLowerCase()).join(" or ")}
+              {query ? " match your search" : " yet"}.
+            </strong>
+            <span>
+              Other types are hidden.{" "}
+              <button type="button" className="status-link" onClick={() => setShownKinds(null)}>
+                Show everything
+              </button>
+            </span>
           </div>
         </div>
       ) : (
         <div className="grid">
-          {memes.map((m) => (
+          {visibleMemes.map((m) => (
             <button
               key={m.id}
               type="button"
               className="card"
               onClick={() => setSelected(m)}
             >
-              <img
-                src={convertFileSrc(m.path)}
-                alt={m.title || m.filename}
-                loading="lazy"
-              />
+              {isVideoPath(m.path) ? (
+                <>
+                  {/* #t=0.1 makes WebKit paint a first frame; hover plays it. */}
+                  <video
+                    src={`${convertFileSrc(m.path)}#t=0.1`}
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    onMouseEnter={(e) => void e.currentTarget.play().catch(() => {})}
+                    onMouseLeave={(e) => e.currentTarget.pause()}
+                    aria-label={m.title || m.filename}
+                  />
+                  <span className="video-badge" aria-hidden="true">▶</span>
+                </>
+              ) : (
+                <img
+                  src={convertFileSrc(m.path)}
+                  alt={m.title || m.filename}
+                  loading="lazy"
+                />
+              )}
             </button>
           ))}
         </div>
@@ -619,34 +1033,261 @@ function App() {
           onKeyDown={(e) => e.key === "Escape" && setSelected(null)}
         >
           <div className="panel" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={convertFileSrc(selected.path)}
-              alt={selected.title || selected.filename}
-            />
+            <button
+              type="button"
+              className="panel-close"
+              onClick={() => setSelected(null)}
+              aria-label="Close"
+              title="Close"
+            >
+              ✕
+            </button>
+            {isVideoPath(selected.path) ? (
+              <video
+                key={selected.id}
+                src={convertFileSrc(selected.path)}
+                controls
+                autoPlay
+                loop
+                playsInline
+                aria-label={selected.title || selected.filename}
+              />
+            ) : (
+              <img
+                src={convertFileSrc(selected.path)}
+                alt={selected.title || selected.filename}
+              />
+            )}
             <div className="meta">
               <h2>{selected.title || "Untitled"}</h2>
-              <p className="ocr">
-                {selected.ocrText || "No text detected"}
-              </p>
-              <div className="actions">
-                <button type="button" onClick={() => onCopy(selected)}>
-                  Copy
-                </button>
-                <button type="button" onClick={() => setSelected(null)}>
-                  Close
-                </button>
-                <button
-                  type="button"
-                  className="danger"
-                  onClick={() => onDelete(selected)}
-                >
-                  Delete
-                </button>
+              <TagEditor
+                tags={selected.tags}
+                suggestions={allTags.map((t) => t.tag)}
+                onChange={(tags) => onTagsChange(selected, tags)}
+                onPick={(tag) => {
+                  setSelected(null);
+                  setQuery(`#${tag.replace(/ /g, " #")}`);
+                }}
+              />
+              <div className="share">
+                <span>Share to</span>
+                <div className="share-links">
+                  {SOCIALS.map((site) => (
+                    <button
+                      key={site.name}
+                      type="button"
+                      onClick={() => onShareTo(selected, site)}
+                      title={`Copy the meme and open ${site.name}`}
+                    >
+                      {site.name}
+                    </button>
+                  ))}
+                </div>
+                <small>
+                  The meme is copied for you — paste it with {PASTE_KEY}.
+                </small>
               </div>
+              {confirmDelete ? (
+                <div className="confirm-delete" role="alertdialog" aria-label="Confirm delete">
+                  <p>
+                    Delete <strong>{selected.title || selected.filename}</strong>?
+                    The file is removed from your memes folder and can’t be undone.
+                  </p>
+                  <div className="actions">
+                    <button
+                      type="button"
+                      className="danger"
+                      onClick={() => onDelete(selected)}
+                    >
+                      Yes, delete
+                    </button>
+                    <button
+                      type="button"
+                      autoFocus
+                      onClick={() => setConfirmDelete(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="actions">
+                  <button type="button" onClick={() => onCopy(selected)}>
+                    Copy
+                  </button>
+                  {isVideoPath(selected.path) ? null : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setRemixPath(selected.path);
+                        setSelected(null);
+                        setView("studio");
+                      }}
+                    >
+                      Remix
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => onRescan(selected)}
+                    disabled={busy}
+                    title="Read the text in this meme again, for search"
+                  >
+                    Scan text again
+                  </button>
+                  <button
+                    type="button"
+                    className="danger"
+                    onClick={() => setConfirmDelete(true)}
+                  >
+                    Delete
+                  </button>
+                  <button type="button" onClick={() => setSelected(null)}>
+                    Close
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
       ) : null}
+    </div>
+  );
+}
+
+/**
+ * Decodes any format the webview can show (GIF, WebP, AVIF…), puts
+ * transparency on white, and enlarges small web images so letters are big
+ * enough for Tesseract. Returns PNG bytes.
+ */
+type CopyKind = "video" | "file" | "image";
+
+type MemeKind = "image" | "gif" | "video";
+const KINDS: MemeKind[] = ["image", "gif", "video"];
+const KIND_LABEL: Record<MemeKind, string> = { image: "Images", gif: "GIFs", video: "Videos" };
+const KIND_STAT = { image: "images", gif: "gifs", video: "videos" } as const;
+const KINDS_KEY = "memefactory.shownKinds";
+
+function memeKind(path: string): MemeKind {
+  if (isVideoPath(path)) return "video";
+  return /\.gif$/i.test(path) ? "gif" : "image";
+}
+
+function loadShownKinds(): MemeKind[] | null {
+  try {
+    const raw = JSON.parse(localStorage.getItem(KINDS_KEY) ?? "null");
+    if (!Array.isArray(raw)) return null;
+    const kinds = KINDS.filter((k) => raw.includes(k));
+    return kinds.length && kinds.length < KINDS.length ? kinds : null;
+  } catch {
+    return null;
+  }
+}
+
+function formatBytes(n: number): string {
+  if (n < 1024) return `${n} B`;
+  const units = ["KB", "MB", "GB", "TB"];
+  let v = n / 1024;
+  let i = 0;
+  while (v >= 1024 && i < units.length - 1) {
+    v /= 1024;
+    i++;
+  }
+  return `${v < 10 ? v.toFixed(1) : Math.round(v)} ${units[i]}`;
+}
+
+/** Reads a library file as a Blob, typed so videos are recognised. */
+async function readMemeFile(path: string): Promise<Blob> {
+  const bytes = await readFile(path);
+  return new Blob([bytes], isVideoPath(path) ? { type: videoMime(path) } : {});
+}
+
+async function prepareForOcr(blob: Blob): Promise<Blob> {
+  let bitmap: ImageBitmap;
+  try {
+    bitmap = await createImageBitmap(blob);
+  } catch {
+    return blob; // let Tesseract try the original bytes
+  }
+  const longest = Math.max(bitmap.width, bitmap.height);
+  const k = longest < 1600 ? Math.min(3, 1600 / longest) : Math.min(1, 4000 / longest);
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.max(1, Math.round(bitmap.width * k));
+  canvas.height = Math.max(1, Math.round(bitmap.height * k));
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return blob;
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close();
+  return new Promise((resolve) => canvas.toBlob((b) => resolve(b ?? blob), "image/png"));
+}
+
+/** Tag chips with an input: Enter or comma adds, Backspace on empty removes the last. */
+function TagEditor({
+  tags,
+  suggestions,
+  onChange,
+  onPick,
+}: {
+  tags: string[];
+  suggestions: string[];
+  onChange: (tags: string[]) => void;
+  onPick: (tag: string) => void;
+}) {
+  const [draft, setDraft] = useState("");
+  const add = (raw: string) => {
+    const fresh = raw
+      .split(",")
+      .map((t) => t.trim().replace(/^#+/, "").toLowerCase())
+      .filter((t) => t && !tags.includes(t));
+    setDraft("");
+    if (fresh.length) onChange([...tags, ...fresh]);
+  };
+  const unused = suggestions.filter((t) => !tags.includes(t));
+  return (
+    <div className="tag-editor">
+      {tags.map((t) => (
+        <span key={t} className="tag">
+          <button type="button" className="tag-name" onClick={() => onPick(t)} title={`Show all memes tagged “${t}”`}>
+            #{t}
+          </button>
+          <button
+            type="button"
+            className="tag-remove"
+            onClick={() => onChange(tags.filter((x) => x !== t))}
+            aria-label={`Remove tag ${t}`}
+          >
+            ×
+          </button>
+        </span>
+      ))}
+      <input
+        value={draft}
+        list="meme-tag-suggestions"
+        onChange={(e) => {
+          const v = e.target.value;
+          if (v.includes(",")) add(v);
+          else setDraft(v);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            add(draft);
+          } else if (e.key === "Backspace" && !draft && tags.length) {
+            onChange(tags.slice(0, -1));
+          }
+        }}
+        onBlur={() => draft.trim() && add(draft)}
+        placeholder={tags.length ? "Add tag…" : "Add tags, e.g. cat, reaction…"}
+        aria-label="Add tag"
+      />
+      <datalist id="meme-tag-suggestions">
+        {unused.slice(0, 50).map((t) => (
+          <option key={t} value={t} />
+        ))}
+      </datalist>
     </div>
   );
 }
