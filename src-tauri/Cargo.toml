@@ -1,6 +1,6 @@
 [package]
 name = "memefactory"
-version = "0.5.0"
+version = "0.5.1"
 description = "Local comic-style meme library with OCR search"
 authors = ["you"]
 edition = "2021"
