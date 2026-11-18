@@ -3,7 +3,7 @@
 # Docs: https://v2.tauri.app/distribute/snapcraft/
 name: meme-factory
 base: core22
-version: "0.6.1"
+version: "0.6.2"
 summary: Local meme library with OCR search — no cloud, no account
 description: |
   MemeFactory turns a folder of memes into a searchable desktop library.
