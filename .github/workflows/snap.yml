@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - "v*"
+    # Changing the snap setup on a branch builds it (never publishes) to test it.
+    branches:
+      - "**"
+    paths:
+      - snapcraft.yaml
+      - .github/workflows/snap.yml
   workflow_dispatch:
     inputs:
       channel:
@@ -32,21 +38,47 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: node scripts/version.mjs set "${{ github.ref_name }}"
 
+      # The Snap Store sometimes drops GitHub's connections ("connection reset by
+      # peer"), and action-build installs LXD and Snapcraft with a single try.
+      # Install them here with retries; action-build then finds them in place.
+      - name: Install LXD and Snapcraft (with retries)
+        run: |
+          retry() {
+            for attempt in 1 2 3 4 5; do
+              "$@" && return 0
+              echo "::warning::Attempt $attempt failed: $*"
+              sleep $((attempt * 20))
+            done
+            return 1
+          }
+          sudo groupadd --force --system lxd
+          sudo usermod --append --groups lxd "$USER"
+          retry sudo snap install lxd
+          retry sudo snap install snapcraft --classic
+          sudo lxd init --auto
+
       - name: Build snap
         uses: snapcore/action-build@v1
         id: build
+        continue-on-error: true
+
+      - name: Build snap (second try)
+        if: steps.build.outcome == 'failure'
+        uses: snapcore/action-build@v1
+        id: build_retry
 
       - name: Upload snap artifact
         uses: actions/upload-artifact@v4
         with:
           name: meme-factory-snap
-          path: ${{ steps.build.outputs.snap }}
+          path: ${{ steps.build.outputs.snap || steps.build_retry.outputs.snap }}
           if-no-files-found: error
 
       - name: Publish to Snap Store
+        if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
         uses: snapcore/action-publish@v1
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
         with:
-          snap: ${{ steps.build.outputs.snap }}
+          snap: ${{ steps.build.outputs.snap || steps.build_retry.outputs.snap }}
           release: ${{ github.event.inputs.channel || 'edge' }}
