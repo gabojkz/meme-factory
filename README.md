@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/banner.png" alt="MemeFactory — your local meme vault for Windows, macOS and Linux" width="100%" />
+</p>
+
 # MemeFactory
 
 Local comic-style meme library for **Windows**, **macOS**, and **Linux**.
