@@ -57,8 +57,51 @@ jobs:
       - name: Rust tests
         run: cargo test --manifest-path src-tauri/Cargo.toml
 
-  publish:
+  # One release per tag. Every build below uploads into this exact release (by id),
+  # so re-running failed jobs fills in the missing files instead of making new drafts.
+  release:
     needs: verify
+    runs-on: ubuntu-latest
+    outputs:
+      id: ${{ steps.find.outputs.id }}
+    steps:
+      - name: Find or create the draft release
+        id: find
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          # Drafts have no tag yet, so match on tag_name across all releases (drafts included).
+          id="$(gh api "repos/$REPO/releases?per_page=100" --paginate \
+            --jq "[.[] | select(.tag_name == \"$TAG\")] | sort_by(.created_at) | .[0].id // empty" | head -n 1)"
+          if [[ -n "$id" ]]; then
+            echo "Using existing release $id for $TAG"
+          else
+            body="$(cat <<BODY
+          ## Downloads
+
+          | Platform | Link |
+          | --- | --- |
+          | macOS Apple Silicon | [MemeFactory-macos-arm64.dmg](https://github.com/$REPO/releases/latest/download/MemeFactory-macos-arm64.dmg) |
+          | macOS Intel | [MemeFactory-macos-x64.dmg](https://github.com/$REPO/releases/latest/download/MemeFactory-macos-x64.dmg) |
+          | Windows | [MemeFactory-windows-x64.msi](https://github.com/$REPO/releases/latest/download/MemeFactory-windows-x64.msi) |
+          | Linux AppImage | [MemeFactory-linux-x86_64.AppImage](https://github.com/$REPO/releases/latest/download/MemeFactory-linux-x86_64.AppImage) |
+          | Linux deb | [MemeFactory-linux-amd64.deb](https://github.com/$REPO/releases/latest/download/MemeFactory-linux-amd64.deb) |
+
+          Free and open source (MIT).
+          BODY
+          )"
+            id="$(gh api -X POST "repos/$REPO/releases" \
+              -f tag_name="$TAG" -f name="MemeFactory $TAG" -f body="$body" \
+              -F draft=true -F prerelease=false --jq .id)"
+            echo "Created draft release $id for $TAG"
+          fi
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: [verify, release]
     strategy:
       fail-fast: false
       matrix:
@@ -140,22 +183,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: ${{ github.ref_name }}
-          releaseName: MemeFactory ${{ github.ref_name }}
-          releaseBody: |
-            ## Downloads
-
-            | Platform | Link |
-            | --- | --- |
-            | macOS Apple Silicon | [MemeFactory-macos-arm64.dmg](https://github.com/${{ github.repository }}/releases/latest/download/MemeFactory-macos-arm64.dmg) |
-            | macOS Intel | [MemeFactory-macos-x64.dmg](https://github.com/${{ github.repository }}/releases/latest/download/MemeFactory-macos-x64.dmg) |
-            | Windows | [MemeFactory-windows-x64.msi](https://github.com/${{ github.repository }}/releases/latest/download/MemeFactory-windows-x64.msi) |
-            | Linux AppImage | [MemeFactory-linux-x86_64.AppImage](https://github.com/${{ github.repository }}/releases/latest/download/MemeFactory-linux-x86_64.AppImage) |
-            | Linux deb | [MemeFactory-linux-amd64.deb](https://github.com/${{ github.repository }}/releases/latest/download/MemeFactory-linux-amd64.deb) |
-
-            Free and open source (MIT).
-          releaseDraft: true
-          prerelease: false
+          releaseId: ${{ needs.release.outputs.id }}
           args: ${{ matrix.args }}
 
       # The release stays a draft until you publish it; a red job here means don't.
@@ -174,7 +202,8 @@ jobs:
           ALIAS_NAME: ${{ matrix.alias_name }}
           ALIAS_GLOB_EXTRA: ${{ matrix.alias_glob_extra }}
           ALIAS_NAME_EXTRA: ${{ matrix.alias_name_extra }}
-          TAG: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+          RELEASE_ID: ${{ needs.release.outputs.id }}
         run: |
           set -euo pipefail
           upload_alias () {
@@ -187,8 +216,13 @@ jobs:
               echo "No artifact matched $pattern"
               return 0
             fi
-            cp "$file" "$name"
-            gh release upload "$TAG" "$name" --clobber
+            # Replace an older upload with the same name, then upload into this release.
+            local old
+            old="$(gh api "repos/$REPO/releases/$RELEASE_ID/assets?per_page=100" \
+              --jq ".[] | select(.name == \"$name\") | .id")"
+            [[ -n "$old" ]] && gh api -X DELETE "repos/$REPO/releases/assets/$old"
+            gh api -X POST "https://uploads.github.com/repos/$REPO/releases/$RELEASE_ID/assets?name=$name" \
+              -H "Content-Type: application/octet-stream" --input "$file" --jq .browser_download_url
             echo "Uploaded $name from $file"
           }
           upload_alias "$ALIAS_GLOB" "$ALIAS_NAME"
