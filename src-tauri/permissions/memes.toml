@@ -17,6 +17,8 @@ commands.allow = [
   "erase_everything",
   "quit_after_erase",
   "copy_meme",
+  "drag_icon",
+  "existing_meme",
   "get_settings",
   "set_memes_folder",
   "reset_memes_folder",

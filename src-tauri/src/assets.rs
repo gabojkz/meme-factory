@@ -1420,6 +1420,19 @@ pub async fn fetch_image_url(url: String, app: AppHandle, state: State<'_, Libra
         gif_like = true;
     }
 
+    // Instagram, TikTok and YouTube hide the video from plain downloads (the page
+    // only offers a still), so the bundled yt-dlp fetches the real file.
+    if let Some(site) = crate::video_sites::video_site(&target) {
+        let (bytes, title) = crate::video_sites::download(&app, &target, site).await?;
+        let ext = crate::video_ext(&bytes).unwrap_or("mp4");
+        return Ok(json!({
+            "data": base64::engine::general_purpose::STANDARD.encode(&bytes),
+            "ext": ext,
+            "title": title,
+            "gifLike": false,
+        }));
+    }
+
     let is_media = |b: &[u8]| image::guess_format(b).is_ok() || crate::video_ext(b).is_some();
     let mut bytes = fetch_bytes(&app, &state, &job, target.as_str(), MAX_VIDEO_BYTES).await?;
     if !is_media(&bytes) {

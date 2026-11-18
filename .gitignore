@@ -26,3 +26,6 @@ src-tauri/gen/schemas
 *.njsproj
 *.sln
 *.sw?
+
+# yt-dlp sidecar, fetched and checksum-verified by scripts/fetch-ytdlp.mjs
+src-tauri/binaries/

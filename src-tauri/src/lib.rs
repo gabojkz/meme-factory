@@ -1,5 +1,6 @@
 mod assets;
 mod erase;
+mod video_sites;
 
 use chrono::Utc;
 use rusqlite::{params, Connection};
@@ -585,6 +586,34 @@ fn list_tags(state: State<'_, AppState>) -> Result<Vec<TagCount>, String> {
     Ok(out)
 }
 
+/// The id of a meme whose file is byte-for-byte `bytes`, if the library has one.
+/// Only files of the same size are read, so this stays cheap.
+fn find_existing(conn: &Connection, bytes: &[u8]) -> Result<Option<String>, String> {
+    let mut stmt = conn.prepare("SELECT id, path FROM memes").map_err(|e| e.to_string())?;
+    let rows = stmt
+        .query_map([], |r| Ok((r.get::<_, String>(0)?, r.get::<_, String>(1)?)))
+        .map_err(|e| e.to_string())?;
+    for row in rows {
+        let (id, path) = row.map_err(|e| e.to_string())?;
+        let same_size = fs::metadata(&path).map(|m| m.len() == bytes.len() as u64).unwrap_or(false);
+        if same_size && fs::read(&path).map(|b| b == bytes).unwrap_or(false) {
+            return Ok(Some(id));
+        }
+    }
+    Ok(None)
+}
+
+const ALREADY_SAVED: &str = "That meme is already in your library";
+
+/// Checks pasted/dropped/downloaded bytes before the slow text scan:
+/// the id of the identical meme already in the library, if any.
+#[tauri::command]
+fn existing_meme(data: String, state: State<'_, AppState>) -> Result<Option<String>, String> {
+    let bytes = decode_base64(&data)?;
+    let conn = state.db.lock().map_err(|e| e.to_string())?;
+    find_existing(&conn, &bytes)
+}
+
 #[tauri::command]
 fn import_meme(
     source_path: String,
@@ -602,6 +631,13 @@ fn import_meme(
 
     if !is_meme_path(src) {
         return Err("Not a supported image or video file".into());
+    }
+    {
+        let bytes = fs::read(src).map_err(|e| e.to_string())?;
+        let conn = state.db.lock().map_err(|e| e.to_string())?;
+        if find_existing(&conn, &bytes)?.is_some() {
+            return Err(ALREADY_SAVED.into());
+        }
     }
     let ext = src
         .extension()
@@ -663,6 +699,12 @@ fn import_meme_bytes(
     };
     if video_ext(&bytes).is_none() {
         image::load_from_memory(&bytes).map_err(|e| format!("Failed to decode image: {e}"))?;
+    }
+    {
+        let conn = state.db.lock().map_err(|e| e.to_string())?;
+        if find_existing(&conn, &bytes)?.is_some() {
+            return Err(ALREADY_SAVED.into());
+        }
     }
 
     let memes_dir = state.memes_dir.lock().map_err(|e| e.to_string())?.clone();
@@ -873,6 +915,34 @@ fn is_animated(bytes: &[u8]) -> bool {
     }
 }
 
+/// Path of a small PNG shown under the cursor while a meme is dragged out to
+/// another app. Images get a cached thumbnail; videos (no decoder here) get the app icon.
+#[tauri::command]
+fn drag_icon(id: String, app: AppHandle, state: State<'_, AppState>) -> Result<String, String> {
+    let path: String = {
+        let conn = state.db.lock().map_err(|e| e.to_string())?;
+        conn.query_row("SELECT path FROM memes WHERE id = ?1", params![id], |row| row.get(0))
+            .map_err(|e| e.to_string())?
+    };
+    let dir = app.path().app_cache_dir().map_err(|e| e.to_string())?.join("drag-icons");
+    fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+    let safe: String = id.chars().filter(|c| c.is_ascii_alphanumeric() || *c == '-').collect();
+    let out = dir.join(format!("{safe}.png"));
+    if !out.exists() {
+        let bytes = fs::read(&path).map_err(|e| e.to_string())?;
+        let thumb = if video_ext(&bytes).is_some() {
+            None
+        } else {
+            image::load_from_memory(&bytes).ok().map(|img| img.thumbnail(160, 160))
+        };
+        match thumb {
+            Some(img) => img.save_with_format(&out, image::ImageFormat::Png).map_err(|e| e.to_string())?,
+            None => fs::write(&out, include_bytes!("../icons/128x128.png")).map_err(|e| e.to_string())?,
+        }
+    }
+    Ok(out.to_string_lossy().into_owned())
+}
+
 /// Copies a meme. Videos and animated images go on the clipboard as the file itself
 /// (pixels would keep only the first frame); returns "video", "file" or "image".
 #[tauri::command]
@@ -996,6 +1066,7 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
+        .plugin(tauri_plugin_drag::init())
         .setup(|app| {
             let data = data_dir(app.handle())?;
             let memes_dir = resolve_memes_dir(app.handle())?;
@@ -1025,6 +1096,8 @@ pub fn run() {
             erase::erase_everything,
             erase::quit_after_erase,
             copy_meme,
+            drag_icon,
+            existing_meme,
             get_settings,
             set_memes_folder,
             reset_memes_folder,
@@ -1061,6 +1134,25 @@ mod tests {
     fn matches(conn: &Connection, q: &str) -> i64 {
         conn.query_row("SELECT COUNT(*) FROM memes_fts WHERE memes_fts MATCH ?1", params![q], |r| r.get(0))
             .unwrap()
+    }
+
+    #[test]
+    fn finds_byte_identical_memes_only() {
+        let dir = std::env::temp_dir().join(format!("mf-dupe-{}", Uuid::new_v4()));
+        fs::create_dir_all(&dir).unwrap();
+        let conn = Connection::open_in_memory().unwrap();
+        init_db(&conn).unwrap();
+        let path = dir.join("a.gif");
+        fs::write(&path, b"GIF89a-one").unwrap();
+        conn.execute(
+            "INSERT INTO memes (id, filename, path, created_at) VALUES ('a', 'a.gif', ?1, 'now')",
+            params![path.to_string_lossy()],
+        )
+        .unwrap();
+        assert_eq!(find_existing(&conn, b"GIF89a-one").unwrap().as_deref(), Some("a"));
+        assert_eq!(find_existing(&conn, b"GIF89a-two").unwrap(), None); // same size, other bytes
+        assert_eq!(find_existing(&conn, b"GIF89a").unwrap(), None);
+        fs::remove_dir_all(&dir).unwrap();
     }
 
     #[test]

@@ -1,9 +1,10 @@
-import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { type DragEvent as ReactDragEvent, type FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { convertFileSrc, invoke, isTauri } from "@tauri-apps/api/core";
 import { getVersion } from "@tauri-apps/api/app";
 import { open } from "@tauri-apps/plugin-dialog";
 import { readFile } from "@tauri-apps/plugin-fs";
 import { openUrl } from "@tauri-apps/plugin-opener";
+import { startDrag } from "@crabnebula/tauri-plugin-drag";
 import Tesseract from "tesseract.js";
 import Studio from "./studio/Studio";
 import {
@@ -129,6 +130,16 @@ async function fetchLatestVersion(): Promise<string> {
   const data = (await res.json()) as { tag_name?: string };
   if (!data.tag_name) throw new Error("No release found");
   return data.tag_name.replace(/^v/i, "");
+}
+
+/** Must match ALREADY_SAVED in src-tauri/src/lib.rs. */
+const ALREADY_SAVED = "That meme is already in your library";
+
+/** "2 memes saved · 1 already in your library" */
+function savedText(ok: number, dupes: number): string {
+  if (!ok && dupes) return dupes === 1 ? ALREADY_SAVED : `All ${dupes} are already in your library`;
+  const saved = ok === 1 ? "1 meme saved" : `${ok} memes saved`;
+  return dupes ? `${saved} · ${dupes} already in your library` : saved;
 }
 
 function App() {
@@ -335,6 +346,7 @@ function App() {
     const paths = Array.isArray(picked) ? picked : [picked];
     setBusy(true);
     let ok = 0;
+    let dupes = 0;
 
     try {
       for (let i = 0; i < paths.length; i++) {
@@ -346,14 +358,19 @@ function App() {
         } catch {
           text = "";
         }
-        await invoke<Meme>("import_meme", {
-          sourcePath: path,
-          ocrText: text,
-          title: null,
-        });
-        ok += 1;
+        try {
+          await invoke<Meme>("import_meme", {
+            sourcePath: path,
+            ocrText: text,
+            title: null,
+          });
+          ok += 1;
+        } catch (e) {
+          if (String(e) !== ALREADY_SAVED) throw e;
+          dupes += 1;
+        }
       }
-      setStatus(ok === 1 ? "1 meme saved" : `${ok} memes saved`);
+      setStatus(savedText(ok, dupes));
       await runSearch(query);
     } catch (e) {
       setStatus(String(e));
@@ -367,6 +384,7 @@ function App() {
     if (!items.length) return;
     setBusy(true);
     let ok = 0;
+    let dupes = 0;
     let lastError = "";
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
@@ -391,20 +409,26 @@ function App() {
           data = await blobToDataUrl(blob);
           title = item.title;
         }
+        // Already saved (e.g. a meme dragged from the grid back onto it): skip the scan.
+        if (await invoke<string | null>("existing_meme", { data })) {
+          dupes += 1;
+          continue;
+        }
         setStatus(`Scanning text${n}…`);
         const { text, error } = await scanText(blob);
         await invoke<Meme>("import_meme_bytes", { data, title, ocrText: text });
         ok += 1;
         if (error) lastError = `text couldn’t be read (${error}) — open the meme and use Scan text again`;
       } catch (e) {
-        lastError = String(e);
+        if (String(e) === ALREADY_SAVED) dupes += 1;
+        else lastError = String(e);
       }
     }
     setBusy(false);
     await runSearch(query).catch(() => {});
-    const saved = ok === 1 ? "1 meme saved" : `${ok} memes saved`;
-    setStatus(lastError ? (ok ? `${saved} · ${lastError}` : lastError) : saved);
-    return ok > 0;
+    const saved = savedText(ok, dupes);
+    setStatus(lastError ? (ok || dupes ? `${saved} · ${lastError}` : lastError) : saved);
+    return ok > 0 || dupes > 0;
   }
 
   async function onAddLink(e?: FormEvent, value = link) {
@@ -420,6 +444,7 @@ function App() {
 
   // ⌘V / Ctrl+V anywhere in the library: an image, or an image/page link.
   const quickAddRef = useRef(quickAdd);
+  const dragIcons = useRef(new Map<string, Promise<string>>());
   quickAddRef.current = quickAdd;
   useEffect(() => {
     if (view !== "library" || selected) return;
@@ -436,6 +461,22 @@ function App() {
     window.addEventListener("paste", onPaste);
     return () => window.removeEventListener("paste", onPaste);
   }, [view, selected]);
+
+  // The webview opens any file dropped where nothing handles it (a video would
+  // take over the whole window). Refuse every drop nobody claimed.
+  useEffect(() => {
+    function refuse(e: DragEvent) {
+      if (e.defaultPrevented) return; // a drop zone (library, Studio) took it
+      e.preventDefault();
+      if (e.type === "dragover" && e.dataTransfer) e.dataTransfer.dropEffect = "none";
+    }
+    window.addEventListener("dragover", refuse);
+    window.addEventListener("drop", refuse);
+    return () => {
+      window.removeEventListener("dragover", refuse);
+      window.removeEventListener("drop", refuse);
+    };
+  }, []);
 
   // Drag images (files or straight from a web page) onto the library.
   useEffect(() => {
@@ -498,6 +539,36 @@ function App() {
       setStatus("Deleted");
     } catch (e) {
       setStatus(String(e));
+    }
+  }
+
+  // Drag a meme out as a real file: into a browser post, chat, Finder, any app.
+  function dragIcon(id: string) {
+    let icon = dragIcons.current.get(id);
+    if (!icon) {
+      icon = invoke<string>("drag_icon", { id });
+      icon.catch(() => dragIcons.current.delete(id));
+      dragIcons.current.set(id, icon);
+    }
+    return icon;
+  }
+  function dragProps(meme: Meme) {
+    return {
+      draggable: true,
+      onPointerEnter: () => void dragIcon(meme.id).catch(() => {}),
+      onDragStart: (e: ReactDragEvent) => {
+        e.preventDefault();
+        void dragOut(meme);
+      },
+    };
+  }
+  // Dropping it back onto the library is harmless: imports skip memes already saved.
+  async function dragOut(meme: Meme) {
+    try {
+      const icon = await dragIcon(meme.id);
+      await startDrag({ item: [meme.path], icon, mode: "copy" });
+    } catch (e) {
+      setStatus(`Couldn’t drag that meme: ${String(e)}`);
     }
   }
 
@@ -1104,6 +1175,8 @@ function App() {
               type="button"
               className="card"
               onClick={() => setSelected(m)}
+              title="Click to open · drag into any app to share"
+              {...dragProps(m)}
             >
               {isVideoPath(m.path) ? (
                 <>
@@ -1156,6 +1229,7 @@ function App() {
             {isVideoPath(selected.path) ? (
               <video
                 key={selected.id}
+                {...dragProps(selected)}
                 src={convertFileSrc(selected.path)}
                 controls
                 autoPlay
@@ -1165,6 +1239,7 @@ function App() {
               />
             ) : (
               <img
+                {...dragProps(selected)}
                 src={convertFileSrc(selected.path)}
                 alt={selected.title || selected.filename}
               />

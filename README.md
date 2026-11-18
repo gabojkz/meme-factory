@@ -66,7 +66,8 @@ One app, three operating systems — grab the installer for your machine:
 - **Quick add**: paste an image (⌘V / Ctrl+V), drag one straight from your browser, or paste a link into the link box — the image is downloaded and saved automatically (links to a web page use the page's preview image)
 - OCR on import (Tesseract.js) so text is searchable
 - **GIFs**: animated GIFs and WebPs stay animated — pasting or dragging one from a browser downloads the original (not the browser's still copy), and Copy puts the file itself on the clipboard so it pastes animated. Links to X/Twitter posts (whose "GIFs" are really MP4 videos) and direct `.mp4` links are converted to a looping GIF (up to 20 s, 480 px)
-- **Videos**: short video memes (MP4, MOV, WebM) live alongside images — import them, paste or drop them, or paste a link (X/Twitter video posts and pages with an `og:video` are followed). They preview on hover, play in the details, have their captions read from three frames for search, and Copy puts the video file on the clipboard. X "GIFs" are still saved as real GIFs
+- **Videos**: short video memes (MP4, MOV, WebM) live alongside images — import them, paste or drop them, or paste a link (X/Twitter video posts and pages with an `og:video` are followed, and **Instagram, TikTok and YouTube** links save the real video through the bundled [yt-dlp](https://github.com/yt-dlp/yt-dlp) — videos only logged-in users can see, such as some Instagram posts, can't be saved from a link). They preview on hover, play in the details, have their captions read from three frames for search, and Copy puts the video file on the clipboard. X "GIFs" are still saved as real GIFs
+- **Drag out**: drag any meme card (or the big preview in its details) into another app — a post or chat box in your browser (X, Discord, WhatsApp Web…), Slack, Mail, Finder — and the original file is dropped there, so GIFs stay animated and videos stay videos
 - **Stats**: the top-right corner shows the memes folder's size and how many memes, images, GIFs and videos you have (hover for each kind's size). Click Images, GIFs or Videos to show only that type, click others to add them back, or click Total to show everything — the choice is remembered
 - **Sort and date filters**: every meme shows when it was added (on its card and in its details). Sort by newest (default), oldest or title — or best match while searching — and narrow to today, this week, last 7 days, this month, last 30 days, this year or a custom date range. Your choices are remembered
 - **Danger zone** (Config): erase every meme and all MemeFactory data from the computer — library, tags, text, Studio projects, asset packs, settings, caches and browser storage. It lists exactly what will go, asks you to type ERASE, deletes directly (no Trash), clears the clipboard, then closes the app. A custom memes folder only loses its memes; other files in it are never touched
@@ -225,6 +226,8 @@ npm run tauri build
 ```
 
 Installers land in `src-tauri/target/release/bundle/`.
+
+`npm install` also downloads the pinned yt-dlp build into `src-tauri/binaries/` (not committed) and checks it against the SHA-256 in `scripts/fetch-ytdlp.mjs`; the build fails if it's missing or doesn't match. To update yt-dlp when a site breaks, change `VERSION` and the hashes there and release a new version.
 
 ### Release
 

@@ -17,6 +17,7 @@
     "fs:allow-exists",
     "fs:allow-stat",
     "allow-meme-ops",
+    "drag:default",
     {
       "identifier": "fs:scope",
       "allow": [
