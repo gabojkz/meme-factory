@@ -35,4 +35,6 @@ rustls = { version = "0.23", default-features = false, features = ["ring", "std"
 zip = { version = "2", default-features = false, features = ["deflate"] }
 sha2 = "0.10"
 tauri-plugin-drag = "2.1.1"
+tauri-plugin-updater = "2.14.1"
+tauri-plugin-process = "2.4.0"
 

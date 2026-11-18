@@ -1038,3 +1038,131 @@ button.stat[data-hidden] {
     height: 100%;
   }
 }
+
+/* ---------- In-app updates ---------- */
+
+.update-banner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  border: var(--line) solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--cyan);
+  padding: 8px 10px 8px 14px;
+  box-shadow: 3px 3px 0 var(--ink);
+  font-weight: 700;
+}
+
+.update-banner.update-error {
+  background: #ffd2cc;
+}
+
+.update-emoji {
+  font-size: 1.3rem;
+}
+
+.update-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.update-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.update-actions .import {
+  padding: 6px 14px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.update-close {
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  font: 700 0.85rem var(--font-body);
+  cursor: pointer;
+}
+
+.update-progress {
+  display: block;
+  height: 10px;
+  margin-top: 6px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.update-progress span {
+  display: block;
+  height: 100%;
+  background: var(--panel);
+  border-right: 2px solid var(--ink);
+  transition: width 200ms ease;
+}
+
+.update-progress span.indeterminate {
+  animation: update-slide 1.2s ease-in-out infinite;
+}
+
+@keyframes update-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(700%); }
+}
+
+.update-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(18, 18, 18, 0.45);
+}
+
+.update-card {
+  width: min(460px, 100%);
+  border: var(--line) solid var(--ink);
+  border-radius: 10px;
+  background: var(--paper);
+  padding: 26px 26px 20px;
+  box-shadow: 8px 8px 0 var(--ink);
+  text-align: center;
+  animation: pop 180ms ease-out both;
+}
+
+.update-card h2 {
+  margin: 6px 0 10px;
+  font-family: var(--font-display);
+}
+
+.update-card p {
+  margin: 0 0 18px;
+  line-height: 1.45;
+}
+
+.update-card .settings-actions {
+  justify-content: center;
+}
+
+.update-card .hint {
+  margin: 14px 0 0;
+}
+
+.update-badge {
+  font-size: 2.6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .update-progress span.indeterminate {
+    animation: none;
+  }
+}

@@ -65,6 +65,16 @@ jobs:
     outputs:
       id: ${{ steps.find.outputs.id }}
     steps:
+      # Every release must carry a signed update, or installed apps can't update to it.
+      - name: Check the update signing key is set
+        env:
+          KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+        run: |
+          if [[ -z "$KEY" ]]; then
+            echo "::error::Missing the TAURI_SIGNING_PRIVATE_KEY secret. Add it under Settings → Secrets and variables → Actions (see README → In-app updates)."
+            exit 1
+          fi
+
       - name: Find or create the draft release
         id: find
         env:
@@ -182,9 +192,13 @@ jobs:
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Signs the update bundles; installed apps only accept updates signed with this key.
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           releaseId: ${{ needs.release.outputs.id }}
-          args: ${{ matrix.args }}
+          # Builds the signed update bundles and latest.json the in-app updater reads.
+          args: ${{ matrix.args }} --config src-tauri/tauri.updater.conf.json
 
       # The release stays a draft until you publish it; a red job here means don't.
       - name: Smoke test (launch the built app)

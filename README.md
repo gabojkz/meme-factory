@@ -71,6 +71,7 @@ One app, three operating systems — grab the installer for your machine:
 - OCR on import (Tesseract.js) so text is searchable
 - **GIFs**: animated GIFs and WebPs stay animated — pasting or dragging one from a browser downloads the original (not the browser's still copy), and Copy puts the file itself on the clipboard so it pastes animated. Links to X/Twitter posts (whose "GIFs" are really MP4 videos) and direct `.mp4` links are converted to a looping GIF (up to 20 s, 480 px)
 - **Videos**: short video memes (MP4, MOV, WebM) live alongside images — import them, paste or drop them, or paste a link (X/Twitter video posts and pages with an `og:video` are followed, and **Instagram, TikTok and YouTube** links save the real video through the bundled [yt-dlp](https://github.com/yt-dlp/yt-dlp) — videos only logged-in users can see, such as some Instagram posts, can't be saved from a link). They preview on hover, play in the details, have their captions read from three frames for search, and Copy puts the video file on the clipboard. X "GIFs" are still saved as real GIFs
+- **In-app updates**: when a new version is out, a banner offers **Update now**; it downloads with a progress bar, installs, and asks you to restart. Your memes, tags and settings live in your data folder, so updates never touch them. Config → Version has **Check for updates** too
 - **Drag out**: drag any meme card (or the big preview in its details) into another app — a post or chat box in your browser (X, Discord, WhatsApp Web…), Slack, Mail, Finder — and the original file is dropped there, so GIFs stay animated and videos stay videos
 - **Stats**: the top-right corner shows the memes folder's size and how many memes, images, GIFs and videos you have (hover for each kind's size). Click Images, GIFs or Videos to show only that type, click others to add them back, or click Total to show everything — the choice is remembered
 - **Sort and date filters**: every meme shows when it was added (on its card and in its details). Sort by newest (default), oldest or title — or best match while searching — and narrow to today, this week, last 7 days, this month, last 30 days, this year or a custom date range. Your choices are remembered
@@ -248,7 +249,28 @@ Safety checks, so a broken build never reaches users:
 1. **Before tagging**, `release.sh` builds the frontend and runs the Rust tests locally, and stops if either fails.
 2. **Before building installers**, the release workflow's `verify` job type-checks, builds and tests on Linux, Windows and macOS. Installers are built only if all three pass.
 3. **After building**, each installer's app is launched for 20 seconds (`scripts/smoke-test.sh`) to catch crashes on startup. The Intel macOS build can't run on the Apple Silicon runner, so it's skipped.
-4. **The release is a draft.** Publish it on the Releases page only when the Release run is fully green; download one installer and open it first.
+4. **Every build uploads into one release.** A `release` job finds or creates the draft for the tag, and every platform uploads into it by id, so re-running failed jobs fills in missing files instead of creating extra drafts.
+5. **The release is a draft.** Publish it on the Releases page only when the Release run is fully green; download one installer and open it first.
+
+### In-app updates
+
+Installed apps check `https://github.com/gabojkz/meme-factory/releases/latest/download/latest.json` a few seconds after starting. The release workflow builds signed update bundles and that `latest.json` (via `src-tauri/tauri.updater.conf.json`), and the app only installs updates signed with the key whose public half is in `tauri.conf.json` → `plugins.updater.pubkey`. Drafts aren't visible to the updater, so nobody is offered a release until you publish it.
+
+**One-time setup:** add the private signing key as a GitHub secret.
+
+1. Repo → **Settings → Secrets and variables → Actions → New repository secret**
+2. Name `TAURI_SIGNING_PRIVATE_KEY`, value: the full contents of the private key file
+3. The key has no password, so `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` can be left unset
+
+The release workflow stops before building anything if the secret is missing.
+
+**Keep the private key safe and backed up** (e.g. in a password manager). If it's lost, installed apps can't verify new updates and everyone would have to reinstall by hand once. Never commit it.
+
+Local `npm run tauri build` doesn't build update bundles, so it needs no key. To build them locally:
+
+```bash
+TAURI_SIGNING_PRIVATE_KEY="$(cat path/to/memefactory.key)" npx tauri build --config src-tauri/tauri.updater.conf.json
+```
 
 ## Stack
 

@@ -17,6 +17,7 @@ import {
 } from "./quickAdd";
 import "./App.css";
 import { DangerZone, ErasedScreen, type EraseReport } from "./DangerZone";
+import { UpdateBanner, UpdateDialogs, UpdateSettings, useUpdater } from "./Updater";
 import { VIDEO_EXTENSIONS, isVideoPath, videoFrames, videoMime } from "./videoToGif";
 import {
   ANY_TIME,
@@ -34,9 +35,6 @@ import {
 
 const REPO_URL = "https://github.com/gabojkz/meme-factory";
 const ISSUES_URL = `${REPO_URL}/issues`;
-const RELEASES_URL = `${REPO_URL}/releases/latest`;
-const LATEST_RELEASE_API =
-  "https://api.github.com/repos/gabojkz/meme-factory/releases/latest";
 const COFFEE_URL = "https://www.buymeacoffee.com/gaboz";
 const SHARE_TEXT = `MemeFactory — free local meme library with OCR search. ${REPO_URL}`;
 const PASTE_KEY = /Mac/i.test(navigator.userAgent) ? "⌘V" : "Ctrl+V";
@@ -84,13 +82,6 @@ type SyncReport = {
   total: number;
 };
 
-type UpdateCheck =
-  | { status: "idle" }
-  | { status: "checking" }
-  | { status: "current"; latest: string }
-  | { status: "available"; latest: string }
-  | { status: "error"; message: string };
-
 type View = "library" | "studio" | "settings" | "about";
 
 function formatSync(report: SyncReport): string {
@@ -99,37 +90,6 @@ function formatSync(report: SyncReport): string {
   if (report.indexed) bits.push(`found ${report.indexed} new`);
   if (bits.length === 0) return `Library synced · ${report.total} memes`;
   return `${bits.join(", ")} · ${report.total} total`;
-}
-
-function parseVersion(raw: string): number[] {
-  return raw
-    .trim()
-    .replace(/^v/i, "")
-    .split(".")
-    .map((part) => Number.parseInt(part.replace(/[^0-9].*$/, ""), 10) || 0);
-}
-
-function isNewerVersion(latest: string, current: string): boolean {
-  const a = parseVersion(latest);
-  const b = parseVersion(current);
-  const len = Math.max(a.length, b.length);
-  for (let i = 0; i < len; i++) {
-    const left = a[i] ?? 0;
-    const right = b[i] ?? 0;
-    if (left > right) return true;
-    if (left < right) return false;
-  }
-  return false;
-}
-
-async function fetchLatestVersion(): Promise<string> {
-  const res = await fetch(LATEST_RELEASE_API, {
-    headers: { Accept: "application/vnd.github+json" },
-  });
-  if (!res.ok) throw new Error(`Couldn’t reach GitHub (${res.status})`);
-  const data = (await res.json()) as { tag_name?: string };
-  if (!data.tag_name) throw new Error("No release found");
-  return data.tag_name.replace(/^v/i, "");
 }
 
 /** Must match ALREADY_SAVED in src-tauri/src/lib.rs. */
@@ -182,7 +142,6 @@ function App() {
   }, [memes]);
   const [settings, setSettings] = useState<AppSettings | null>(null);
   const [appVersion, setAppVersion] = useState("");
-  const [updateCheck, setUpdateCheck] = useState<UpdateCheck>({ status: "idle" });
   const [query, setQuery] = useState("");
   const searching = query.trim() !== "";
   // "Best match" only means something while searching.
@@ -224,29 +183,6 @@ function App() {
     setMemes(rows);
   }, []);
 
-  const checkForUpdates = useCallback(
-    async (currentVersion: string, opts?: { quiet?: boolean }) => {
-      const quiet = opts?.quiet ?? false;
-      if (!currentVersion) return;
-      setUpdateCheck({ status: "checking" });
-      try {
-        const latest = await fetchLatestVersion();
-        if (isNewerVersion(latest, currentVersion)) {
-          setUpdateCheck({ status: "available", latest });
-          setStatus(`Update available · v${latest}`);
-        } else {
-          setUpdateCheck({ status: "current", latest });
-          if (!quiet) setStatus(`You’re on the latest · v${latest}`);
-        }
-      } catch (e) {
-        const message = e instanceof Error ? e.message : String(e);
-        setUpdateCheck({ status: "error", message });
-        if (!quiet) setStatus(message);
-      }
-    },
-    [],
-  );
-
   useEffect(() => {
     const ok = isTauri();
     setInTauri(ok);
@@ -260,12 +196,20 @@ function App() {
         ]);
         setAppVersion(version);
         await Promise.all([loadAll(), loadSettings(), loadTags()]);
-        void checkForUpdates(version, { quiet: true });
       } catch (e) {
         setStatus(String(e));
       }
     })();
-  }, [loadAll, loadSettings, loadTags, checkForUpdates]);
+  }, [loadAll, loadSettings, loadTags]);
+
+  // Look for an update a few seconds after start (not while developing).
+  const updater = useUpdater(appVersion);
+  const { checkNow } = updater;
+  useEffect(() => {
+    if (!appVersion || import.meta.env.DEV) return;
+    const t = setTimeout(() => void checkNow(true), 4000);
+    return () => clearTimeout(t);
+  }, [appVersion, checkNow]);
 
   useEffect(() => {
     if (!inTauri || view !== "library") return;
@@ -685,13 +629,6 @@ function App() {
     }
   }
 
-  async function onOpenReleases() {
-    try {
-      await openUrl(RELEASES_URL);
-    } catch (e) {
-      setStatus(String(e));
-    }
-  }
 
   if (!ready) return null;
 
@@ -725,6 +662,7 @@ function App() {
   return (
     <div className="stage">
       <div className="halftone" aria-hidden />
+      <UpdateDialogs updater={updater} />
       <header className="top">
         <div className="brand">
           <h1>MemeFactory</h1>
@@ -839,26 +777,9 @@ function App() {
         </div>
       </header>
 
-      {status || updateCheck.status === "available" ? (
-        <p className="status">
-          {status ||
-            (updateCheck.status === "available"
-              ? `Update available · v${updateCheck.latest}`
-              : "")}
-          {updateCheck.status === "available" ? (
-            <>
-              {" · "}
-              <button
-                type="button"
-                className="status-link"
-                onClick={onOpenReleases}
-              >
-                Get update
-              </button>
-            </>
-          ) : null}
-        </p>
-      ) : null}
+      <UpdateBanner updater={updater} />
+
+      {status ? <p className="status">{status}</p> : null}
 
       {view === "library" ? (
         <form className="quick-add" onSubmit={onAddLink}>
@@ -1025,44 +946,7 @@ function App() {
             ) : null}
           </section>
 
-          <section className="settings-card">
-            <h2>Version</h2>
-            <p className="settings-copy">
-              You’re running <strong>MemeFactory {appVersion || "…"}</strong>
-            </p>
-            {updateCheck.status === "available" ? (
-              <p className="hint update-hint">
-                New version available: v{updateCheck.latest}
-              </p>
-            ) : updateCheck.status === "current" ? (
-              <p className="hint">You’re up to date (v{updateCheck.latest})</p>
-            ) : updateCheck.status === "error" ? (
-              <p className="hint">{updateCheck.message}</p>
-            ) : updateCheck.status === "checking" ? (
-              <p className="hint">Checking for updates…</p>
-            ) : null}
-            <div className="settings-actions">
-              <button
-                type="button"
-                className="import"
-                onClick={() => checkForUpdates(appVersion)}
-                disabled={!appVersion || updateCheck.status === "checking"}
-              >
-                {updateCheck.status === "checking"
-                  ? "Checking…"
-                  : "Check for updates"}
-              </button>
-              {updateCheck.status === "available" ? (
-                <button
-                  type="button"
-                  className="ghost"
-                  onClick={onOpenReleases}
-                >
-                  Get update
-                </button>
-              ) : null}
-            </div>
-          </section>
+          <UpdateSettings updater={updater} appVersion={appVersion} />
 
           <DangerZone
             disabled={busy}

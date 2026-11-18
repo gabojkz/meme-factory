@@ -18,6 +18,8 @@
     "fs:allow-stat",
     "allow-meme-ops",
     "drag:default",
+    "updater:default",
+    "process:allow-restart",
     {
       "identifier": "fs:scope",
       "allow": [
