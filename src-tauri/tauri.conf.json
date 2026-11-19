@@ -42,7 +42,11 @@
     ],
     "externalBin": [
       "binaries/memefactory-yt-dlp"
-    ]
+    ],
+    "macOS": {
+      "signingIdentity": "-",
+      "hardenedRuntime": false
+    }
   },
   "plugins": {
     "updater": {
